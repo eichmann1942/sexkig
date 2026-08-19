@@ -1,5 +1,5 @@
 /* =====================================================
-   문화유산 데이터베이스
+   문화유산 & 루트 데이터베이스
 ===================================================== */
 const heritageData = [
   {
@@ -14,16 +14,11 @@ const heritageData = [
     bg: "#1f8a70",
     quiz: {
       q: "Q. 춘천 봉의산성은 언제 처음 축조된 것으로 추정되나요?",
-      options: [
-        "고구려·신라 등 삼국시대",
-        "고려시대",
-        "조선시대",
-        "일제강점기"
-      ],
+      options: ["고구려·신라 등 삼국시대", "고려시대", "조선시대", "일제강점기"],
       answer: 0,
       explanation: "봉의산성은 산 정상율 둘러싸 쌓는 '테퇴식' 산성으로, 삼국시대에 처음 만들어진 것으로 추정돼요."
     },
-    routes: ["🏹 삼국시대의 흔적", "⚔️ 전쟁과 지역의 역사"],
+    routeIds: ["r1", "r2"],
     aiPresetResponses: {
       "왜 중요한가요?": "삼국시대 지방의 방어 체계를 보여주는 중요한 유적으로, 지금의 춘천이 오래전부터 요새 도시였다는 사실을 증명해 줍니다.",
       "쉽게 설명해주세요": "산 꼭대기를 띠 모양으로 둘러쌓아 만든 테퇴식 산성으로, 춘천을 지키는 든든한 옛날 울타리였다고 생각하면 쉬워요!",
@@ -47,27 +42,49 @@ const heritageData = [
       answer: 0,
       explanation: "향교는 조선시대 지방의 유학 교육과 성현의 제사를 담당하던 기관입니다."
     },
-    routes: ["👑 왕조의 발자취"],
+    routeIds: ["r2"],
     aiPresetResponses: {
       "왜 중요한가요?": "조선시대 지방 교육의 거점으로서 인재를 양성하던 중요한 역사 장소입니다.",
-      "쉽게 설명해주세요": "조선시대의 국립 지방 학교라고 생각하면 편해요!",
-      "관련 인물은 누구인가요?": "공자를 비롯한 유교 성현들과 춘천의 옛 유학자들입니다.",
-      "시험에 나올 내용만 알려주세요": "1. 조선시대 지방 교육기관 / 2. 대성전과 명륜당 구조 기억하기!"
+      "쉽게 설명해주세요": "조선시대의 국립 지방 학교라고 생각하면 편해요!"
     }
   },
-  { id: "h3", name: "강릉 오죽헌", region: "강원", subRegion: "강원 강릉", era: "조선시대", icon: "🎋", bg: "#5856d6" },
-  { id: "h4", name: "강릉 경포대", region: "강원", subRegion: "강원 강릉", era: "고려~조선", icon: "🌊", bg: "#1f8a70" },
-  { id: "h5", name: "남한산성", region: "경기", subRegion: "경기 광주", era: "조선시대", icon: "🏰", bg: "#e05627" },
-  { id: "h6", name: "수원 화성", region: "경기", subRegion: "경기 수원", era: "조선시대", icon: "🧱", bg: "#f3ab28" },
-  { id: "h7", name: "경복궁", region: "서울", subRegion: "서울", era: "조선시대", icon: "🏛️", bg: "#e05627" },
-  { id: "h8", name: "경주 첨성대", region: "경북", subRegion: "경북 경주", era: "신라", icon: "⭐", bg: "#5856d6" },
-  { id: "h9", name: "서울 덕수궁", region: "서울", subRegion: "서울", era: "조선·대한제국", icon: "🕌", bg: "#f3ab28" }
+  { id: "h3", name: "강릉 오죽헌", region: "강원", subRegion: "강원 강릉", era: "조선시대", icon: "🎋", bg: "#5856d6", routeIds: [] },
+  { id: "h4", name: "강릉 경포대", region: "강원", subRegion: "강원 강릉", era: "고려~조선", icon: "🌊", bg: "#1f8a70", routeIds: [] },
+  { id: "h5", name: "남한산성", region: "경기", subRegion: "경기 광주", era: "조선시대", icon: "🏰", bg: "#e05627", routeIds: ["r2"] },
+  { id: "h6", name: "수원 화성", region: "경기", subRegion: "경기 수원", era: "조선시대", icon: "🧱", bg: "#f3ab28", routeIds: [] },
+  { id: "h7", name: "경복궁", region: "서울", subRegion: "서울", era: "조선시대", icon: "🏛️", bg: "#e05627", routeIds: [] },
+  { id: "h8", name: "경주 첨성대", region: "경북", subRegion: "경북 경주", era: "신라", icon: "⭐", bg: "#5856d6", routeIds: ["r1"] },
+  { id: "h9", name: "서울 덕수궁", region: "서울", subRegion: "서울", era: "조선·대한제국", icon: "🕌", bg: "#f3ab28", routeIds: [] }
+];
+
+const routeData = [
+  {
+    id: "r1",
+    name: "삼국시대의 흔적",
+    icon: "🏹",
+    bg: "#1f8a70",
+    desc: "춘천 봉의산성과 경주 첨성대를 통해 삼국시대 사람들의 방어 기술과 과학 수준을 만나봐요.",
+    rewardBadge: "🏆 삼국 역사 탐험가",
+    rewardDesc: "삼국시대의 흔적 루트 완주",
+    steps: ["h1", "h8"]
+  },
+  {
+    id: "r2",
+    name: "전쟁과 지역의 역사",
+    icon: "⚔️",
+    bg: "#e05627",
+    desc: "봉의산성과 남한산성, 춘천향교를 모아 우리 고장의 역사와 호국 정신을 살펴보는 탐험 코스입니다.",
+    rewardBadge: "🛡️ 호국 역사 탐험가",
+    rewardDesc: "전쟁과 지역의 역사 루트 완주",
+    steps: ["h1", "h5", "h2"]
+  }
 ];
 
 /* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v5")) || {
+let state = JSON.parse(localStorage.getItem("heritageGO_v6")) || {
   tab: "explore",
   detailId: "h1",
+  routeId: null,
   points: 40,
   nickname: "유산 탐험가",
   visits: {},
@@ -87,7 +104,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v5")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v5", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v6", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -100,24 +117,99 @@ function toast(msg) {
 function switchTab(tabName) {
   state.tab = tabName;
   state.detailId = null;
+  state.routeId = null;
   save();
   render();
 }
 
 function openDetail(id) {
   state.detailId = id;
+  state.routeId = null;
   save();
   render();
 }
 
-function closeDetail() {
-  state.detailId = null;
+function openRoute(routeId) {
+  state.routeId = routeId;
+  save();
+  render();
+}
+
+function goBack() {
+  if (state.routeId) {
+    state.routeId = null;
+  } else if (state.detailId) {
+    state.detailId = null;
+  }
   save();
   render();
 }
 
 /* =====================================================
-   상세 페이지 렌더링 (이미지 스크린샷과 100% 동일)
+   탐험 루트 상세 페이지 렌더링 (이미지 2번째 완벽 구현)
+===================================================== */
+function renderRouteDetail(routeId) {
+  const r = routeData.find(x => x.id === routeId) || routeData[0];
+  
+  // 루트 방문 진행도 계산
+  const totalSteps = r.steps.length;
+  const visitedSteps = r.steps.filter(hId => state.visits[hId]).length;
+  const progressPercent = Math.round((visitedSteps / totalSteps) * 100);
+
+  return `
+    <div class="route-banner" style="background:${r.bg};">
+      <div class="route-banner-icon">${r.icon}</div>
+      <h2 class="route-banner-title">${r.name}</h2>
+      <p class="route-banner-desc">${r.desc}</p>
+
+      <div class="route-progress-info">
+        <span>진행률</span>
+        <span>${visitedSteps}/${totalSteps}</span>
+      </div>
+      <div class="route-progress-bar-bg">
+        <div class="route-progress-bar-fill" style="width:${progressPercent}%;"></div>
+      </div>
+    </div>
+
+    <!-- 완주 보상 카드 -->
+    <div class="card reward-box">
+      <div class="reward-label">완주 보상</div>
+      <div class="reward-icon-lg">🏛️</div>
+      <div class="reward-title">${r.rewardBadge}</div>
+      <div class="reward-sub">${r.rewardDesc}</div>
+      <div class="reward-note">루트의 모든 문화유산을 방문하면 자동으로 획득해요!</div>
+    </div>
+
+    <!-- 루트 스텝 타임라인 -->
+    <div class="card">
+      <div class="section-title">🗺️ 루트 스텝</div>
+      
+      <div class="step-timeline">
+        ${r.steps.map((hId, idx) => {
+          const h = heritageData.find(x => x.id === hId);
+          const isVisited = state.visits[hId];
+          return `
+            <div class="step-item">
+              <div class="step-num ${isVisited ? 'done' : ''}">${idx + 1}</div>
+              <div class="step-card-box">
+                <div class="step-info">
+                  <h5>${h.name}</h5>
+                  <p>${h.subRegion} · ${h.era}</p>
+                </div>
+                <button class="step-action-btn" onclick="openDetail('${h.id}')">
+                  방문하기 >
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+/* =====================================================
+   문화유산 상세 페이지 렌더링
 ===================================================== */
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
@@ -126,10 +218,12 @@ function renderHeritageDetail(id) {
   const selectedOpt = state.quizzes[h.id];
 
   const presetIcons = ["🏯", "🏛️", "👘", "🏰", "⛩️", "🏺"];
-
   const chatLogs = state.aiChat[h.id] || [
     { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
   ];
+
+  // 연결된 탐험 루트 정보 가져오기
+  const connectedRoutes = routeData.filter(r => h.routeIds && h.routeIds.includes(r.id));
 
   return `
     <div class="detail-banner" style="background:${h.bg};">
@@ -243,11 +337,15 @@ function renderHeritageDetail(id) {
     </div>
 
     <!-- 4. 연결된 탐험 루트 -->
-    ${h.routes ? `
+    ${connectedRoutes.length > 0 ? `
       <div class="card">
         <div class="section-title">🗺️ 연결된 탐험 루트</div>
         <div class="route-chip-group">
-          ${h.routes.map(r => `<div class="route-chip">${r}</div>`).join('')}
+          ${connectedRoutes.map(r => `
+            <div class="route-chip" onclick="openRoute('${r.id}')">
+              ${r.icon} ${r.name}
+            </div>
+          `).join('')}
         </div>
       </div>
     ` : ''}
@@ -256,7 +354,7 @@ function renderHeritageDetail(id) {
     <div class="card">
       <div class="section-title">🔄 변화 기록 남기기</div>
       <div class="section-sub">
-        업로드된 인증은 삭제되지 않고, 직접 관찰한 사실을 기록하세요.<br>
+        직접 관찰한 사실을 기록하세요.<br>
         이전 방문 사진과 비교할 수 있도록 사진을 첨부한 후 제출해주세요.
       </div>
 
@@ -305,10 +403,7 @@ function renderHeritageDetail(id) {
 }
 
 /* 인터랙션 이벤트 처리 */
-function triggerFileUpload(id) {
-  document.getElementById(id).click();
-}
-
+function triggerFileUpload(id) { document.getElementById(id).click(); }
 function handleImagePreview(input, imgId, textId) {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
@@ -325,71 +420,35 @@ function handleImagePreview(input, imgId, textId) {
 function selectIcon(type, idx) {
   if (type === 'visit') state.selectedIconVisit = idx;
   else state.selectedIconChange = idx;
-  save();
-  render();
+  save(); render();
 }
 
-function selectChangeTag(tag) {
-  state.selectedChangeTag = tag;
-  save();
-  render();
-}
-
-function submitVisit(id) {
-  state.visits[id] = true;
-  state.points += 10;
-  toast("📸 방문 인증이 성공적으로 완료되었습니다! (+10P)");
-  save();
-  render();
-}
-
-function submitChangeRecord() {
-  toast("🔄 변화 기록이 성공적으로 저장되었습니다!");
-  save();
-  render();
-}
+function selectChangeTag(tag) { state.selectedChangeTag = tag; save(); render(); }
+function submitVisit(id) { state.visits[id] = true; state.points += 10; toast("📸 방문 인증 완료! (+10P)"); save(); render(); }
+function submitChangeRecord() { toast("🔄 변화 기록이 성공적으로 저장되었습니다!"); save(); render(); }
 
 function answerQuiz(heritageId, selectedIdx) {
   const h = heritageData.find(x => x.id === heritageId);
   if (!h || !h.quiz) return;
-
-  if (state.quizzes[heritageId] !== undefined) {
-    toast("이미 보상을 받은 퀴즈입니다.");
-    return;
-  }
-
+  if (state.quizzes[heritageId] !== undefined) { toast("이미 보상을 받은 퀴즈입니다."); return; }
   state.quizzes[heritageId] = selectedIdx;
-  if (selectedIdx === h.quiz.answer) {
-    state.points += 20;
-    toast("🎉 정답입니다! (+20P)");
-  } else {
-    toast("❌ 오답입니다. 다시 도전해보세요!");
-  }
-  save();
-  render();
+  if (selectedIdx === h.quiz.answer) { state.points += 20; toast("🎉 정답입니다! (+20P)"); }
+  else { toast("❌ 오답입니다. 다시 도전해보세요!"); }
+  save(); render();
 }
 
 function askAIPreset(heritageId, questionText) {
   const h = heritageData.find(x => x.id === heritageId);
   if (!h) return;
-
   if (!state.aiChat[heritageId]) {
-    state.aiChat[heritageId] = [
-      { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
-    ];
+    state.aiChat[heritageId] = [{ sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야.` }];
   }
-
   state.aiChat[heritageId].push({ sender: "user", text: questionText });
-
   const aiAnswer = (h.aiPresetResponses && h.aiPresetResponses[questionText]) 
-    ? h.aiPresetResponses[questionText]
+    ? h.aiPresetResponses[questionText] 
     : `${h.name}에 대한 질문입니다: "${questionText}" 정보가 등록되어 있습니다.`;
-
   state.aiChat[heritageId].push({ sender: "ai", text: aiAnswer });
-
-  save();
-  render();
-
+  save(); render();
   setTimeout(() => {
     const chatLog = document.getElementById("aiChatLog");
     if (chatLog) chatLog.scrollTop = chatLog.scrollHeight;
@@ -398,16 +457,13 @@ function askAIPreset(heritageId, questionText) {
 
 function resetAIChat(heritageId) {
   const h = heritageData.find(x => x.id === heritageId);
-  state.aiChat[heritageId] = [
-    { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
-  ];
+  state.aiChat[heritageId] = [{ sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야.` }];
   toast("💬 AI 대화 내용이 초기화되었습니다.");
-  save();
-  render();
+  save(); render();
 }
 
 /* =====================================================
-   기타 메인 탭 화면들
+   메인 탭 화면
 ===================================================== */
 function renderExplore() {
   const regions = ["전체보기", "강원", "경기", "서울", "경북"];
@@ -445,12 +501,7 @@ function renderExplore() {
   `;
 }
 
-function setFilter(region) {
-  state.filterRegion = region;
-  save();
-  render();
-}
-
+function setFilter(region) { state.filterRegion = region; save(); render(); }
 function renderHome() {
   return `
     <div class="home-banner">
@@ -484,8 +535,10 @@ function render() {
   document.getElementById("headerPoints").textContent = state.points;
   
   const headerTitle = document.getElementById("headerTitle");
-  if (state.detailId) {
-    headerTitle.innerHTML = `<button class="header-back-btn" onclick="closeDetail()">← 문화유산 탐험</button>`;
+  if (state.routeId) {
+    headerTitle.innerHTML = `<button class="header-back-btn" onclick="goBack()">← 탐험 루트</button>`;
+  } else if (state.detailId) {
+    headerTitle.innerHTML = `<button class="header-back-btn" onclick="goBack()">← 문화유산 상세</button>`;
   } else {
     headerTitle.innerHTML = `🏛️ 유산GO`;
   }
@@ -497,7 +550,9 @@ function render() {
   });
 
   const content = document.getElementById("content");
-  if (state.detailId) {
+  if (state.routeId) {
+    content.innerHTML = renderRouteDetail(state.routeId);
+  } else if (state.detailId) {
     content.innerHTML = renderHeritageDetail(state.detailId);
   } else {
     if (state.tab === "home") content.innerHTML = renderHome();
