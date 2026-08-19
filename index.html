@@ -1,30 +1,55 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>유산GO</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>유산GO</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="app">
+    <!-- 상단 헤더 -->
+    <header class="header">
+      <div class="logo">🏛️ 유산GO</div>
+      <div class="points-badge">🪙 <span id="headerPoints">20</span>P</div>
+    </header>
 
-    <div class="app">
-        <header class="header">
-            <div class="logo">🏛️ 유산GO</div>
-            <div class="points">🪙 <span id="points">0</span>P</div>
-        </header>
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="content" id="content"></main>
 
-        <nav class="nav" id="navigation"></nav>
+    <!-- 하단 탭 바 -->
+    <nav class="bottom-nav" id="bottomNav">
+      <button class="nav-item active" onclick="switchTab('home')">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">홈</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('explore')">
+        <span class="nav-icon">🧭</span>
+        <span class="nav-label">탐험</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('collection')">
+        <span class="nav-icon">📖</span>
+        <span class="nav-label">도감</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('ranking')">
+        <span class="nav-icon">🏆</span>
+        <span class="nav-label">랭킹</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('profile')">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">프로필</span>
+      </button>
+    </nav>
+  </div>
 
-        <main class="content" id="content"></main>
-    </div>
+  <!-- 모달 -->
+  <div class="modal" id="modal">
+    <div class="modal-box" id="modalContent"></div>
+  </div>
 
-    <div class="modal" id="modal">
-        <div class="modal-box" id="modalContent"></div>
-    </div>
+  <!-- 토스트 메시지 -->
+  <div class="toast" id="toast"></div>
 
-    <div class="toast" id="toast"></div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
