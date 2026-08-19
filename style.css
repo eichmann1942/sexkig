@@ -91,7 +91,6 @@ button {
   margin: 0 0 16px 0;
 }
 
-/* 기본 카드 */
 .card {
   background: white;
   border-radius: 20px;
@@ -100,478 +99,239 @@ button {
   box-shadow: 0 4px 14px rgba(0,0,0,0.03);
 }
 
-/* 상단 메인 배너 */
-.detail-banner {
+/* 탐험 루트 메인 배너 */
+.route-banner {
   background: #1f8a70;
   color: white;
   border-radius: 22px;
   padding: 20px;
   margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
 }
 
-.detail-banner-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.detail-banner-icon {
+.route-banner-icon {
   font-size: 32px;
-  background: rgba(255,255,255,0.2);
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 8px;
 }
 
-.detail-banner-title {
+.route-banner-title {
   font-size: 20px;
   font-weight: 900;
-  margin: 0 0 4px 0;
+  margin: 0 0 8px 0;
 }
 
-.detail-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.detail-tag {
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.25);
-  color: white;
-  font-weight: 700;
-}
-
-.detail-desc {
+.route-banner-desc {
   font-size: 12px;
   line-height: 1.5;
   opacity: 0.95;
-  margin: 8px 0 0 0;
+  margin: 0 0 16px 0;
 }
 
-.section-title {
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 4px;
+.route-progress-info {
   display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.section-sub {
+  justify-content: space-between;
   font-size: 11px;
-  color: #8c827a;
-  margin-bottom: 12px;
-  line-height: 1.4;
+  font-weight: 800;
+  margin-bottom: 6px;
 }
 
-/* 업로드 박스 컨테이너 */
-.upload-wrapper {
-  background: #faf8f5;
-  border: 1.5px solid #eae5db;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 12px;
+.route-progress-bar-bg {
+  height: 8px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.upload-wrapper-title {
+.route-progress-bar-fill {
+  height: 100%;
+  background: #f3ab28;
+  border-radius: 10px;
+  transition: width 0.3s;
+}
+
+/* 완주 보상 카드 */
+.reward-box {
+  text-align: center;
+  padding: 16px;
+}
+
+.reward-label {
   font-size: 12px;
   font-weight: 800;
   color: #444;
   margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
-.upload-box {
-  background: #eee8df;
-  border-radius: 14px;
-  height: 160px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: #8c827a;
-  font-size: 12px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 12px;
-  text-align: center;
-  padding: 10px;
+.reward-icon-lg {
+  font-size: 36px;
+  margin-bottom: 6px;
 }
 
-.upload-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
+.reward-title {
+  font-size: 15px;
+  font-weight: 900;
+  color: #1a1513;
+  margin-bottom: 4px;
 }
 
-.icon-selector-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
+.reward-sub {
+  font-size: 11px;
+  color: #888;
   margin-bottom: 10px;
 }
 
-.icon-badge-btn {
-  flex: 1;
-  aspect-ratio: 1;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.1s;
-}
-
-.icon-badge-btn:active { transform: scale(0.95); }
-.icon-badge-btn.selected { border-color: #e05627; }
-
-.icon-bg-1 { background: #ffdada; }
-.icon-bg-2 { background: #dce3f8; }
-.icon-bg-3 { background: #dcf5eb; }
-.icon-bg-4 { background: #fdf1d8; }
-.icon-bg-5 { background: #f3dcf8; }
-.icon-bg-6 { background: #dcf1f8; }
-
-.dashed-upload-btn {
-  width: 100%;
-  padding: 10px;
-  border: 1.5px dashed #bbb;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #666;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.btn-primary-orange {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #e05627, #f3ab28);
-  color: white;
-  border-radius: 14px;
-  font-weight: 800;
-  font-size: 14px;
-  box-shadow: 0 4px 10px rgba(224, 86, 39, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.btn-pink-gradient {
-  background: linear-gradient(135deg, #f08970, #f3ab28);
-}
-
-/* 퀴즈 영역 */
-.quiz-header-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.quiz-badge {
-  background: #ff7b92;
-  color: white;
+.reward-note {
   font-size: 11px;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.quiz-notice {
-  font-size: 11px;
-  color: #999;
-}
-
-.quiz-question-title {
-  font-size: 14px;
-  font-weight: 800;
-  color: #1a1513;
-  margin-bottom: 14px;
+  color: #aaa;
   line-height: 1.4;
 }
 
-.quiz-option-list {
+/* 루트 스텝 타임라인 */
+.step-timeline {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  position: relative;
+  margin-top: 10px;
 }
 
-.quiz-option-btn {
-  width: 100%;
+.step-timeline::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: #e8e2d5;
+  z-index: 1;
+}
+
+.step-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
-  background: #faf8f5;
-  border: 1.5px solid #eae5db;
-  border-radius: 14px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #555;
-  text-align: left;
-  transition: all 0.2s;
+  position: relative;
+  z-index: 2;
 }
 
-.quiz-opt-num {
-  width: 24px;
-  height: 24px;
+.step-num {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #e8e2d5;
+  background: #eee8df;
   color: #777;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
   font-weight: 800;
+  font-size: 13px;
   flex-shrink: 0;
 }
 
-.quiz-option-btn.selected {
-  background: #f0f8f5;
-  border-color: #1f8a70;
-  color: #1f8a70;
-}
-
-.quiz-option-btn.selected .quiz-opt-num {
+.step-num.done {
   background: #1f8a70;
   color: white;
 }
 
-.quiz-result-box {
-  margin-top: 14px;
-  background: #eef7f4;
-  border-radius: 16px;
-  padding: 14px 16px;
-}
-
-.quiz-result-title {
-  font-size: 13px;
-  font-weight: 800;
-  color: #1f8a70;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.quiz-result-desc {
-  font-size: 12px;
-  color: #555;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* AI 도우미 */
-.ai-card-container {
-  padding: 0;
-  overflow: hidden;
-  border-radius: 20px;
-  background: white;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
-}
-
-.ai-header {
-  background: #1f8a70;
-  color: white;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.ai-header-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.ai-header-icon {
-  font-size: 22px;
-}
-
-.ai-header-title {
-  font-size: 14px;
-  font-weight: 900;
-}
-
-.ai-header-sub {
-  font-size: 10px;
-  opacity: 0.85;
-}
-
-.ai-reset-btn {
-  background: rgba(255,255,255,0.25);
-  color: white;
-  font-size: 11px;
-  font-weight: 800;
-  padding: 5px 10px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.ai-chat-body {
-  background: #e5dfd5;
-  padding: 14px;
-  max-height: 240px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.chat-bubble-ai {
-  align-self: flex-start;
-  background: #fffdf9;
-  border-radius: 16px 16px 16px 4px;
-  padding: 10px 14px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #2c2523;
-  max-width: 85%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.chat-bubble-user {
-  align-self: flex-end;
-  background: linear-gradient(135deg, #e05627, #f3ab28);
-  color: white;
-  border-radius: 16px 16px 4px 16px;
-  padding: 8px 14px;
-  font-size: 12px;
-  font-weight: 800;
-  max-width: 80%;
-  box-shadow: 0 2px 6px rgba(224, 86, 39, 0.2);
-}
-
-.ai-preset-grid {
-  padding: 12px;
-  background: #faf6f0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.ai-preset-btn {
-  background: #fffdf9;
-  border: 1.5px solid #f0e6d5;
-  padding: 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 800;
-  color: #444;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.ai-preset-btn:hover {
-  background: #ffebe5;
-  border-color: #e05627;
-  color: #e05627;
-}
-
-/* 연결된 탐험 루트 */
-.route-chip-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.route-chip {
-  padding: 8px 14px;
-  border: 1.5px solid #f3ab28;
-  background: #fffdf9;
-  color: #d68700;
-  border-radius: 20px;
-  font-weight: 800;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* 변화 내용 선택 태그 */
-.change-tag-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.change-tag-btn {
-  padding: 8px 4px;
-  background: #f4ece1;
-  border-radius: 10px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #666;
-  text-align: center;
-}
-
-.change-tag-btn.active {
-  background: #1f8a70;
-  color: white;
-}
-
-.change-textarea {
-  width: 100%;
-  height: 80px;
+.step-card-box {
+  flex: 1;
   background: #faf8f5;
   border: 1.5px solid #eae5db;
-  border-radius: 14px;
-  padding: 10px 12px;
-  font-size: 12px;
-  resize: none;
-  margin-bottom: 12px;
-  color: #333;
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.footer-note {
-  text-align: center;
+.step-info h5 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #2c2523;
+}
+
+.step-info p {
+  margin: 0;
   font-size: 11px;
-  color: #aaa;
-  margin-top: 6px;
+  color: #8c827a;
 }
 
-/* 메인 페이지들 스타일 */
+.step-action-btn {
+  font-size: 12px;
+  font-weight: 800;
+  color: #e05627;
+  flex-shrink: 0;
+}
+
+/* 기존 상세 페이지 스타일 */
+.detail-banner { background: #1f8a70; color: white; border-radius: 22px; padding: 20px; margin-bottom: 14px; }
+.detail-banner-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.detail-banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+.detail-banner-title { font-size: 20px; font-weight: 900; margin: 0 0 4px 0; }
+.detail-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.detail-tag { font-size: 11px; padding: 3px 8px; border-radius: 12px; background: rgba(255,255,255,0.25); color: white; font-weight: 700; }
+.detail-desc { font-size: 12px; line-height: 1.5; opacity: 0.95; margin: 8px 0 0 0; }
+
+.section-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.section-sub { font-size: 11px; color: #8c827a; margin-bottom: 12px; line-height: 1.4; }
+
+.upload-wrapper { background: #faf8f5; border: 1.5px solid #eae5db; border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+.upload-wrapper-title { font-size: 12px; font-weight: 800; color: #444; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.upload-box { background: #eee8df; border-radius: 14px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #8c827a; font-size: 12px; cursor: pointer; position: relative; overflow: hidden; margin-bottom: 12px; text-align: center; padding: 10px; }
+.upload-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+
+.icon-selector-row { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 10px; }
+.icon-badge-btn { flex: 1; aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; border: 2px solid transparent; }
+.icon-badge-btn.selected { border-color: #e05627; }
+.icon-bg-1 { background: #ffdada; } .icon-bg-2 { background: #dce3f8; } .icon-bg-3 { background: #dcf5eb; } .icon-bg-4 { background: #fdf1d8; } .icon-bg-5 { background: #f3dcf8; } .icon-bg-6 { background: #dcf1f8; }
+
+.dashed-upload-btn { width: 100%; padding: 10px; border: 1.5px dashed #bbb; border-radius: 12px; font-size: 12px; font-weight: 700; color: #666; background: white; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-primary-orange { width: 100%; padding: 14px; background: linear-gradient(135deg, #e05627, #f3ab28); color: white; border-radius: 14px; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(224, 86, 39, 0.25); display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-pink-gradient { background: linear-gradient(135deg, #f08970, #f3ab28); }
+
+.quiz-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.quiz-badge { background: #ff7b92; color: white; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 12px; }
+.quiz-notice { font-size: 11px; color: #999; }
+.quiz-question-title { font-size: 14px; font-weight: 800; color: #1a1513; margin-bottom: 14px; line-height: 1.4; }
+.quiz-option-list { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option-btn { width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #faf8f5; border: 1.5px solid #eae5db; border-radius: 14px; font-size: 13px; font-weight: 700; color: #555; text-align: left; }
+.quiz-opt-num { width: 24px; height: 24px; border-radius: 50%; background: #e8e2d5; color: #777; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+.quiz-option-btn.selected { background: #f0f8f5; border-color: #1f8a70; color: #1f8a70; }
+.quiz-option-btn.selected .quiz-opt-num { background: #1f8a70; color: white; }
+.quiz-result-box { margin-top: 14px; background: #eef7f4; border-radius: 16px; padding: 14px 16px; }
+.quiz-result-title { font-size: 13px; font-weight: 800; color: #1f8a70; margin-bottom: 6px; }
+.quiz-result-desc { font-size: 12px; color: #555; line-height: 1.5; margin: 0; }
+
+.ai-card-container { padding: 0; overflow: hidden; border-radius: 20px; background: white; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.03); }
+.ai-header { background: #1f8a70; color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.ai-header-info { display: flex; align-items: center; gap: 10px; }
+.ai-header-icon { font-size: 22px; }
+.ai-header-title { font-size: 14px; font-weight: 900; }
+.ai-header-sub { font-size: 10px; opacity: 0.85; }
+.ai-reset-btn { background: rgba(255,255,255,0.25); color: white; font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 12px; }
+.ai-chat-body { background: #e5dfd5; padding: 14px; max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.chat-bubble-ai { align-self: flex-start; background: #fffdf9; border-radius: 16px 16px 16px 4px; padding: 10px 14px; font-size: 12px; line-height: 1.5; color: #2c2523; max-width: 85%; }
+.chat-bubble-user { align-self: flex-end; background: linear-gradient(135deg, #e05627, #f3ab28); color: white; border-radius: 16px 16px 4px 16px; padding: 8px 14px; font-size: 12px; font-weight: 800; max-width: 80%; }
+.ai-preset-grid { padding: 12px; background: #faf6f0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ai-preset-btn { background: #fffdf9; border: 1.5px solid #f0e6d5; padding: 10px; border-radius: 12px; font-size: 11px; font-weight: 800; color: #444; text-align: center; }
+
+.route-chip-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.route-chip { padding: 8px 14px; border: 1.5px solid #f3ab28; background: #fffdf9; color: #d68700; border-radius: 20px; font-weight: 800; font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+.change-tag-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+.change-tag-btn { padding: 8px 4px; background: #f4ece1; border-radius: 10px; font-size: 11px; font-weight: 700; color: #666; text-align: center; cursor: pointer; }
+.change-tag-btn.active { background: #1f8a70; color: white; }
+.change-textarea { width: 100%; height: 80px; background: #faf8f5; border: 1.5px solid #eae5db; border-radius: 14px; padding: 10px 12px; font-size: 12px; resize: none; margin-bottom: 12px; color: #333; }
+.footer-note { text-align: center; font-size: 11px; color: #aaa; margin-top: 6px; }
+
 .home-banner { background: #f3ab28; color: white; border-radius: 22px; padding: 20px; margin-bottom: 16px; }
 .banner-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 14px; }
 .stat-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
 .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
 .quick-btn { padding: 18px 14px; border-radius: 18px; color: white; font-weight: 800; font-size: 14px; text-align: left; display: flex; flex-direction: column; gap: 10px; }
-.quick-btn.orange { background: #e05627; }
-.quick-btn.yellow { background: #f3ab28; }
+.quick-btn.orange { background: #e05627; } .quick-btn.yellow { background: #f3ab28; }
 
 .filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 12px; }
 .filter-chip { padding: 8px 16px; border-radius: 20px; background: white; color: #666; font-size: 13px; font-weight: 700; flex-shrink: 0; }
@@ -583,8 +343,7 @@ button {
 .heritage-info h4 { margin: 0 0 4px 0; font-size: 15px; font-weight: 800; }
 .tag-group { display: flex; gap: 4px; margin-bottom: 4px; }
 .tag { font-size: 10px; padding: 3px 7px; border-radius: 6px; font-weight: 700; }
-.tag.region { background: #ffebe5; color: #e05627; }
-.tag.era { background: #fef4df; color: #d68700; }
+.tag.region { background: #ffebe5; color: #e05627; } .tag.era { background: #fef4df; color: #d68700; }
 .heritage-desc { font-size: 11px; color: #888; margin: 0; }
 
 .collection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -604,4 +363,4 @@ button {
 .nav-label { font-size: 10px; font-weight: 700; }
 
 .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #2c2523; color: white; padding: 10px 20px; border-radius: 20px; font-size: 12px; font-weight: 700; display: none; z-index: 300; }
-.toast.show { display: block; }ㅍ
+.toast.show { display: block; }
