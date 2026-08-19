@@ -9,21 +9,26 @@ const heritageData = [
     subRegion: "강원 춘천",
     era: "삼국시대(추정)",
     category: "성곽",
-    desc: "봉의산 정상부를 둘러싼 미상의 산성으로, 고구려~신라 등 삼국시대의 기와가 출토된 것으로 추정합니다. 산성길을 따라 한 굽이 돌다 보면 춘천의 전경이 한눈에 펼쳐지며, 가볍게 즐기는 트래킹 코스로 사랑받고 있어요.",
+    desc: "봉의산 정상부를 둘러싸 쌓는 '테퇴식' 산성으로, 고구려~신라 등 삼국시대의 기와가 출토된 것으로 추정합니다.",
     icon: "🏯",
     bg: "#1f8a70",
     quiz: {
-      q: "Q. 춘천 봉의산성을 가장 처음 축조한 거로 추정되나요?",
+      q: "Q. 춘천 봉의산성은 언제 처음 축조된 것으로 추정되나요?",
       options: [
-        "1. 고구려·신라 등 삼국시대",
-        "2. 고려시대",
-        "3. 조선시대",
-        "4. 일제강점기"
+        "고구려·신라 등 삼국시대",
+        "고려시대",
+        "조선시대",
+        "일제강점기"
       ],
-      answer: 0
+      answer: 0,
+      explanation: "봉의산성은 산 정상율 둘러싸 쌓는 '테퇴식' 산성으로, 삼국시대에 처음 만들어진 것으로 추정돼요."
     },
-    aiGreeting: "안녕! 나는 춘천봉의산성을 수호하는 장군 역사도우미야. 봉의산성에 대해 궁금한 점이 있다면 얼마든지 물어봐!",
-    courses: ["📍 봉의산 성곽 탐방", "🌿 봉의산 생태와 역사"]
+    aiPresetResponses: {
+      "왜 중요한가요?": "삼국시대 지방의 방어 체계를 보여주는 중요한 유적으로, 지금의 춘천이 오래전부터 요새 도시였다는 사실을 증명해 줍니다.",
+      "쉽게 설명해주세요": "산 꼭대기를 띠 모양으로 둘러쌓아 만든 테퇴식 산성으로, 춘천을 지키는 든든한 옛날 울타리였다고 생각하면 쉬워요!",
+      "관련 인물은 누구인가요?": "삼국시대 및 고려·조선 시대에 춘천을 지키던 장수들과 백성들의 호국 정신이 담긴 곳입니다.",
+      "시험에 나올 내용만 알려주세요": "1. 산 정상에 쌓은 '테퇴식 산성' / 2. 삼국시대 기와 출토 / 3. 춘천 지방의 핵심 방어 유적, 이 3가지를 꼭 기억해!"
+    }
   },
   {
     id: "h2",
@@ -35,46 +40,49 @@ const heritageData = [
     desc: "조선시대 관아에서 운영한 지방 교육 기관입니다.",
     icon: "🏫",
     bg: "#e05627",
-    quiz: { q: "Q. 향교의 주요 기능은 무엇이었나요?", options: ["1. 지방 교육 및 제례", "2. 군사 훈련", "3. 무역 상업", "4. 의료 기관"], answer: 0 },
-    aiGreeting: "반가워! 조선시대 춘천향교의 유학자 도우미란다.",
-    courses: ["📍 춘천 유교 문화길"]
+    quiz: {
+      q: "Q. 향교의 주요 기능은 무엇이었나요?",
+      options: ["지방 교육 및 제례", "군사 훈련", "무역 상업", "의료 기관"],
+      answer: 0,
+      explanation: "향교는 조선시대 지방의 유학 교육과 성현의 제사를 담당하던 기관입니다."
+    },
+    aiPresetResponses: {
+      "왜 중요한가요?": "조선시대 지방 교육의 거점으로서 인재를 양성하던 중요한 역사 장소입니다.",
+      "쉽게 설명해주세요": "조선시대의 국립 지방 학교라고 생각하면 편해요!",
+      "관련 인물은 누구인가요?": "공자를 비롯한 유교 성현들과 춘천의 옛 유학자들이 관련되어 있습니다.",
+      "시험에 나올 내용만 알려주세요": "1. 조선시대 지방 교육기관 / 2. 대성전과 명륜당 구조 기억하기!"
+    }
   },
-  {
-    id: "h3",
-    name: "강릉 오죽헌",
-    region: "강원",
-    subRegion: "강원 강릉",
-    era: "조선시대",
-    category: "가옥",
-    desc: "신사임당과 율곡 이이를 낳은 조선시대 가옥입니다.",
-    icon: "🎋",
-    bg: "#5856d6",
-    quiz: { q: "Q. 오죽헌에서 태어난 인물은?", options: ["1. 신사임당과 율곡 이이", "2. 세종대왕", "3. 이순신 장군", "4. 김정호"], answer: 0 },
-    aiGreeting: "안녕하세요! 오죽헌의 문학 도우미입니다.",
-    courses: ["📍 강릉 인물 역사길"]
-  },
-  { id: "h4", name: "강릉 경포대", region: "강원", subRegion: "강원 강릉", era: "고려~조선", category: "정자", desc: "경포호를 바라보며 시를 읊던 정자입니다.", icon: "🌊", bg: "#1f8a70" },
-  { id: "h5", name: "남한산성", region: "경기", subRegion: "경기 광주", era: "조선시대", category: "성곽", desc: "병자호란의 역사가 담긴 유네스코 세계문화유산입니다.", icon: "🏰", bg: "#e05627" },
-  { id: "h6", name: "수원 화성", region: "경기", subRegion: "경기 수원", era: "조선시대", category: "성곽", desc: "정조가 만든 과학적 신도시 성곽입니다.", icon: "🧱", bg: "#f3ab28" },
-  { id: "h7", name: "경복궁", region: "서울", subRegion: "서울", era: "조선시대", category: "궁궐", desc: "조선의 법궁, 정치와 왕실의 중심입니다.", icon: "🏛️", bg: "#e05627" },
-  { id: "h8", name: "경주 첨성대", region: "경북", subRegion: "경북 경주", era: "신라", category: "천문", desc: "신라의 별을 관측하던 동양 최고의 천문대입니다.", icon: "⭐", bg: "#5856d6" },
-  { id: "h9", name: "서울 덕수궁", region: "서울", subRegion: "서울", era: "조선·대한제국", category: "궁궐", desc: "대한제국 고종 황제가 머물던 근대 궁궐입니다.", icon: "🕌", bg: "#f3ab28" }
+  { id: "h3", name: "강릉 오죽헌", region: "강원", subRegion: "강원 강릉", era: "조선시대", icon: "🎋", bg: "#5856d6" },
+  { id: "h4", name: "강릉 경포대", region: "강원", subRegion: "강원 강릉", era: "고려~조선", icon: "🌊", bg: "#1f8a70" },
+  { id: "h5", name: "남한산성", region: "경기", subRegion: "경기 광주", era: "조선시대", icon: "🏰", bg: "#e05627" },
+  { id: "h6", name: "수원 화성", region: "경기", subRegion: "경기 수원", era: "조선시대", icon: "🧱", bg: "#f3ab28" },
+  { id: "h7", name: "경복궁", region: "서울", subRegion: "서울", era: "조선시대", icon: "🏛️", bg: "#e05627" },
+  { id: "h8", name: "경주 첨성대", region: "경북", subRegion: "경북 경주", era: "신라", icon: "⭐", bg: "#5856d6" },
+  { id: "h9", name: "서울 덕수궁", region: "서울", subRegion: "서울", era: "조선·대한제국", icon: "🕌", bg: "#f3ab28" }
 ];
 
 /* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v3")) || {
+let state = JSON.parse(localStorage.getItem("heritageGO_v4")) || {
   tab: "explore",
-  detailId: null,
+  detailId: "h1",
   points: 20,
   nickname: "유산 탐험가",
   visits: {},
-  quizzes: {},
-  filterRegion: "전체보기",
-  selectedChangeTags: []
+  quizzes: { h1: 0 }, // 기본적으로 봉의산성 정답 풀이 상태 예시
+  aiChat: {
+    h1: [
+      { sender: "ai", text: "안녕! 나는 춘천 봉의산성을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!" },
+      { sender: "user", text: "왜 중요한가요?" },
+      { sender: "ai", text: "삼국시대 지방의 방어 체계를 보여주는 중요한 유적으로, 지금의 춘천이 오래전부터 요새 도시였다는 사실을 증명해 줍니다." },
+      { sender: "user", text: "쉽게 설명해주세요" }
+    ]
+  },
+  filterRegion: "전체보기"
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v3", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v4", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -104,11 +112,17 @@ function closeDetail() {
 }
 
 /* =====================================================
-   상세 페이지 렌더링 (봉의산성 스크린샷과 동일)
+   상세 페이지 렌더링 (업로드해주신 이미지 완벽 구현)
 ===================================================== */
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
-  const isVisited = state.visits[h.id];
+  const quizSolved = state.quizzes[h.id] !== undefined;
+  const selectedOpt = state.quizzes[h.id];
+
+  // AI 채팅 기록 가져오기
+  const chatLogs = state.aiChat[h.id] || [
+    { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
+  ];
 
   return `
     <div class="detail-banner" style="background:${h.bg};">
@@ -119,191 +133,140 @@ function renderHeritageDetail(id) {
           <div class="detail-tags">
             <span class="detail-tag">📍 ${h.subRegion}</span>
             <span class="detail-tag">📜 ${h.era}</span>
-            <span class="detail-tag">🏛️ ${h.category || '문화유산'}</span>
           </div>
         </div>
       </div>
       <p class="detail-desc">${h.desc}</p>
     </div>
 
-    <!-- 1. 방문 인증 -->
-    <div class="card">
-      <div class="section-title">📸 방문 인증</div>
-      <div class="section-sub">마지막 방문이 없어 최초 인증 시 <strong>+10P</strong></div>
-
-      <div class="upload-box" onclick="triggerFileUpload('visitFile')">
-        <div id="visitPreviewText">📷 대표 사진을 올리거나 선택해주세요</div>
-        <img id="visitImgPreview" style="display:none;" />
-        <input type="file" id="visitFile" accept="image/*" style="display:none;" onchange="handleImagePreview(this, 'visitImgPreview', 'visitPreviewText')" />
-      </div>
-
-      <div class="icon-selector">
-        <div class="icon-opt selected">🏯</div>
-        <div class="icon-opt">🏛️</div>
-        <div class="icon-opt">👘</div>
-        <div class="icon-opt">🌸</div>
-        <div class="icon-opt">⛩️</div>
-        <div class="icon-opt">🏺</div>
-      </div>
-
-      <button class="btn-upload-secondary" onclick="triggerFileUpload('visitFile')">
-        📷 사진 업로드하기
-      </button>
-
-      <button class="btn-primary-orange" onclick="submitVisit('${h.id}')">
-        📸 방문 인증하기
-      </button>
-    </div>
-
-    <!-- 2. 역사 퀴즈 -->
+    <!-- [1] 역사 퀴즈 영역 -->
     ${h.quiz ? `
       <div class="card">
-        <div class="section-title">🧠 역사 퀴즈 <span style="font-size:11px; color:#e05627;">퀴즈만 풀어도 포인트 획득!</span></div>
-        <div style="font-size:13px; font-weight:800; margin-bottom:10px;">${h.quiz.q}</div>
-        
-        <div>
-          ${h.quiz.options.map((opt, idx) => `
-            <button class="quiz-opt-btn ${state.quizzes[h.id] === idx ? 'selected' : ''}" onclick="answerQuiz('${h.id}', ${idx}, ${h.quiz.answer})">
-              ${opt}
-            </button>
-          `).join('')}
+        <div class="quiz-header-bar">
+          <span class="quiz-badge">🧠 역사 퀴즈</span>
+          <span class="quiz-notice">보상은 최초 1회만 지급돼요</span>
         </div>
+
+        <div class="quiz-question-title">${h.quiz.q}</div>
+
+        <div class="quiz-option-list">
+          ${h.quiz.options.map((optText, idx) => {
+            const isSelected = selectedOpt === idx;
+            const numSymbols = ['①', '②', '③', '④'];
+            return `
+              <button class="quiz-option-btn ${isSelected ? 'selected' : ''}" onclick="answerQuiz('${h.id}', ${idx})">
+                <span class="quiz-opt-num">${numSymbols[idx]}</span>
+                <span>${optText}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        ${quizSolved ? `
+          <div class="quiz-result-box">
+            <div class="quiz-result-title">🎉 정답! 보상은 이미 지급되었어요</div>
+            <p class="quiz-result-desc">${h.quiz.explanation}</p>
+          </div>
+        ` : ''}
       </div>
     ` : ''}
 
-    <!-- 3. AI 역사 도우미 -->
-    <div class="card">
-      <div class="ai-helper-card">
-        <div style="font-weight:800; font-size:14px;">🤖 AI 역사 도우미</div>
-        <button style="font-size:11px; color:white; background:rgba(255,255,255,0.2); padding:4px 8px; border-radius:10px;" onclick="resetAIChat()">🔄 새로고침</button>
-      </div>
-
-      <div class="ai-speech-bubble" id="aiSpeechText">
-        ${h.aiGreeting || "안녕! 나는 이 문화유산을 안내해주는 AI 도우미야. 무엇이든 물어봐!"}
-      </div>
-
-      <div class="ai-preset-grid">
-        <button class="ai-preset-btn" onclick="askAIPreset('배경')">💡 배경을 알려줘</button>
-        <button class="ai-preset-btn" onclick="askAIPreset('위치')">📍 위치를 설명해줘</button>
-        <button class="ai-preset-btn" onclick="askAIPreset('인물')">👤 관련 인물은 누구인가요?</button>
-        <button class="ai-preset-btn" onclick="askAIPreset('목적')">📜 시대적 배경과 축조 목적을 알려줘</button>
-      </div>
-    </div>
-
-    <!-- 4. 관련 탐험 코스 -->
-    ${h.courses ? `
-      <div class="card">
-        <div class="section-title">🗺️ 관련 탐험 코스</div>
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          ${h.courses.map(c => `
-            <button style="padding:8px 14px; background:#f4ece1; border-radius:12px; font-size:12px; font-weight:800; color:#555;">
-              ${c}
-            </button>
-          `).join('')}
+    <!-- [2] AI 역사 도우미 영역 -->
+    <div class="ai-card-container">
+      <div class="ai-header">
+        <div class="ai-header-info">
+          <span class="ai-header-icon">🤖</span>
+          <div>
+            <div class="ai-header-title">AI 역사 도우미</div>
+            <div class="ai-header-sub">🤖 데모 도우미 · 실제 AI 엔진 전 테스트 버전</div>
+          </div>
         </div>
-      </div>
-    ` : ''}
-
-    <!-- 5. 변화 기록 남기기 -->
-    <div class="card">
-      <div class="section-title">🔄 변화 기록 남기기</div>
-      <div class="section-sub">유산 주변을 관찰하고 변화된 사진을 기록해보세요.</div>
-
-      <div class="upload-box" onclick="triggerFileUpload('changeFile')">
-        <div id="changePreviewText">📷 변화된 사진을 올려주세요</div>
-        <img id="changeImgPreview" style="display:none;" />
-        <input type="file" id="changeFile" accept="image/*" style="display:none;" onchange="handleImagePreview(this, 'changeImgPreview', 'changePreviewText')" />
+        <button class="ai-reset-btn" onclick="resetAIChat('${h.id}')">🔄 초기화</button>
       </div>
 
-      <button class="btn-upload-secondary" onclick="triggerFileUpload('changeFile')">
-        📷 사진 업로드하기
-      </button>
-
-      <div class="section-title" style="font-size:13px; margin-top:10px;">변화 항목 선택</div>
-      <div class="change-tag-grid">
-        ${["주변 환경 변화", "안내판 변화", "시설물 변화", "보존 상태 변화", "포토존 변화/신설", "기타 건물 신축"].map(tag => `
-          <div class="change-tag-btn ${state.selectedChangeTags.includes(tag) ? 'active' : ''}" onclick="toggleChangeTag('${tag}')">
-            ${tag}
+      <div class="ai-chat-body" id="aiChatLog">
+        ${chatLogs.map(log => `
+          <div class="${log.sender === 'ai' ? 'chat-bubble-ai' : 'chat-bubble-user'}">
+            ${log.text}
           </div>
         `).join('')}
       </div>
 
-      <textarea class="change-textarea" placeholder="관찰한 사실을 자유롭게 기록하세요 (예: 안내판 디자인이 새로 변경되었습니다)"></textarea>
-
-      <button class="btn-primary-orange" style="background:#f3ab28;" onclick="submitChangeRecord()">
-        변화 기록 제출하기
-      </button>
+      <div class="ai-preset-grid">
+        <button class="ai-preset-btn" onclick="askAIPreset('${h.id}', '왜 중요한가요?')">💡 왜 중요한가요?</button>
+        <button class="ai-preset-btn" onclick="askAIPreset('${h.id}', '쉽게 설명해주세요')">✨ 쉽게 설명해주세요</button>
+        <button class="ai-preset-btn" onclick="askAIPreset('${h.id}', '관련 인물은 누구인가요?')">👤 관련 인물은 누구인가요?</button>
+        <button class="ai-preset-btn" onclick="askAIPreset('${h.id}', '시험에 나올 내용만 알려주세요')">📝 시험에 나올 내용만 알려주세요</button>
+      </div>
     </div>
   `;
 }
 
-/* 인터랙션 이벤트 처리 */
-function triggerFileUpload(id) {
-  document.getElementById(id).click();
-}
+/* 퀴즈 정답 처리 */
+function answerQuiz(heritageId, selectedIdx) {
+  const h = heritageData.find(x => x.id === heritageId);
+  if (!h || !h.quiz) return;
 
-function handleImagePreview(input, imgId, textId) {
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = document.getElementById(imgId);
-      img.src = e.target.result;
-      img.style.display = 'block';
-      document.getElementById(textId).style.display = 'none';
-    };
-    reader.readAsDataURL(input.files[0]);
+  if (state.quizzes[heritageId] !== undefined) {
+    toast("이미 보상을 받은 퀴즈입니다.");
+    return;
   }
-}
 
-function submitVisit(id) {
-  state.visits[id] = true;
-  state.points += 10;
-  toast("📸 방문 인증 완료! (+10P)");
-  save();
-  render();
-}
-
-function answerQuiz(heritageId, selectedIdx, correctIdx) {
   state.quizzes[heritageId] = selectedIdx;
-  if (selectedIdx === correctIdx) {
+  if (selectedIdx === h.quiz.answer) {
     state.points += 20;
-    toast("🧠 정답입니다! (+20P)");
+    toast("🎉 정답입니다! (+20P)");
   } else {
-    toast("❌ 아쉽습니다. 다시 시도해보세요!");
+    toast("❌ 오답입니다. 다시 도전해보세요!");
   }
   save();
   render();
 }
 
-function askAIPreset(type) {
-  const chat = document.getElementById("aiSpeechText");
-  if (type === '배경') chat.textContent = "봉의산성은 삼국시대에 축조된 산성으로, 춘천 지역을 방어하던 주요 거점이었습니다.";
-  else if (type === '위치') chat.textContent = "강원특별자치도 춘천시 봉의산 정상부에 위치하고 있습니다.";
-  else if (type === '인물') chat.textContent = "삼국시대 및 고려 시대 춘천을 지키던 장수들과 백성들의 호국 정신이 서린 곳입니다.";
-  else if (type === '목적') chat.textContent = "침입하는 외세를 방어하고 춘천 시내 조망을 확보하기 위한 전략적 목적으로 쌓은 성곽입니다.";
-}
+/* AI 채팅 질문하기 */
+function askAIPreset(heritageId, questionText) {
+  const h = heritageData.find(x => x.id === heritageId);
+  if (!h) return;
 
-function resetAIChat() {
-  document.getElementById("aiSpeechText").textContent = "안녕! 궁금한 질문을 아래 버튼 중에서 눌러봐!";
-}
+  if (!state.aiChat[heritageId]) {
+    state.aiChat[heritageId] = [
+      { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
+    ];
+  }
 
-function toggleChangeTag(tag) {
-  const idx = state.selectedChangeTags.indexOf(tag);
-  if (idx > -1) state.selectedChangeTags.splice(idx, 1);
-  else state.selectedChangeTags.push(tag);
+  // 사용자 질문 추가
+  state.aiChat[heritageId].push({ sender: "user", text: questionText });
+
+  // AI 답변 추가
+  const aiAnswer = (h.aiPresetResponses && h.aiPresetResponses[questionText]) 
+    ? h.aiPresetResponses[questionText]
+    : `${h.name}에 대한 질문입니다: "${questionText}" 정보가 등록되어 있습니다.`;
+
+  state.aiChat[heritageId].push({ sender: "ai", text: aiAnswer });
+
   save();
   render();
+
+  // 채팅 스크롤을 맨 아래로
+  setTimeout(() => {
+    const chatLog = document.getElementById("aiChatLog");
+    if (chatLog) chatLog.scrollTop = chatLog.scrollHeight;
+  }, 50);
 }
 
-function submitChangeRecord() {
-  toast("🔄 변화 기록이 제출되었습니다!");
-  state.selectedChangeTags = [];
+/* AI 채팅 초기화 */
+function resetAIChat(heritageId) {
+  const h = heritageData.find(x => x.id === heritageId);
+  state.aiChat[heritageId] = [
+    { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
+  ];
+  toast("💬 AI 대화 내용이 초기화되었습니다.");
   save();
   render();
 }
 
 /* =====================================================
-   탭 별 메인 렌더링
+   메인 화면들
 ===================================================== */
 function renderExplore() {
   const regions = ["전체보기", "강원", "경기", "서울", "경북"];
