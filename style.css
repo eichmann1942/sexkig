@@ -24,27 +24,25 @@ button {
 }
 
 /* =====================================================
-   버튼 및 카드 눌림 임팩트 애니메이션
+   버튼 및 카드 반응형 커서 임팩트 (Press Effect)
 ===================================================== */
-button, .heritage-card, .collection-card, .quick-btn, .quiz-option-btn, .ai-preset-btn, .route-chip, .rank-item, .recommend-card, .menu-link-item, .school-card {
+button, .heritage-card, .collection-card, .quick-btn, .quiz-option-btn, .ai-preset-btn, .route-chip, .rank-item, .recommend-card, .menu-link-item, .mission-card {
   transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.18s cubic-bezier(0.2, 0.9, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
 
-button:hover, .heritage-card:hover, .quick-btn:hover, .ai-preset-btn:hover, .route-chip:hover, .menu-link-item:hover, .school-card:hover {
+button:hover, .heritage-card:hover, .quick-btn:hover, .ai-preset-btn:hover, .route-chip:hover, .menu-link-item:hover, .mission-card:hover {
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
-button:active, .heritage-card:active, .quick-btn:active, .ai-preset-btn:active, .route-chip:active, .menu-link-item:active, .school-card:active {
+button:active, .heritage-card:active, .quick-btn:active, .ai-preset-btn:active, .route-chip:active, .menu-link-item:active, .mission-card:active {
   transform: translateY(1px) scale(0.96) !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* =====================================================
-   잠김(Locked) 항목 설정 - 완전 클릭 차단
-===================================================== */
+/* 잠긴 항목 완전 클릭 차단 */
 .is-locked {
   pointer-events: none !important;
   cursor: not-allowed !important;
@@ -118,6 +116,7 @@ button:active, .heritage-card:active, .quick-btn:active, .ai-preset-btn:active, 
   font-size: 12px;
   color: #8c827a;
   margin: 0 0 16px 0;
+  line-height: 1.4;
 }
 
 .card {
@@ -129,312 +128,273 @@ button:active, .heritage-card:active, .quick-btn:active, .ai-preset-btn:active, 
 }
 
 /* =====================================================
-   프로필 화면 디자인 (업로드 스크린샷 100% 동일 반영)
+   [신규] 학교 클럽 전용 스타일 (스크린샷 100% 동일)
 ===================================================== */
-.profile-main-header {
-  background: #339982;
+.club-main-card {
+  background: linear-gradient(135deg, #e55322, #f3a028);
   color: white;
   border-radius: 24px;
   padding: 20px;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 6px 16px rgba(51, 153, 130, 0.25);
+  box-shadow: 0 6px 18px rgba(229, 83, 34, 0.3);
 }
 
-.profile-main-header::after {
+.club-main-card::after {
   content: "🏛️";
   position: absolute;
   right: -10px;
   top: -10px;
-  font-size: 90px;
-  opacity: 0.15;
+  font-size: 100px;
+  opacity: 0.12;
+  pointer-events: none;
 }
 
-.profile-user-row {
+.club-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.club-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0 0 8px 0;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 6px;
+}
+
+.club-change-btn {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.club-badge-row {
+  display: flex;
+  gap: 6px;
   margin-bottom: 16px;
 }
 
-.profile-avatar-circle {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #2b5b50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  border: 2px solid rgba(255,255,255,0.3);
-}
-
-.profile-user-info h3 {
-  margin: 0 0 4px 0;
-  font-size: 18px;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.profile-user-info .badge-label {
+.club-tag-badge {
+  background: rgba(255, 255, 255, 0.25);
   font-size: 11px;
-  font-weight: 700;
-  background: rgba(255,255,255,0.2);
-  padding: 3px 8px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.level-progress-box {
-  background: rgba(0, 0, 0, 0.12);
-  padding: 10px 12px;
-  border-radius: 14px;
-}
-
-.level-progress-text {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  opacity: 0.9;
-}
-
-.level-bar-bg {
-  height: 7px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-
-.level-bar-fill {
-  height: 100%;
-  background: #f3ab28;
-  border-radius: 10px;
-}
-
-.level-sub-title {
-  font-size: 10px;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
 }
 
-/* 스탯 4개 그리드 */
-.profile-stats-grid {
+.club-stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  gap: 6px;
   margin-bottom: 14px;
 }
 
-.stat-box-card {
-  background: white;
-  border-radius: 18px;
-  padding: 14px 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+.club-stat-val {
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 2px;
 }
 
-.stat-box-val {
-  font-size: 20px;
-  font-weight: 900;
-  color: #1a1513;
+.club-stat-lbl {
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+.club-my-activity-bar {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 2px;
 }
 
-.stat-box-val.orange { color: #f3ab28; }
-.stat-box-val.pink { color: #ff6b81; }
-.stat-box-val.blue { color: #4a69bd; }
-
-.stat-box-lbl {
-  font-size: 11px;
-  color: #8c827a;
-  font-weight: 700;
-}
-
-/* 메뉴 링크 리스트 */
-.menu-list-card {
+/* 미션 카드 스타일 */
+.mission-card {
   background: white;
   border-radius: 20px;
-  padding: 6px 14px;
-  margin-bottom: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
 }
 
-.menu-link-item {
+.mission-top-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 14px 4px;
-  border-bottom: 1px solid #f2ece1;
-  font-size: 13px;
-  font-weight: 800;
-  color: #2c2523;
-  cursor: pointer;
-}
-
-.menu-link-item:last-child {
-  border-bottom: none;
-}
-
-.menu-link-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.menu-link-icon {
-  font-size: 16px;
-}
-
-/* 최근 활동 타임라인 */
-.activity-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.activity-item {
-  display: flex;
   align-items: flex-start;
-  gap: 10px;
-  font-size: 12px;
-}
-
-.activity-icon {
-  font-size: 16px;
-  margin-top: 1px;
-}
-
-.activity-content {
-  flex: 1;
-}
-
-.activity-title {
-  font-weight: 800;
-  color: #2c2523;
-  margin-bottom: 2px;
-}
-
-.activity-time {
-  font-size: 10px;
-  color: #aaa;
-}
-
-/* 획득한 배지 스크롤 카러셀 */
-.badge-badge-card {
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #f3ab28, #e05627);
-  color: white;
-  border-radius: 20px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(224, 86, 39, 0.2);
-}
-
-.badge-badge-card .icon {
-  font-size: 28px;
   margin-bottom: 4px;
 }
 
-.badge-badge-card .title {
-  font-size: 11px;
+.mission-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mission-icon {
+  font-size: 26px;
+}
+
+.mission-title-group h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #2c2523;
+}
+
+.mission-count-text {
+  font-size: 16px;
   font-weight: 900;
+  color: #e55322;
 }
 
-.badge-badge-card .desc {
-  font-size: 8px;
-  opacity: 0.9;
-  margin-top: 2px;
+.mission-sub {
+  font-size: 11px;
+  color: #888;
+  margin: 0 0 10px 36px;
 }
 
-/* 개발용 테스트 도구 */
-.test-tools-card {
-  background: #f4efe6;
-  border: 1.5px dashed #d5cdbe;
-  border-radius: 20px;
-  padding: 16px;
+.mission-progress-bg {
+  height: 8px;
+  background: #eee8df;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.mission-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e55322, #f3a028);
+  border-radius: 10px;
+}
+
+.mission-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mission-my-contrib {
+  font-size: 11px;
+  color: #888;
+  font-weight: 700;
+}
+
+.btn-participate {
+  background: linear-gradient(135deg, #f3ab28, #e05627);
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(224, 86, 39, 0.25);
+}
+
+/* 모달 메커니즘 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 20px;
+}
+
+.modal-overlay.show { display: flex; }
+
+.modal-card {
+  background: white;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 24px;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 14px;
 }
 
-.test-btn-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 10px;
-}
+.modal-header h3 { margin: 0; font-size: 16px; font-weight: 900; }
+.modal-close-btn { font-size: 18px; font-weight: 800; color: #888; }
 
-.test-btn {
-  padding: 10px;
-  background: white;
-  border: 1px solid #e0d8c8;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 800;
-  color: #444;
-  text-align: center;
-}
-
-.test-btn.danger {
-  background: #e74c3c;
-  color: white;
-  border: none;
-}
-
-/* 학교 클럽 전용 스타일 */
-.school-card {
-  background: white;
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 10px;
+.modal-school-item {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  align-items: center;
+  padding: 12px 14px;
+  background: #faf6f0;
+  border-radius: 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
-.school-info h4 {
-  margin: 0 0 4px 0;
-  font-size: 15px;
-  font-weight: 800;
+.modal-school-item.active {
+  border: 1.5px solid #e55322;
+  background: #fff5f2;
 }
 
-.school-info p {
-  margin: 0;
-  font-size: 11px;
-  color: #888;
-}
+/* 프로필 화면 스타일 */
+.profile-main-header { background: #339982; color: white; border-radius: 24px; padding: 20px; margin-bottom: 14px; position: relative; overflow: hidden; }
+.profile-user-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.profile-avatar-circle { width: 54px; height: 54px; border-radius: 50%; background: #2b5b50; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 2px solid rgba(255,255,255,0.3); }
+.profile-user-info h3 { margin: 0 0 4px 0; font-size: 18px; font-weight: 900; display: flex; align-items: center; gap: 6px; }
+.profile-user-info .badge-label { font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 10px; }
 
-.join-btn {
-  padding: 8px 14px;
-  background: #e05627;
-  color: white;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 800;
-}
+.level-progress-box { background: rgba(0, 0, 0, 0.12); padding: 10px 12px; border-radius: 14px; }
+.level-progress-text { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; margin-bottom: 6px; }
+.level-bar-bg { height: 7px; background: rgba(255,255,255,0.3); border-radius: 10px; overflow: hidden; margin-bottom: 6px; }
+.level-bar-fill { height: 100%; background: #f3ab28; border-radius: 10px; }
 
-.join-btn.joined {
-  background: #eee8df;
-  color: #888;
-}
+.profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.stat-box-card { background: white; border-radius: 18px; padding: 14px 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+.stat-box-val { font-size: 20px; font-weight: 900; color: #1a1513; margin-bottom: 2px; }
+.stat-box-val.orange { color: #f3ab28; } .stat-box-val.pink { color: #ff6b81; } .stat-box-val.blue { color: #4a69bd; }
+.stat-box-lbl { font-size: 11px; color: #8c827a; font-weight: 700; }
 
-/* 기타 기존 스타일 유지 */
+.menu-list-card { background: white; border-radius: 20px; padding: 6px 14px; margin-bottom: 14px; }
+.menu-link-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; border-bottom: 1px solid #f2ece1; font-size: 13px; font-weight: 800; color: #2c2523; cursor: pointer; }
+.menu-link-item:last-child { border-bottom: none; }
+.menu-link-left { display: flex; align-items: center; gap: 10px; }
+
+.activity-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.activity-item { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; }
+.activity-title { font-weight: 800; color: #2c2523; margin-bottom: 2px; }
+.activity-time { font-size: 10px; color: #aaa; }
+
+.badge-badge-card { width: 100px; height: 100px; background: linear-gradient(135deg, #f3ab28, #e05627); color: white; border-radius: 20px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.badge-badge-card .icon { font-size: 28px; margin-bottom: 4px; }
+.badge-badge-card .title { font-size: 11px; font-weight: 900; }
+.badge-badge-card .desc { font-size: 8px; opacity: 0.9; margin-top: 2px; }
+
+.test-tools-card { background: #f4efe6; border: 1.5px dashed #d5cdbe; border-radius: 20px; padding: 16px; margin-bottom: 14px; }
+.test-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.test-btn { padding: 10px; background: white; border: 1px solid #e0d8c8; border-radius: 12px; font-size: 11px; font-weight: 800; color: #444; }
+.test-btn.danger { background: #e74c3c; color: white; border: none; }
+
+/* 메인 및 기타 상세 스타일 */
 .home-banner { background: #f3ab28; color: white; border-radius: 22px; padding: 20px; margin-bottom: 16px; }
 .banner-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(255,255,255,0.22); padding: 12px 14px; border-radius: 16px; }
 .stat-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
