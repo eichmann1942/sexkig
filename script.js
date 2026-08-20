@@ -246,14 +246,25 @@ const routeData = [
   }
 ];
 
+/* 6개 대표 배지 슬롯 정보 */
+const badgePool = [
+  { id: "b1", icon: "🗺️", title: "클럽 방문왕", desc: "문화유산 30곳 방문", unlocked: true },
+  { id: "b2", icon: "🧠", title: "퀴즈 달인", desc: "역사 퀴즈 10개 정답", unlocked: true },
+  { id: "b3", icon: "📸", title: "인증 수집가", desc: "첫 방문 인증 성공", unlocked: true },
+  { id: "b4", icon: "🛡️", title: "호국 탐험가", desc: "산성 코스 완주", unlocked: false },
+  { id: "b5", icon: "🏛️", title: "궁궐 박사", desc: "모든 궁궐 방문", unlocked: false },
+  { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
+];
+
 /* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v10")) || {
-  tab: "home",
+let state = JSON.parse(localStorage.getItem("heritageGO_v11")) || {
+  tab: "profile",
   detailId: null,
   routeId: null,
   viewSchoolClub: false,
   points: 40,
   nickname: "유산 탐험가",
+  lastNicknameChange: null, // ISO 문자열 날짜 저장
   joinedSchool: "s1",
   visits: {},
   quizzes: { h1: 0, h5: 0, h7: 0 },
@@ -272,14 +283,14 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v10")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v10", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v11", JSON.stringify(state));
 }
 
 function toast(msg) {
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 2000);
+  setTimeout(() => t.classList.remove("show"), 2200);
 }
 
 function switchTab(tabName) {
@@ -312,6 +323,45 @@ function goBack() {
   if (state.viewSchoolClub) state.viewSchoolClub = false;
   else if (state.routeId) state.routeId = null;
   else if (state.detailId) state.detailId = null;
+  save(); render();
+}
+
+/* =====================================================
+   [닉네임 변경 & 30일 쿨타임 검사 로직]
+===================================================== */
+function openNicknameModal() {
+  const NOW = new Date();
+  if (state.lastNicknameChange) {
+    const lastDate = new Date(state.lastNicknameChange);
+    const diffTime = NOW - lastDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 30) {
+      const remainingDays = 30 - diffDays;
+      toast(`닉네임은 30일에 한 번만 변경 가능합니다. (${remainingDays}일 남음)`);
+      return;
+    }
+  }
+
+  document.getElementById("nicknameInput").value = state.nickname;
+  document.getElementById("nicknameModal").classList.add("show");
+}
+
+function closeNicknameModal() {
+  document.getElementById("nicknameModal").classList.remove("show");
+}
+
+function submitNicknameChange() {
+  const newName = document.getElementById("nicknameInput").value.trim();
+  if (newName.length < 2 || newName.length > 10) {
+    toast("닉네임은 2자 이상 10자 이하로 입력해 주세요.");
+    return;
+  }
+
+  state.nickname = newName;
+  state.lastNicknameChange = new Date().toISOString();
+  closeNicknameModal();
+  toast(`✏️ 닉네임이 '${newName}'(으)로 변경되었습니다.`);
   save(); render();
 }
 
@@ -406,7 +456,7 @@ function setFilter(region) {
 }
 
 /* =====================================================
-   [3] 도감 화면 렌더링 (잠금 항목 완전 클릭 차단)
+   [3] 도감 화면 렌더링 (잠금 항목 클릭 차단)
 ===================================================== */
 function renderCollection() {
   const visitedCount = Object.keys(state.visits).length;
@@ -602,19 +652,24 @@ function selectSchoolClub(schoolId) {
 }
 
 /* =====================================================
-   [6] 프로필 화면 렌더링
+   [6] 프로필 화면 렌더링 (대표 배지 6개 한눈에 보기 반영)
 ===================================================== */
 function renderProfile() {
   const visitedCount = Object.keys(state.visits).length;
   const quizCount = Object.keys(state.quizzes).length;
   const collectionRate = Math.round((visitedCount / heritageData.length) * 100);
+  const unlockedCount = badgePool.filter(b => b.unlocked).length;
 
   return `
+    <!-- 1. 프로필 메인 헤더 (연필 아이콘 클릭 시 닉네임 변경) -->
     <div class="profile-main-header">
       <div class="profile-user-row">
         <div class="profile-avatar-circle">🎓</div>
         <div class="profile-user-info">
-          <h3>${state.nickname} ✏️</h3>
+          <h3>
+            <span>${state.nickname}</span>
+            <span class="nickname-edit-icon" onclick="openNicknameModal()" title="닉네임 변경">✏️</span>
+          </h3>
           <span class="badge-label">🌱 문화유산 새싹</span>
         </div>
       </div>
@@ -631,6 +686,7 @@ function renderProfile() {
       </div>
     </div>
 
+    <!-- 2. 스탯 그리드 -->
     <div class="profile-stats-grid">
       <div class="stat-box-card">
         <div class="stat-box-val orange">🪙 ${state.points}P</div>
@@ -650,19 +706,28 @@ function renderProfile() {
       </div>
     </div>
 
+    <!-- 3. 대표 배지 (요청사항: 6개 슬롯 그리드 배치) -->
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span class="section-title">🎖️ 대표 배지</span>
-        <span style="font-size:11px; color:#e05627; font-weight:800; cursor:pointer;" onclick="toast('대표 배지 편집')">편집 ></span>
+        <span style="font-size:11px; color:#e05627; font-weight:800; cursor:pointer;" onclick="toast('대표 배지는 최대 6개까지 선택할 수 있습니다.')">편집 ></span>
       </div>
-      <div style="font-size:11px; color:#888; margin-bottom:12px;">획득 배지 1개 · 대표 배지는 최대 6개까지 선택할 수 있어요.</div>
-      <div class="badge-badge-card">
-        <div class="icon">🗺️</div>
-        <div class="title">클럽 방문왕</div>
-        <div class="desc">문화유산 30곳 방문</div>
+      <div style="font-size:11px; color:#888; margin-bottom:12px;">
+        획득 배지 ${unlockedCount}개 · 대표 배지는 최대 6개까지 선택할 수 있어요.
+      </div>
+
+      <div class="rep-badge-grid">
+        ${badgePool.map(b => `
+          <div class="badge-badge-card ${b.unlocked ? '' : 'locked'}">
+            <div class="icon">${b.unlocked ? b.icon : '🔒'}</div>
+            <div class="title">${b.title}</div>
+            <div class="desc">${b.desc}</div>
+          </div>
+        `).join('')}
       </div>
     </div>
 
+    <!-- 4. 메뉴 리스트 -->
     <div class="menu-list-card">
       <div class="menu-link-item is-locked">
         <div class="menu-link-left"><span style="font-size:16px;">🎖️</span><span>배지 전체 보기</span></div>
@@ -678,6 +743,7 @@ function renderProfile() {
       </div>
     </div>
 
+    <!-- 5. 최근 활동 -->
     <div class="card">
       <div class="section-title">📌 최근 활동</div>
       <div class="activity-list">
@@ -693,6 +759,7 @@ function renderProfile() {
       </div>
     </div>
 
+    <!-- 6. 방문 기록 -->
     <div class="card">
       <div class="section-title">📌 방문 기록</div>
       <div style="text-align:center; padding:16px; font-size:12px; color:#aaa;">
@@ -700,18 +767,24 @@ function renderProfile() {
       </div>
     </div>
 
+    <!-- 7. 획득한 배지 -->
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span class="section-title">🎖️ 획득한 배지</span>
-        <span style="font-size:11px; color:#888;">1 / 17</span>
+        <span style="font-size:11px; color:#888;">${unlockedCount} / 17</span>
       </div>
-      <div class="badge-badge-card">
-        <div class="icon">🗺️</div>
-        <div class="title">클럽 방문왕</div>
-        <div class="desc">클럽 미션: 문화유산 30곳 방문</div>
+      <div class="rep-badge-grid">
+        ${badgePool.filter(b => b.unlocked).map(b => `
+          <div class="badge-badge-card">
+            <div class="icon">${b.icon}</div>
+            <div class="title">${b.title}</div>
+            <div class="desc">${b.desc}</div>
+          </div>
+        `).join('')}
       </div>
     </div>
 
+    <!-- 8. 개발용 테스트 도구 -->
     <div class="test-tools-card">
       <div class="section-title" style="font-size:13px;">🧪 테스트 도구 (개발용)</div>
       <div class="test-btn-grid">
@@ -732,7 +805,7 @@ function resetTestData() {
 }
 
 function fullReset() {
-  localStorage.removeItem("heritageGO_v10");
+  localStorage.removeItem("heritageGO_v11");
   location.reload();
 }
 
