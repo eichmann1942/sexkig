@@ -26,12 +26,13 @@ button {
 /* 지도 컨테이너 및 GPS 박스 */
 .map-container {
   width: 100%;
-  height: 180px;
+  height: 200px;
   border-radius: 16px;
   margin-bottom: 12px;
   background: #eee8df;
   border: 1.5px solid #eae5db;
   overflow: hidden;
+  position: relative;
 }
 
 .gps-info-box {
