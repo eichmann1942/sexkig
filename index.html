@@ -53,6 +53,23 @@
     </div>
   </div>
 
+  <!-- 닉네임 변경 모달 -->
+  <div class="modal-overlay" id="nicknameModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>✏️ 닉네임 변경</h3>
+        <button class="modal-close-btn" onclick="closeNicknameModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px; color:#888; margin:0 0 12px 0;">
+          닉네임은 변경 후 <strong>30일 동안</strong> 다시 변경할 수 없습니다.
+        </p>
+        <input type="text" id="nicknameInput" class="modal-input" placeholder="새 닉네임 입력 (2~10자)" maxlength="10">
+        <button class="btn-primary-orange" style="margin-top:12px;" onclick="submitNicknameChange()">변경 완료</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 토스트 메시지 -->
   <div class="toast" id="toast"></div>
 
