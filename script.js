@@ -1,5 +1,5 @@
 /* =====================================================
-   문화유산 & 한국 실제 학교 & 클럽 미션 데이터베이스
+   문화유산 & 위도·경도(GPS) 좌표 데이터베이스
 ===================================================== */
 const heritageData = [
   {
@@ -9,6 +9,8 @@ const heritageData = [
     subRegion: "강원 춘천",
     era: "삼국시대(추정)",
     category: "성곽",
+    lat: 37.8885,
+    lng: 127.7312,
     desc: "봉의산 정상부를 둘러싸 쌓은 '테퇴식' 산성으로, 고구려~신라 등 삼국시대에 처음 축조된 것으로 추정됩니다.",
     icon: "🏯",
     bg: "#1f8a70",
@@ -33,6 +35,8 @@ const heritageData = [
     subRegion: "강원 춘천",
     era: "조선시대",
     category: "교육",
+    lat: 37.8812,
+    lng: 127.7335,
     desc: "조선시대 지방 관아에서 인재를 양성하던 공립 교육 기관입니다.",
     icon: "🏫",
     bg: "#e05627",
@@ -45,9 +49,7 @@ const heritageData = [
     routeIds: ["r2"],
     aiPresetResponses: {
       "왜 중요한가요?": "조선시대 지방 유학 교육의 중심지 역할을 한 역사적 공간입니다.",
-      "쉽게 설명해주세요": "조선시대의 국립 지방 학교라고 보면 돼요!",
-      "관련 인물은 누구인가요?": "공자를 비롯한 유교 5성 18현의 성현들과 춘천의 옛 유학자들입니다.",
-      "시험에 나올 내용만 알려주세요": "1. 지방 공립 교육기관 / 2. 명륜당(강학)과 대성전(제사) 구조!"
+      "쉽게 설명해주세요": "조선시대의 국립 지방 학교라고 보면 돼요!"
     }
   },
   {
@@ -57,6 +59,8 @@ const heritageData = [
     subRegion: "강원 강릉",
     era: "조선시대",
     category: "가옥",
+    lat: 37.7792,
+    lng: 128.8794,
     desc: "검은 대나무가 둘러싼 조선 중기 목조건물로, 신사임당과 율곡 이이가 태어난 명소입니다.",
     icon: "🎋",
     bg: "#5856d6",
@@ -68,76 +72,7 @@ const heritageData = [
     },
     routeIds: [],
     aiPresetResponses: {
-      "왜 중요한가요?": "조선시대 주택 중 가장 오래된 유구 중 하나이며 율곡 이이 선생의 탄생지입니다.",
-      "쉽게 설명해주세요": "신사임당과 율곡 이이가 살던 집으로 주변에 검은 대나무가 많아 오죽헌이라 불러요!",
-      "관련 인물은 누구인가요?": "여성 예술가 신사임당과 대학자 율곡 이이 선생입니다.",
-      "시험에 나올 내용만 알려주세요": "1. 율곡 이이 탄생지 (몽룡실) / 2. 조선 중기 목조건축양식!"
-    }
-  },
-  {
-    id: "h4",
-    name: "강릉 경포대",
-    region: "강원",
-    subRegion: "강원 강릉",
-    era: "고려~조선",
-    category: "정자",
-    desc: "경포호수가 한눈에 내려다보이는 경승지로, 관동팔경 중 으뜸으로 꼽히는 정자입니다.",
-    icon: "🌊",
-    bg: "#1f8a70",
-    quiz: {
-      q: "Q. 관동팔경 중 으뜸으로 꼽히며 경포호가 내려다보이는 정자는 어디일까요?",
-      options: ["강릉 경포대", "삼척 죽서루", "양양 의상대", "청간정"],
-      answer: 0,
-      explanation: "경포대는 경포호수와 동해바다의 아름다운 경관을 한눈에 조망하는 정자입니다."
-    },
-    routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "관동팔경 중 대표적 누정으로 수많은 조선 시대 명시가 전해지는 문학 명소입니다.",
-      "쉽게 설명해주세요": "경포호수의 아름다운 풍경을 한눈에 감상할 수 있는 경치 좋은 나무 누각이에요!"
-    }
-  },
-  {
-    id: "h5",
-    name: "남한산성",
-    region: "경기",
-    subRegion: "경기 광주",
-    era: "조선시대",
-    category: "성곽",
-    desc: "병자호란의 아픔이 서려 있는 유네스코 세계문화유산으로, 비상시 임시 수도 역할을 한 산성입니다.",
-    icon: "🏰",
-    bg: "#e05627",
-    quiz: {
-      q: "Q. 병자호란 당시 인조 임금이 피난하여 47일간 항전했던 산성은 어디일까요?",
-      options: ["남한산성", "북한산성", "봉의산성", "행주산성"],
-      answer: 0,
-      explanation: "1636년 병자호란 때 인조 임금과 신하들이 남한산성으로 피난하여 항전했습니다."
-    },
-    routeIds: ["r2"],
-    aiPresetResponses: {
-      "왜 중요한가요?": "동아시아 군사 건축 기술의 집약체로서 유네스코 세계문화유산에 등재되었습니다.",
-      "쉽게 설명해주세요": "임금님이 피난할 수 있도록 성 안에 행궁과 마을을 갖춘 거대한 성곽 도시예요!"
-    }
-  },
-  {
-    id: "h6",
-    name: "수원 화성",
-    region: "경기",
-    subRegion: "경기 수원",
-    era: "조선시대",
-    category: "성곽",
-    desc: "정조대왕이 효심과 실학 기술을 동원해 완공한 과학적 성곽 도시입니다.",
-    icon: "🧱",
-    bg: "#f3ab28",
-    quiz: {
-      q: "Q. 정조의 명을 받아 수원 화성 건축에 필요한 '거중기'를 발명한 실학자는 누구일까요?",
-      options: ["정약용", "박지원", "김정호", "홍대용"],
-      answer: 0,
-      explanation: "정약용 선생이 도르래의 원리를 이용한 거중기를 발명해 화성을 축조했습니다."
-    },
-    routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "거중기 등 과학 기구를 활용해 건설한 유네스코 세계문화유산입니다.",
-      "쉽게 설명해주세요": "정조 임금님이 정약용 선생의 과학 도구로 만든 멋진 성곽 도시예요!"
+      "왜 중요한가요?": "조선시대 주택 중 가장 오래된 유구 중 하나이며 율곡 이이 선생의 탄생지입니다."
     }
   },
   {
@@ -147,6 +82,8 @@ const heritageData = [
     subRegion: "서울",
     era: "조선시대",
     category: "궁궐",
+    lat: 37.5796,
+    lng: 126.9770,
     desc: "1395년 태조 이성계가 창건한 조선 왕조 최고의 법궁입니다.",
     icon: "🏛️",
     bg: "#e05627",
@@ -158,52 +95,7 @@ const heritageData = [
     },
     routeIds: [],
     aiPresetResponses: {
-      "왜 중요한가요?": "조선 왕조의 으뜸 궁궐(법궁)로서 근정전, 경회루 등 최고의 왕실 건축물입니다.",
-      "쉽게 설명해주세요": "조선시대 임금님이 나라를 다스리던 제일 크고 중심이 되는 궁궐이에요!"
-    }
-  },
-  {
-    id: "h8",
-    name: "경주 첨성대",
-    region: "경북",
-    subRegion: "경북 경주",
-    era: "신라",
-    category: "천문",
-    desc: "신라 선덕여왕 때 건립된 동양에서 가장 오래된 천문대입니다.",
-    icon: "⭐",
-    bg: "#5856d6",
-    quiz: {
-      q: "Q. 경주 첨성대는 신라 어느 왕 때 건립되었을까요?",
-      options: ["선덕여왕", "진흥왕", "무열왕", "경순왕"],
-      answer: 0,
-      explanation: "첨성대는 신라 선덕여왕 재위 기간에 건립되었습니다."
-    },
-    routeIds: ["r1"],
-    aiPresetResponses: {
-      "왜 중요한가요?": "동양에서 현존하는 가장 오래된 천문 관측 건축물입니다.",
-      "쉽게 설명해주세요": "신라시대 사람들이 별을 관찰하여 농사 절기를 정하던 관측대예요!"
-    }
-  },
-  {
-    id: "h9",
-    name: "서울 덕수궁",
-    region: "서울",
-    subRegion: "서울",
-    era: "조선·대한제국",
-    category: "궁궐",
-    desc: "고종 황제가 대한제국을 선포하고 근대적 개혁을 추진했던 역사적 장소입니다.",
-    icon: "🕌",
-    bg: "#f3ab28",
-    quiz: {
-      q: "Q. 1897년 고종 황제가 덕수궁에서 선포한 나라의 이름은 무엇일까요?",
-      options: ["대한제국", "조선", "고려", "대한민국"],
-      answer: 0,
-      explanation: "고종 황제는 덕수궁에서 황제 즉위식을 거행하고 대한제국을 선포했습니다."
-    },
-    routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "전통 한옥 전각과 서양식 석조전이 함께 자리잡은 근대 역사의 현장입니다.",
-      "쉽게 설명해주세요": "전통 궁궐과 서양식 석조건물이 함께 있는 멋진 궁궐이에요!"
+      "왜 중요한가요?": "조선 왕조의 으뜸 궁궐(법궁)로서 근정전, 경회루 등 최고의 왕실 건축물입니다."
     }
   }
 ];
@@ -246,7 +138,6 @@ const routeData = [
   }
 ];
 
-/* 6개 대표 배지 슬롯 정보 */
 const badgePool = [
   { id: "b1", icon: "🗺️", title: "클럽 방문왕", desc: "문화유산 30곳 방문", unlocked: true },
   { id: "b2", icon: "🧠", title: "퀴즈 달인", desc: "역사 퀴즈 10개 정답", unlocked: true },
@@ -257,14 +148,14 @@ const badgePool = [
 ];
 
 /* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v11")) || {
-  tab: "profile",
+let state = JSON.parse(localStorage.getItem("heritageGO_v12")) || {
+  tab: "home",
   detailId: null,
   routeId: null,
   viewSchoolClub: false,
   points: 40,
   nickname: "유산 탐험가",
-  lastNicknameChange: null, // ISO 문자열 날짜 저장
+  lastNicknameChange: null,
   joinedSchool: "s1",
   visits: {},
   quizzes: { h1: 0, h5: 0, h7: 0 },
@@ -283,7 +174,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v11")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v11", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v12", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -291,6 +182,80 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+/* =====================================================
+   [GPS 거리 계산 알고리즘 (Haversine Formula)]
+===================================================== */
+function getDistanceMeters(lat1, lon1, lat2, lon2) {
+  const R = 6371e3;
+  const φ1 = lat1 * Math.PI / 180;
+  const φ2 = lat2 * Math.PI / 180;
+  const Δφ = (lat2 - lat1) * Math.PI / 180;
+  const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+  return Math.round(R * c);
+}
+
+/* GPS 기반 위치 인증 실행 로직 */
+function verifyGPSVisit(heritageId) {
+  const h = heritageData.find(x => x.id === heritageId);
+  if (!h || !h.lat || !h.lng) {
+    toast("해당 문화유산의 좌표 정보가 존재하지 않습니다.");
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    toast("이 브라우저는 GPS 위치 정보 기능을 지원하지 않습니다.");
+    return;
+  }
+
+  toast("📡 현재 GPS 위치를 측정하는 중입니다...");
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+      const distanceMeters = getDistanceMeters(userLat, userLng, h.lat, h.lng);
+
+      const distanceBox = document.getElementById("gpsDistanceText");
+      if (distanceBox) {
+        distanceBox.textContent = `📍 현재 유산과의 거리: ${distanceMeters}m`;
+      }
+
+      if (distanceMeters <= 500) {
+        submitVisit(heritageId);
+      } else {
+        toast(`❌ 인증 실패: 유산과 ${distanceMeters}m 떨어져 있습니다. (500m 이내 필요)`);
+      }
+    },
+    (error) => {
+      toast("❌ 위치 정보를 가져올 수 없습니다. GPS 권한을 확인해 주세요.");
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+/* 카카오 지도 로딩 및 마커 생성 */
+function loadKakaoMap(heritageId) {
+  const h = heritageData.find(x => x.id === heritageId);
+  const container = document.getElementById("mapContainer");
+  if (!container || !h || typeof kakao === 'undefined' || !kakao.maps) return;
+
+  const options = {
+    center: new kakao.maps.LatLng(h.lat, h.lng),
+    level: 3
+  };
+
+  const map = new kakao.maps.Map(container, options);
+  const markerPosition = new kakao.maps.LatLng(h.lat, h.lng);
+  const marker = new kakao.maps.Marker({ position: markerPosition });
+  marker.setMap(map);
 }
 
 function switchTab(tabName) {
@@ -326,9 +291,7 @@ function goBack() {
   save(); render();
 }
 
-/* =====================================================
-   [닉네임 변경 & 30일 쿨타임 검사 로직]
-===================================================== */
+/* 닉네임 변경 30일 쿨타임 */
 function openNicknameModal() {
   const NOW = new Date();
   if (state.lastNicknameChange) {
@@ -365,9 +328,6 @@ function submitNicknameChange() {
   save(); render();
 }
 
-/* =====================================================
-   [1] 홈 화면 렌더링
-===================================================== */
 function renderHome() {
   const visitedCount = Object.keys(state.visits).length;
   const quizCount = Object.keys(state.quizzes).length;
@@ -411,9 +371,6 @@ function renderHome() {
   `;
 }
 
-/* =====================================================
-   [2] 탐험 목록 화면 렌더링
-===================================================== */
 function renderExplore() {
   const regions = ["전체보기", "강원", "경기", "서울", "경북"];
   const filtered = state.filterRegion === "전체보기" 
@@ -455,9 +412,6 @@ function setFilter(region) {
   save(); render();
 }
 
-/* =====================================================
-   [3] 도감 화면 렌더링 (잠금 항목 클릭 차단)
-===================================================== */
 function renderCollection() {
   const visitedCount = Object.keys(state.visits).length;
   const collectionRate = Math.round((visitedCount / heritageData.length) * 100);
@@ -498,9 +452,6 @@ function renderCollection() {
   `;
 }
 
-/* =====================================================
-   [4] 랭킹 화면 렌더링
-===================================================== */
 function renderRanking() {
   return `
     <h2 class="page-title">랭킹</h2>
@@ -514,9 +465,6 @@ function renderRanking() {
   `;
 }
 
-/* =====================================================
-   [5] 학교 클럽 화면 렌더링
-===================================================== */
 function renderSchoolClub() {
   const currentSchool = schoolData.find(s => s.id === state.joinedSchool) || schoolData[0];
   const completedMissions = clubMissions.filter(m => m.current >= m.target).length;
@@ -651,9 +599,6 @@ function selectSchoolClub(schoolId) {
   save(); render();
 }
 
-/* =====================================================
-   [6] 프로필 화면 렌더링 (대표 배지 6개 한눈에 보기 반영)
-===================================================== */
 function renderProfile() {
   const visitedCount = Object.keys(state.visits).length;
   const quizCount = Object.keys(state.quizzes).length;
@@ -661,7 +606,6 @@ function renderProfile() {
   const unlockedCount = badgePool.filter(b => b.unlocked).length;
 
   return `
-    <!-- 1. 프로필 메인 헤더 (연필 아이콘 클릭 시 닉네임 변경) -->
     <div class="profile-main-header">
       <div class="profile-user-row">
         <div class="profile-avatar-circle">🎓</div>
@@ -686,7 +630,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 2. 스탯 그리드 -->
     <div class="profile-stats-grid">
       <div class="stat-box-card">
         <div class="stat-box-val orange">🪙 ${state.points}P</div>
@@ -706,7 +649,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 3. 대표 배지 (요청사항: 6개 슬롯 그리드 배치) -->
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span class="section-title">🎖️ 대표 배지</span>
@@ -727,7 +669,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 4. 메뉴 리스트 -->
     <div class="menu-list-card">
       <div class="menu-link-item is-locked">
         <div class="menu-link-left"><span style="font-size:16px;">🎖️</span><span>배지 전체 보기</span></div>
@@ -743,7 +684,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 5. 최근 활동 -->
     <div class="card">
       <div class="section-title">📌 최근 활동</div>
       <div class="activity-list">
@@ -759,7 +699,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 6. 방문 기록 -->
     <div class="card">
       <div class="section-title">📌 방문 기록</div>
       <div style="text-align:center; padding:16px; font-size:12px; color:#aaa;">
@@ -767,7 +706,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 7. 획득한 배지 -->
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span class="section-title">🎖️ 획득한 배지</span>
@@ -784,7 +722,6 @@ function renderProfile() {
       </div>
     </div>
 
-    <!-- 8. 개발용 테스트 도구 -->
     <div class="test-tools-card">
       <div class="section-title" style="font-size:13px;">🧪 테스트 도구 (개발용)</div>
       <div class="test-btn-grid">
@@ -805,13 +742,10 @@ function resetTestData() {
 }
 
 function fullReset() {
-  localStorage.removeItem("heritageGO_v11");
+  localStorage.removeItem("heritageGO_v12");
   location.reload();
 }
 
-/* =====================================================
-   [7] 문화유산 상세 및 탐험 루트 페이지
-===================================================== */
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
   const isVisited = state.visits[h.id];
@@ -822,7 +756,7 @@ function renderHeritageDetail(id) {
 
   if (!state.aiChat[h.id]) {
     state.aiChat[h.id] = [
-      { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 아래 버튼으로 궁금한 걸 골라봐!` }
+      { sender: "ai", text: `안녕! 나는 ${h.name}을 알려주는 데모 역사 도우미야. 질문을 선택해줘!` }
     ];
   }
   const chatLogs = state.aiChat[h.id];
@@ -844,13 +778,27 @@ function renderHeritageDetail(id) {
       <p class="detail-desc">${h.desc}</p>
     </div>
 
-    <!-- 1. 방문 인증 -->
+    <!-- 1. 지도 API & GPS 방문 인증 -->
     <div class="card">
-      <div class="section-title">📸 방문 인증</div>
-      <div class="section-sub">${isVisited ? '📸 이미 방문한 유산입니다. 재방문 인증도 가능해요!' : '아직 방문하지 않았어요. 첫 방문 시 +10P!'}</div>
+      <div class="section-title">📍 실시간 지도 및 GPS 방문 인증</div>
+      <div class="section-sub">${isVisited ? '📸 이미 방문 인증을 완료한 유산입니다!' : '유산 반경 500m 이내 현위치에서 GPS 버튼을 눌러 인증하세요.'}</div>
 
+      <div id="mapContainer" class="map-container"></div>
+
+      <div class="gps-info-box" id="gpsDistanceText">
+        <span>📡 위치를 측정한 후 거리 정보가 표기됩니다.</span>
+      </div>
+
+      <button class="btn-primary-orange" onclick="verifyGPSVisit('${h.id}')">
+        📡 GPS 위치 측정하여 방문 인증하기
+      </button>
+    </div>
+
+    <!-- 2. 인증 사진 선택 -->
+    <div class="card">
+      <div class="section-title">📸 현장 인증 사진 업로드</div>
       <div class="upload-wrapper">
-        <div class="upload-wrapper-title">📷 인증 사진 선택</div>
+        <div class="upload-wrapper-title">📷 사진 선택 및 변경</div>
         <div class="upload-box" onclick="triggerFileUpload('visitFile')">
           <div id="visitPreviewText">
             <div style="font-size:28px; margin-bottom:4px;">📷</div>
@@ -869,16 +817,12 @@ function renderHeritageDetail(id) {
         </div>
 
         <button class="dashed-upload-btn" onclick="triggerFileUpload('visitFile')">
-          📷 사진 업로드하기
+          📷 사진 파일 선택
         </button>
       </div>
-
-      <button class="btn-primary-orange" onclick="submitVisit('${h.id}')">
-        📸 방문 인증하기
-      </button>
     </div>
 
-    <!-- 2. 역사 퀴즈 -->
+    <!-- 3. 역사 퀴즈 -->
     ${h.quiz ? `
       <div class="card">
         <div class="quiz-header-bar">
@@ -906,7 +850,7 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 3. AI 역사 도우미 -->
+    <!-- 4. AI 역사 도우미 -->
     <div class="ai-card-container">
       <div class="ai-header">
         <div class="ai-header-info">
@@ -935,7 +879,7 @@ function renderHeritageDetail(id) {
       </div>
     </div>
 
-    <!-- 4. 연결된 탐험 루트 -->
+    <!-- 5. 연결된 탐험 루트 -->
     ${connectedRoutes.length > 0 ? `
       <div class="card">
         <div class="section-title">🗺️ 연결된 탐험 루트</div>
@@ -949,7 +893,7 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 5. 변화 기록 남기기 -->
+    <!-- 6. 변화 기록 남기기 -->
     <div class="card">
       <div class="section-title">🔄 변화 기록 남기기</div>
       <div class="section-sub">
@@ -1058,7 +1002,6 @@ function renderRouteDetail(routeId) {
   `;
 }
 
-/* 인터랙션 세부 로직 */
 function triggerFileUpload(id) { document.getElementById(id).click(); }
 function handleImagePreview(input, imgId, textId) {
   if (input.files && input.files[0]) {
@@ -1118,7 +1061,6 @@ function resetAIChat(heritageId) {
   save(); render();
 }
 
-/* 메인 화면 렌더러 컨트롤러 */
 function render() {
   document.getElementById("headerPoints").textContent = state.points;
   const headerTitle = document.getElementById("headerTitle");
@@ -1142,7 +1084,10 @@ function render() {
   const content = document.getElementById("content");
   if (state.viewSchoolClub) content.innerHTML = renderSchoolClub();
   else if (state.routeId) content.innerHTML = renderRouteDetail(state.routeId);
-  else if (state.detailId) content.innerHTML = renderHeritageDetail(state.detailId);
+  else if (state.detailId) {
+    content.innerHTML = renderHeritageDetail(state.detailId);
+    setTimeout(() => loadKakaoMap(state.detailId), 100);
+  }
   else {
     if (state.tab === "home") content.innerHTML = renderHome();
     else if (state.tab === "explore") content.innerHTML = renderExplore();
