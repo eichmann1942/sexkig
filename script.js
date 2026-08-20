@@ -1,5 +1,5 @@
 /* =====================================================
-   문화유산 & 위도·경도(GPS) 좌표 데이터베이스
+   국가유산청(구 문화재청) 공식 지정 데이터 기반 데이터베이스
 ===================================================== */
 const heritageData = [
   {
@@ -8,7 +8,7 @@ const heritageData = [
     region: "강원",
     subRegion: "강원 춘천",
     era: "삼국시대(추정)",
-    category: "성곽",
+    category: "기념물",
     lat: 37.8885,
     lng: 127.7312,
     desc: "봉의산 정상부를 둘러싸 쌓은 '테퇴식' 산성으로, 고구려~신라 등 삼국시대에 처음 축조된 것으로 추정됩니다.",
@@ -34,7 +34,7 @@ const heritageData = [
     region: "강원",
     subRegion: "강원 춘천",
     era: "조선시대",
-    category: "교육",
+    category: "유형문화유산",
     lat: 37.8812,
     lng: 127.7335,
     desc: "조선시대 지방 관아에서 인재를 양성하던 공립 교육 기관입니다.",
@@ -58,7 +58,7 @@ const heritageData = [
     region: "강원",
     subRegion: "강원 강릉",
     era: "조선시대",
-    category: "가옥",
+    category: "보물",
     lat: 37.7792,
     lng: 128.8794,
     desc: "검은 대나무가 둘러싼 조선 중기 목조건물로, 신사임당과 율곡 이이가 태어난 명소입니다.",
@@ -76,12 +76,81 @@ const heritageData = [
     }
   },
   {
+    id: "h4",
+    name: "강릉 경포대",
+    region: "강원",
+    subRegion: "강원 강릉",
+    era: "고려~조선",
+    category: "보물",
+    lat: 37.7950,
+    lng: 128.8965,
+    desc: "경포호수가 한눈에 내려다보이는 경승지로, 관동팔경 중 으뜸으로 꼽히는 정자입니다.",
+    icon: "🌊",
+    bg: "#1f8a70",
+    quiz: {
+      q: "Q. 관동팔경 중 으뜸으로 꼽히며 경포호가 내려다보이는 정자는 어디일까요?",
+      options: ["강릉 경포대", "삼척 죽서루", "양양 의상대", "청간정"],
+      answer: 0,
+      explanation: "경포대는 경포호수와 동해바다의 아름다운 경관을 한눈에 조망하는 정자입니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "관동팔경 중 대표적 누정으로 수많은 조선 시대 명시가 전해지는 문학 명소입니다."
+    }
+  },
+  {
+    id: "h5",
+    name: "남한산성",
+    region: "경기",
+    subRegion: "경기 광주",
+    era: "조선시대",
+    category: "사적·세계유산",
+    lat: 37.4786,
+    lng: 127.1837,
+    desc: "병자호란의 아픔이 서려 있는 유네스코 세계문화유산으로, 비상시 임시 수도 역할을 한 산성입니다.",
+    icon: "🏰",
+    bg: "#e05627",
+    quiz: {
+      q: "Q. 병자호란 당시 인조 임금이 피난하여 47일간 항전했던 산성은 어디일까요?",
+      options: ["남한산성", "북한산성", "봉의산성", "행주산성"],
+      answer: 0,
+      explanation: "1636년 병자호란 때 인조 임금과 신하들이 남한산성으로 피난하여 항전했습니다."
+    },
+    routeIds: ["r2"],
+    aiPresetResponses: {
+      "왜 중요한가요?": "동아시아 군사 건축 기술의 집약체로서 유네스코 세계문화유산에 등재되었습니다."
+    }
+  },
+  {
+    id: "h6",
+    name: "수원 화성",
+    region: "경기",
+    subRegion: "경기 수원",
+    era: "조선시대",
+    category: "사적·세계유산",
+    lat: 37.2851,
+    lng: 127.0163,
+    desc: "정조대왕이 효심과 실학 기술을 동원해 완공한 과학적 성곽 도시입니다.",
+    icon: "🧱",
+    bg: "#f3ab28",
+    quiz: {
+      q: "Q. 정조의 명을 받아 수원 화성 건축에 필요한 '거중기'를 발명한 실학자는 누구일까요?",
+      options: ["정약용", "박지원", "김정호", "홍대용"],
+      answer: 0,
+      explanation: "정약용 선생이 도르래의 원리를 이용한 거중기를 발명해 화성을 축조했습니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "거중기 등 과학 기구를 활용해 건설한 유네스코 세계문화유산입니다."
+    }
+  },
+  {
     id: "h7",
     name: "경복궁",
     region: "서울",
-    subRegion: "서울",
+    subRegion: "서울 종로",
     era: "조선시대",
-    category: "궁궐",
+    category: "사적",
     lat: 37.5796,
     lng: 126.9770,
     desc: "1395년 태조 이성계가 창건한 조선 왕조 최고의 법궁입니다.",
@@ -96,6 +165,167 @@ const heritageData = [
     routeIds: [],
     aiPresetResponses: {
       "왜 중요한가요?": "조선 왕조의 으뜸 궁궐(법궁)로서 근정전, 경회루 등 최고의 왕실 건축물입니다."
+    }
+  },
+  {
+    id: "h8",
+    name: "서울 덕수궁",
+    region: "서울",
+    subRegion: "서울 중구",
+    era: "조선·대한제국",
+    category: "사적",
+    lat: 37.5658,
+    lng: 126.9751,
+    desc: "고종 황제가 대한제국을 선포하고 근대적 개혁을 추진했던 역사적 장소입니다.",
+    icon: "🕌",
+    bg: "#f3ab28",
+    quiz: {
+      q: "Q. 1897년 고종 황제가 덕수궁에서 선포한 나라의 이름은 무엇일까요?",
+      options: ["대한제국", "조선", "고려", "대한민국"],
+      answer: 0,
+      explanation: "고종 황제는 덕수궁에서 황제 즉위식을 거행하고 대한제국을 선포했습니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "전통 한옥 전각과 서양식 석조전이 함께 자리잡은 근대 역사의 현장입니다."
+    }
+  },
+  {
+    id: "h9",
+    name: "창덕궁",
+    region: "서울",
+    subRegion: "서울 종로",
+    era: "조선시대",
+    category: "사적·세계유산",
+    lat: 37.5794,
+    lng: 126.9910,
+    desc: "자연 지형과 아름답게 조화를 이루는 후원이 특징인 유네스코 세계유산입니다.",
+    icon: "🌺",
+    bg: "#339982",
+    quiz: {
+      q: "Q. 조선 임금들이 가장 오래 거주했던 궁궐로 후원의 아름다움으로 유네스코 세계유산에 등재된 궁은?",
+      options: ["창덕궁", "경복궁", "창경궁", "경희궁"],
+      answer: 0,
+      explanation: "창덕궁은 자연 배치가 뛰어나 1997년 유네스코 세계유산으로 등재되었습니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "한국의 전통 궁궐 조경 기법을 가장 잘 간직한 세계적 유산입니다."
+    }
+  },
+  {
+    id: "h10",
+    name: "경주 첨성대",
+    region: "경북",
+    subRegion: "경북 경주",
+    era: "신라",
+    category: "국보",
+    lat: 35.8347,
+    lng: 129.2190,
+    desc: "신라 선덕여왕 때 건립된 동양에서 가장 오래된 천문대입니다.",
+    icon: "⭐",
+    bg: "#5856d6",
+    quiz: {
+      q: "Q. 경주 첨성대는 신라 어느 왕 때 건립되었을까요?",
+      options: ["선덕여왕", "진흥왕", "무열왕", "경순왕"],
+      answer: 0,
+      explanation: "첨성대는 신라 선덕여왕 재위 기간에 건립되었습니다."
+    },
+    routeIds: ["r1"],
+    aiPresetResponses: {
+      "왜 중요한가요?": "동양에서 현존하는 가장 오래된 천문 관측 건축물입니다."
+    }
+  },
+  {
+    id: "h11",
+    name: "경주 불국사",
+    region: "경북",
+    subRegion: "경북 경주",
+    era: "신라",
+    category: "사적·세계유산",
+    lat: 35.7901,
+    lng: 129.3320,
+    desc: "신라 경덕왕 때 김대성이 창건한 사찰로 석가탑과 다보탑이 우뚝 서 있습니다.",
+    icon: "🔔",
+    bg: "#e05627",
+    quiz: {
+      q: "Q. 불국사 대웅전 앞마당에 마주 보고 서 있는 유명한 두 탑은 석가탑과 무엇일까요?",
+      options: ["다보탑", "분황사탑", "감은사지탑", "정림사지탑"],
+      answer: 0,
+      explanation: "불국사 대웅전 앞에는 석가탑(무영탑)과 다보탑이 조화롭게 서 있습니다."
+    },
+    routeIds: ["r1"],
+    aiPresetResponses: {
+      "왜 중요한가요?": "신라 불교 예술과 건축 기술의 최고봉을 보여주는 유네스코 세계유산입니다."
+    }
+  },
+  {
+    id: "h12",
+    name: "공주 무령왕릉",
+    region: "충남",
+    subRegion: "충남 공주",
+    era: "백제",
+    category: "사적·세계유산",
+    lat: 36.4601,
+    lng: 127.1136,
+    desc: "백제 25대 무령왕과 왕비가 묻힌 벽돌무덤으로, 삼국시대 왕릉 중 유일하게 피장자가 확인되었습니다.",
+    icon: "👑",
+    bg: "#f3ab28",
+    quiz: {
+      q: "Q. 도굴되지 않은 상태로 발견되어 백제 문화의 정수를 보여준 무령왕릉의 무덤 양식은?",
+      options: ["벽돌무덤(전축분)", "굴식 돌방무덤", "돌무지 무덤", "돌무지 덧널무덤"],
+      answer: 0,
+      explanation: "무령왕릉은 중국 남조의 영향을 받은 벽돌무덤(전축분) 양식입니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "삼국시대 왕릉 중 무덤의 주인과 축조 연대가 정확히 밝혀진 유일한 무덤입니다."
+    }
+  },
+  {
+    id: "h13",
+    name: "순천 낙안읍성",
+    region: "전남",
+    subRegion: "전남 순천",
+    era: "조선시대",
+    category: "사적",
+    lat: 34.9070,
+    lng: 127.3418,
+    desc: "조선시대 성곽, 관아, 초가집이 원형 그대로 보존되어 현재도 주민들이 살고 있는 민속마을입니다.",
+    icon: "🌾",
+    bg: "#1f8a70",
+    quiz: {
+      q: "Q. 조선 시대 읍성의 형태와 초가집 주민 삶의 모습이 가장 잘 보존된 전남의 사적은?",
+      options: ["순천 낙안읍성", "해미읍성", "고창읍성", "진주성"],
+      answer: 0,
+      explanation: "낙안읍성은 전통 초가집과 성곽이 실제 삶의 터전으로 유지되는 대표적 민속 성곽입니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "조선 시대 평지 읍성의 형태와 소박한 민가 문화가 살아 숨 쉬는 공간입니다."
+    }
+  },
+  {
+    id: "h14",
+    name: "제주 목관아",
+    region: "제주",
+    subRegion: "제주 제주",
+    era: "조선시대",
+    category: "사적",
+    lat: 33.5134,
+    lng: 126.5218,
+    desc: "조선시대 제주 행정의 중심지였던 관아 터로 탐라국 이래 제주의 역사가 담긴 곳입니다.",
+    icon: "🍊",
+    bg: "#5856d6",
+    quiz: {
+      q: "Q. 조선시대 제주목사가 집무를 보던 중심 행정 관아 유적은 어디일까요?",
+      options: ["제주 목관아", "삼양동 유적", "항파두리 항몽유적", "알뜨르 비행장"],
+      answer: 0,
+      explanation: "제주 목관아는 관덕정을 비롯해 조선 시대 제주 행정 관아가 복원된 사적입니다."
+    },
+    routeIds: [],
+    aiPresetResponses: {
+      "왜 중요한가요?": "제주의 정치·행정·문화 중심지로서 역사적 정체성을 지닌 핵심 유적입니다."
     }
   }
 ];
@@ -121,10 +351,10 @@ const routeData = [
     name: "삼국시대의 흔적",
     icon: "🏹",
     bg: "#1f8a70",
-    desc: "춘천 봉의산성과 경주 첨성대를 통해 삼국시대 사람들의 방어 기술과 과학 수준을 만나봐요.",
+    desc: "춘천 봉의산성과 경주 첨성대, 불국사를 통해 삼국시대 사람들의 방어 기술과 건축 예술을 만나봐요.",
     rewardBadge: "🏆 삼국 역사 탐험가",
     rewardDesc: "삼국시대의 흔적 루트 완주",
-    steps: ["h1", "h8"]
+    steps: ["h1", "h10", "h11"]
   },
   {
     id: "r2",
@@ -148,7 +378,7 @@ const badgePool = [
 ];
 
 /* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v12")) || {
+let state = JSON.parse(localStorage.getItem("heritageGO_v13")) || {
   tab: "home",
   detailId: null,
   routeId: null,
@@ -164,17 +394,15 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v12")) || {
   selectedChangeTag: "특별한 변화 없음",
   aiChat: {},
   activities: [
-    { type: "quiz", title: "춘천 봉의산성 퀴즈 정답", time: "2026.08.19 20:46" },
-    { type: "quiz", title: "춘천 봉의산성 퀴즈 오답", time: "2026.08.19 20:45" },
-    { type: "quiz", title: "남한산성 퀴즈 정답 (+20P)", time: "2026.08.19 20:43" },
-    { type: "club", title: "원주고 역사탐험클럽에 가입했어요!", time: "2026.08.19 19:13" },
-    { type: "mission", title: "클럽 미션 참여: 우리 지역 문화유산 30곳 방문하기", time: "2026.08.19 19:13" }
+    { type: "quiz", title: "춘천 봉의산성 퀴즈 정답", time: "2026.08.20 18:46" },
+    { type: "quiz", title: "경복궁 퀴즈 정답 (+20P)", time: "2026.08.20 18:43" },
+    { type: "club", title: "원주고 역사탐험클럽 가입", time: "2026.08.19 19:13" }
   ],
   filterRegion: "전체보기"
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v12", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v13", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -241,21 +469,41 @@ function verifyGPSVisit(heritageId) {
   );
 }
 
-/* 카카오 지도 로딩 및 마커 생성 */
+/* =====================================================
+   [카카오 지도 안전 로딩 및 동적 DOM 마커 렌더링]
+===================================================== */
 function loadKakaoMap(heritageId) {
   const h = heritageData.find(x => x.id === heritageId);
   const container = document.getElementById("mapContainer");
-  if (!container || !h || typeof kakao === 'undefined' || !kakao.maps) return;
+  if (!container || !h) return;
 
-  const options = {
-    center: new kakao.maps.LatLng(h.lat, h.lng),
-    level: 3
-  };
+  if (typeof kakao === 'undefined' || !kakao.maps) {
+    container.innerHTML = `
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#888; font-size:11px; text-align:center; padding:12px; line-height:1.5;">
+        ⚠️ 카카오 지도를 불러오는 중입니다...<br>
+        자바스크립트 키 권한 설정(Kakao Developers Web 플랫폼)을 확인해주세요.
+      </div>`;
+    return;
+  }
 
-  const map = new kakao.maps.Map(container, options);
-  const markerPosition = new kakao.maps.LatLng(h.lat, h.lng);
-  const marker = new kakao.maps.Marker({ position: markerPosition });
-  marker.setMap(map);
+  // kakao.maps.load 콜백을 사용하여 SDK 완전 로드 보장
+  kakao.maps.load(() => {
+    const moveLatLng = new kakao.maps.LatLng(h.lat, h.lng);
+    const options = {
+      center: moveLatLng,
+      level: 3
+    };
+
+    const map = new kakao.maps.Map(container, options);
+    const marker = new kakao.maps.Marker({ position: moveLatLng });
+    marker.setMap(map);
+
+    // 동적 DOM 생성에 따른 크기 재계산
+    setTimeout(() => {
+      map.relayout();
+      map.setCenter(moveLatLng);
+    }, 100);
+  });
 }
 
 function switchTab(tabName) {
@@ -360,7 +608,7 @@ function renderHome() {
       <div class="icon">🏛️</div>
       <div>
         <h4>경복궁</h4>
-        <p>📜 조선시대 · 궁궐</p>
+        <p>📜 조선시대 · 사적</p>
         <p>조선의 법궁, 정치와 왕실의 중심</p>
       </div>
     </div>
@@ -372,14 +620,14 @@ function renderHome() {
 }
 
 function renderExplore() {
-  const regions = ["전체보기", "강원", "경기", "서울", "경북"];
+  const regions = ["전체보기", "강원", "경기", "서울", "경북", "충남", "전남", "제주"];
   const filtered = state.filterRegion === "전체보기" 
     ? heritageData 
     : heritageData.filter(h => h.region === state.filterRegion);
 
   return `
     <h2 class="page-title">문화유산 탐험</h2>
-    <p class="page-sub">문화유산을 방문하고 포인트를 모아보세요!</p>
+    <p class="page-sub">국가유산청 등록 유산을 방문하고 포인트를 모아보세요!</p>
 
     <div class="filter-scroll">
       ${regions.map(r => `
@@ -742,7 +990,7 @@ function resetTestData() {
 }
 
 function fullReset() {
-  localStorage.removeItem("heritageGO_v12");
+  localStorage.removeItem("heritageGO_v13");
   location.reload();
 }
 
@@ -771,7 +1019,7 @@ function renderHeritageDetail(id) {
           <div class="detail-tags">
             <span class="detail-tag">📍 ${h.subRegion}</span>
             <span class="detail-tag">📜 ${h.era}</span>
-            <span class="detail-tag">🏛️ ${h.category || '문화유산'}</span>
+            <span class="detail-tag">🏛️ ${h.category || '국가유산'}</span>
           </div>
         </div>
       </div>
