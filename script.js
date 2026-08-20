@@ -378,7 +378,7 @@ const badgePool = [
 ];
 
 /* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v13")) || {
+let state = JSON.parse(localStorage.getItem("heritageGO_v14")) || {
   tab: "home",
   detailId: null,
   routeId: null,
@@ -389,8 +389,6 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v13")) || {
   joinedSchool: "s1",
   visits: {},
   quizzes: { h1: 0, h5: 0, h7: 0 },
-  selectedIconVisit: 0,
-  selectedIconChange: 4,
   selectedChangeTag: "특별한 변화 없음",
   aiChat: {},
   activities: [
@@ -402,7 +400,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v13")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v13", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v14", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -486,7 +484,6 @@ function loadKakaoMap(heritageId) {
     return;
   }
 
-  // kakao.maps.load 콜백을 사용하여 SDK 완전 로드 보장
   kakao.maps.load(() => {
     const moveLatLng = new kakao.maps.LatLng(h.lat, h.lng);
     const options = {
@@ -498,7 +495,6 @@ function loadKakaoMap(heritageId) {
     const marker = new kakao.maps.Marker({ position: moveLatLng });
     marker.setMap(map);
 
-    // 동적 DOM 생성에 따른 크기 재계산
     setTimeout(() => {
       map.relayout();
       map.setCenter(moveLatLng);
@@ -990,7 +986,7 @@ function resetTestData() {
 }
 
 function fullReset() {
-  localStorage.removeItem("heritageGO_v13");
+  localStorage.removeItem("heritageGO_v14");
   location.reload();
 }
 
@@ -999,8 +995,6 @@ function renderHeritageDetail(id) {
   const isVisited = state.visits[h.id];
   const quizSolved = state.quizzes[h.id] !== undefined;
   const selectedOpt = state.quizzes[h.id];
-
-  const presetIcons = ["🏯", "🏛️", "👘", "🏰", "⛩️", "🏺"];
 
   if (!state.aiChat[h.id]) {
     state.aiChat[h.id] = [
@@ -1042,7 +1036,7 @@ function renderHeritageDetail(id) {
       </button>
     </div>
 
-    <!-- 2. 인증 사진 선택 -->
+    <!-- 2. 현장 인증 사진 업로드 (요청사항: 아이콘 선택 영역만 깔끔하게 제거) -->
     <div class="card">
       <div class="section-title">📸 현장 인증 사진 업로드</div>
       <div class="upload-wrapper">
@@ -1050,18 +1044,10 @@ function renderHeritageDetail(id) {
         <div class="upload-box" onclick="triggerFileUpload('visitFile')">
           <div id="visitPreviewText">
             <div style="font-size:28px; margin-bottom:4px;">📷</div>
-            아래에서 아이콘을 선택하거나<br>사진을 업로드하세요
+            사진을 업로드하세요
           </div>
           <img id="visitImgPreview" style="display:none;" />
           <input type="file" id="visitFile" accept="image/*" style="display:none;" onchange="handleImagePreview(this, 'visitImgPreview', 'visitPreviewText')" />
-        </div>
-
-        <div class="icon-selector-row">
-          ${presetIcons.map((ic, idx) => `
-            <div class="icon-badge-btn icon-bg-${idx+1} ${state.selectedIconVisit === idx ? 'selected' : ''}" onclick="selectIcon('visit', ${idx})">
-              ${ic}
-            </div>
-          `).join('')}
         </div>
 
         <button class="dashed-upload-btn" onclick="triggerFileUpload('visitFile')">
@@ -1141,7 +1127,7 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 6. 변화 기록 남기기 -->
+    <!-- 6. 변화 기록 남기기 (요청사항: 아이콘 선택 영역만 깔끔하게 제거) -->
     <div class="card">
       <div class="section-title">🔄 변화 기록 남기기</div>
       <div class="section-sub">
@@ -1154,18 +1140,10 @@ function renderHeritageDetail(id) {
         <div class="upload-box" onclick="triggerFileUpload('changeFile')">
           <div id="changePreviewText">
             <div style="font-size:28px; margin-bottom:4px;">📷</div>
-            아래에서 아이콘을 선택하거나<br>사진을 업로드하세요
+            사진을 업로드하세요
           </div>
           <img id="changeImgPreview" style="display:none;" />
           <input type="file" id="changeFile" accept="image/*" style="display:none;" onchange="handleImagePreview(this, 'changeImgPreview', 'changePreviewText')" />
-        </div>
-
-        <div class="icon-selector-row">
-          ${presetIcons.map((ic, idx) => `
-            <div class="icon-badge-btn icon-bg-${idx+1} ${state.selectedIconChange === idx ? 'selected' : ''}" onclick="selectIcon('change', ${idx})">
-              ${ic}
-            </div>
-          `).join('')}
         </div>
 
         <button class="dashed-upload-btn" onclick="triggerFileUpload('changeFile')">
@@ -1262,12 +1240,6 @@ function handleImagePreview(input, imgId, textId) {
     };
     reader.readAsDataURL(input.files[0]);
   }
-}
-
-function selectIcon(type, idx) {
-  if (type === 'visit') state.selectedIconVisit = idx;
-  else state.selectedIconChange = idx;
-  save(); render();
 }
 
 function selectChangeTag(tag) { state.selectedChangeTag = tag; save(); render(); }
