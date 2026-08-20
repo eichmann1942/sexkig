@@ -987,36 +987,6 @@ button:active, .heritage-card:active, .quick-btn:active, .ai-preset-btn:active, 
   inset: 0;
 }
 
-.icon-selector-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.icon-badge-btn {
-  flex: 1;
-  aspect-ratio: 1;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-
-.icon-badge-btn.selected {
-  border-color: #e05627;
-}
-
-.icon-bg-1 { background: #ffdada; }
-.icon-bg-2 { background: #dce3f8; }
-.icon-bg-3 { background: #dcf5eb; }
-.icon-bg-4 { background: #fdf1d8; }
-.icon-bg-5 { background: #f3dcf8; }
-.icon-bg-6 { background: #dcf1f8; }
-
 .dashed-upload-btn {
   width: 100%;
   padding: 10px;
