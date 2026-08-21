@@ -44,7 +44,7 @@
     </nav>
   </div>
 
-  <!-- 클럽 변경 모달 -->
+  <!-- 클럽 변경/선택 모달 -->
   <div class="modal-overlay" id="clubModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -52,10 +52,81 @@
         <button class="modal-close-btn" onclick="closeClubModal()">✕</button>
       </div>
       <div class="modal-body" id="clubModalList"></div>
+      <button class="btn-primary-orange" style="margin-top:10px;" onclick="openCreateClubModal()">➕ 새 클럽 만들기</button>
     </div>
   </div>
 
-  <!-- 닉네임 변경 모달 -->
+  <!-- [신규 1] 클럽 만들기 모달 -->
+  <div class="modal-overlay" id="createClubModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>➕ 클럽 만들기</h3>
+        <button class="modal-close-btn" onclick="closeCreateClubModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="input-label">1. 클럽 이름</label>
+        <input type="text" id="newClubName" class="modal-input" placeholder="클럽 이름을 입력하세요 (2~15자)" maxlength="15">
+        
+        <label class="input-label" style="margin-top:12px;">2. 클럽 아이콘/이미지 선택</label>
+        <div class="club-img-select-row">
+          <button class="club-img-btn selected" onclick="selectClubImg('🏫')">🏫</button>
+          <button class="club-img-btn" onclick="selectClubImg('⚔️')">⚔️</button>
+          <button class="club-img-btn" onclick="selectClubImg('🏹')">🏹</button>
+          <button class="club-img-btn" onclick="selectClubImg('🏯')">🏯</button>
+          <button class="club-img-btn" onclick="selectClubImg('📜')">📜</button>
+        </div>
+
+        <label class="input-label" style="margin-top:12px;">3. 클럽 설명</label>
+        <textarea id="newClubDesc" class="modal-textarea" placeholder="클럽의 목표나 소개해할 내용을 작성해주세요."></textarea>
+        
+        <button class="btn-primary-orange" style="margin-top:14px;" onclick="submitCreateClub()">클럽 생성하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- [신규 2] 유산 제보 모달 -->
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📢 문화유산 제보하기</h3>
+        <button class="modal-close-btn" onclick="closeReportModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:11px; color:#888; margin:0 0 10px 0;">등록되지 않은 유산을 제보해주세요! 관리자 검토 후 도감에 반영됩니다.</p>
+        
+        <label class="input-label">사진 첨부 (필수)</label>
+        <div class="upload-box" onclick="triggerFileUpload('reportFile')" style="height:120px; margin-bottom:8px;">
+          <div id="reportPreviewText">
+            <div style="font-size:24px;">📷</div>
+            사진 업로드하기
+          </div>
+          <img id="reportImgPreview" style="display:none;" />
+          <input type="file" id="reportFile" accept="image/*" style="display:none;" onchange="handleImagePreview(this, 'reportImgPreview', 'reportPreviewText')" />
+        </div>
+
+        <label class="input-label">유산 이름</label>
+        <input type="text" id="reportName" class="modal-input" placeholder="예) 춘천 의암류인석유적지">
+
+        <label class="input-label" style="margin-top:10px;">유산 간략 설명</label>
+        <textarea id="reportDesc" class="modal-textarea" placeholder="유산의 위치, 역사적 설명 등을 적어주세요."></textarea>
+
+        <button class="btn-primary-orange" style="margin-top:14px;" onclick="submitReport()">관리자에게 검토 요청하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- [신규 3 & 4] 멤버 프로필 & 친구추가 모달 -->
+  <div class="modal-overlay" id="memberProfileModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="memberProfileTitle">👤 멤버 프로필</h3>
+        <button class="modal-close-btn" onclick="closeMemberProfileModal()">✕</button>
+      </div>
+      <div class="modal-body" id="memberProfileBody"></div>
+    </div>
+  </div>
+
+  <!-- 닉네임 변경 모달 (중복 방지 기능 추가) -->
   <div class="modal-overlay" id="nicknameModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -64,10 +135,10 @@
       </div>
       <div class="modal-body">
         <p style="font-size:12px; color:#888; margin:0 0 12px 0;">
-          닉네임은 변경 후 <strong>30일 동안</strong> 다시 변경할 수 없습니다.
+          닉네임은 변경 후 <strong>30일 동안</strong> 다시 변경할 수 없으며, <strong>중복 사용이 불가능</strong>합니다.
         </p>
         <input type="text" id="nicknameInput" class="modal-input" placeholder="새 닉네임 입력 (2~10자)" maxlength="10">
-        <button class="btn-primary-orange" style="margin-top:12px;" onclick="submitNicknameChange()">변경 완료</button>
+        <button class="btn-primary-orange" style="margin-top:12px;" onclick="submitNicknameChange()">중복 확인 및 변경</button>
       </div>
     </div>
   </div>
