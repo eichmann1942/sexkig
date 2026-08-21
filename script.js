@@ -268,7 +268,7 @@ const heritageData = [
     category: "사적·세계유산",
     lat: 36.4601,
     lng: 127.1136,
-    desc: "백제 25대 무령왕과 왕비가 묻힌 벽돌무덤으로, 삼국시대 왕릉 중 유일하게 피장자가 확인되었습니다.",
+    desc: "백제 25대 무령왕와 왕비가 묻힌 벽돌무덤으로, 삼국시대 왕릉 중 유일하게 피장자가 확인되었습니다.",
     icon: "👑",
     bg: "#f3ab28",
     quiz: {
@@ -330,11 +330,20 @@ const heritageData = [
   }
 ];
 
-const schoolData = [
-  { id: "s1", name: "원주고 역사탐험클럽", region: "원주", members: 26, points: 8960, visits: 131, tag: "🔥 성장 클럽" },
-  { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", members: 38, points: 11200, visits: 185, tag: "🏆 명예 클럽" },
-  { id: "s3", name: "봉의고 역사탐험클럽", region: "춘천", members: 29, points: 6400, visits: 92, tag: "🌱 열정 클럽" },
-  { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 25, points: 5800, visits: 78, tag: "🔥 성장 클럽" }
+/* [신규] 서비스 내 전체 회원 및 닉네임 DB (중복 방지 & 프로필 열람용) */
+const allUserDB = [
+  { id: "u1", nickname: "유산 탐험가", level: "🌱 문화유산 새싹", points: 40, visits: 0, icon: "🎓" },
+  { id: "u2", nickname: "역사박사님", level: "🔹 문화유산 탐험가", points: 840, visits: 18, icon: "🦁" },
+  { id: "u3", nickname: "춘천유적왕", level: "👑 유산 수호자", points: 1520, visits: 32, icon: "🐯" },
+  { id: "u4", nickname: "강원탐험러", level: "🌱 문화유산 새싹", points: 210, visits: 5, icon: "🦊" }
+];
+
+/* 초기 클럽 데이터 */
+let schoolData = [
+  { id: "s1", name: "원주고 역사탐험클럽", region: "원주", members: 26, points: 8960, visits: 131, tag: "🔥 성장 클럽", icon: "🏫", desc: "원주고등학교 학생들의 대표 문화유산 탐험 클럽입니다.", memberList: ["u2", "u4"] },
+  { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", members: 38, points: 11200, visits: 185, tag: "🏆 명예 클럽", icon: "🏫", desc: "춘천 지역 문화유산을 중심으로 매주 모임을 가집니다.", memberList: ["u3"] },
+  { id: "s3", name: "봉의고 역사탐험클럽", region: "춘천", members: 29, points: 6400, visits: 92, tag: "🌱 열정 클럽", icon: "🏫", desc: "봉의산성 유적 수호 소모임입니다.", memberList: [] },
+  { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 25, points: 5800, visits: 78, tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다.", memberList: [] }
 ];
 
 const clubMissions = [
@@ -377,8 +386,8 @@ const badgePool = [
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-/* 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v14")) || {
+/* 애플리케이션 상태 관리 */
+let state = JSON.parse(localStorage.getItem("heritageGO_v15")) || {
   tab: "home",
   detailId: null,
   routeId: null,
@@ -396,11 +405,14 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v14")) || {
     { type: "quiz", title: "경복궁 퀴즈 정답 (+20P)", time: "2026.08.20 18:43" },
     { type: "club", title: "원주고 역사탐험클럽 가입", time: "2026.08.19 19:13" }
   ],
-  filterRegion: "전체보기"
+  filterRegion: "전체보기",
+  selectedCreateClubImg: "🏫",
+  reports: [],
+  friends: ["u2"] // 기본 친구 목록
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v14", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v15", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -410,9 +422,7 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* =====================================================
-   [GPS 거리 계산 알고리즘 (Haversine Formula)]
-===================================================== */
+/* GPS 위치 계산 (Haversine) */
 function getDistanceMeters(lat1, lon1, lat2, lon2) {
   const R = 6371e3;
   const φ1 = lat1 * Math.PI / 180;
@@ -428,7 +438,6 @@ function getDistanceMeters(lat1, lon1, lat2, lon2) {
   return Math.round(R * c);
 }
 
-/* GPS 기반 위치 인증 실행 로직 */
 function verifyGPSVisit(heritageId) {
   const h = heritageData.find(x => x.id === heritageId);
   if (!h || !h.lat || !h.lng) {
@@ -467,9 +476,7 @@ function verifyGPSVisit(heritageId) {
   );
 }
 
-/* =====================================================
-   [카카오 지도 안전 로딩 및 동적 DOM 마커 렌더링]
-===================================================== */
+/* 카카오 지도 동적 로딩 */
 function loadKakaoMap(heritageId) {
   const h = heritageData.find(x => x.id === heritageId);
   const container = document.getElementById("mapContainer");
@@ -486,11 +493,7 @@ function loadKakaoMap(heritageId) {
 
   kakao.maps.load(() => {
     const moveLatLng = new kakao.maps.LatLng(h.lat, h.lng);
-    const options = {
-      center: moveLatLng,
-      level: 3
-    };
-
+    const options = { center: moveLatLng, level: 3 };
     const map = new kakao.maps.Map(container, options);
     const marker = new kakao.maps.Marker({ position: moveLatLng });
     marker.setMap(map);
@@ -535,17 +538,15 @@ function goBack() {
   save(); render();
 }
 
-/* 닉네임 변경 30일 쿨타임 */
+/* [신규 4] 닉네임 중복 방지 및 변경 로직 */
 function openNicknameModal() {
   const NOW = new Date();
   if (state.lastNicknameChange) {
     const lastDate = new Date(state.lastNicknameChange);
-    const diffTime = NOW - lastDate;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.floor((NOW - lastDate) / (1000 * 60 * 60 * 24));
     
     if (diffDays < 30) {
-      const remainingDays = 30 - diffDays;
-      toast(`닉네임은 30일에 한 번만 변경 가능합니다. (${remainingDays}일 남음)`);
+      toast(`닉네임은 30일에 한 번만 변경 가능합니다. (${30 - diffDays}일 남음)`);
       return;
     }
   }
@@ -565,10 +566,148 @@ function submitNicknameChange() {
     return;
   }
 
+  // 중복 닉네임 검사
+  const isDuplicate = allUserDB.some(user => user.nickname.toLowerCase() === newName.toLowerCase() && user.id !== "u1");
+  if (isDuplicate) {
+    toast("❌ 이미 사용 중인 닉네임입니다. 다른 닉네임을 입력하세요.");
+    return;
+  }
+
   state.nickname = newName;
+  allUserDB[0].nickname = newName; // 사용자 DB 갱신
   state.lastNicknameChange = new Date().toISOString();
   closeNicknameModal();
   toast(`✏️ 닉네임이 '${newName}'(으)로 변경되었습니다.`);
+  save(); render();
+}
+
+/* [신규 1] 클럽 만들기 모달 및 생성 로직 */
+function openCreateClubModal() {
+  closeClubModal();
+  document.getElementById("createClubModal").classList.add("show");
+}
+
+function closeCreateClubModal() {
+  document.getElementById("createClubModal").classList.remove("show");
+}
+
+function selectClubImg(imgSymbol) {
+  state.selectedCreateClubImg = imgSymbol;
+  document.querySelectorAll(".club-img-btn").forEach(btn => {
+    if (btn.textContent === imgSymbol) btn.classList.add("selected");
+    else btn.classList.remove("selected");
+  });
+}
+
+function submitCreateClub() {
+  const name = document.getElementById("newClubName").value.trim();
+  const desc = document.getElementById("newClubDesc").value.trim();
+
+  if (name.length < 2) {
+    toast("클럽 이름을 2자 이상 입력해주세요.");
+    return;
+  }
+
+  const newClub = {
+    id: "s" + (schoolData.length + 1),
+    name: name,
+    region: "신규",
+    members: 1,
+    points: 0,
+    visits: 0,
+    tag: "🆕 신생 클럽",
+    icon: state.selectedCreateClubImg,
+    desc: desc || "신규 생성된 문화유산 탐험 클럽입니다.",
+    memberList: ["u1"]
+  };
+
+  schoolData.unshift(newClub);
+  state.joinedSchool = newClub.id;
+  closeCreateClubModal();
+  toast(`🏫 '${name}' 클럽이 생성되어 자동으로 가입되었습니다!`);
+  save(); render();
+}
+
+/* [신규 2] 문화유산 제보 시스템 로직 */
+function openReportModal() {
+  document.getElementById("reportModal").classList.add("show");
+}
+
+function closeReportModal() {
+  document.getElementById("reportModal").classList.remove("show");
+}
+
+function submitReport() {
+  const name = document.getElementById("reportName").value.trim();
+  const desc = document.getElementById("reportDesc").value.trim();
+
+  if (!name || !desc) {
+    toast("유산 이름과 간략한 설명을 모두 입력해주세요.");
+    return;
+  }
+
+  const reportItem = {
+    id: "rep_" + Date.now(),
+    name: name,
+    desc: desc,
+    status: "검토 대기 중",
+    date: new Date().toLocaleDateString()
+  };
+
+  state.reports.unshift(reportItem);
+  closeReportModal();
+  toast("📢 제보가 접수되었습니다! 관리자 검토 후 등록됩니다.");
+  save(); render();
+}
+
+/* [신규 3 & 4] 멤버 프로필 및 친구 추가 관련 로직 */
+function openMemberProfile(userId) {
+  const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 100, visits: 2, icon: "👤" };
+  const isFriend = state.friends.includes(userId);
+
+  document.getElementById("memberProfileTitle").textContent = `${user.nickname}님의 프로필`;
+  document.getElementById("memberProfileBody").innerHTML = `
+    <div style="text-align:center; padding:10px 0;">
+      <div style="font-size:48px; margin-bottom:6px;">${user.icon}</div>
+      <h3 style="margin:0 0 4px 0; font-size:18px;">${user.nickname}</h3>
+      <span style="font-size:11px; background:#eee8df; padding:3px 8px; border-radius:10px; font-weight:700;">${user.level}</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0;">
+      <div style="background:#faf6f0; padding:12px; border-radius:12px; text-align:center;">
+        <div style="font-size:16px; font-weight:900; color:#e05627;">🪙 ${user.points}P</div>
+        <div style="font-size:11px; color:#888;">포인트</div>
+      </div>
+      <div style="background:#faf6f0; padding:12px; border-radius:12px; text-align:center;">
+        <div style="font-size:16px; font-weight:900;">🏛️ ${user.visits}곳</div>
+        <div style="font-size:11px; color:#888;">방문 유산</div>
+      </div>
+    </div>
+
+    ${userId !== "u1" ? `
+      <button class="btn-primary-orange" onclick="toggleFriend('${userId}')">
+        ${isFriend ? '🤝 친구 해제하기' : '➕ 친구 추가하기'}
+      </button>
+    ` : ''}
+  `;
+
+  document.getElementById("memberProfileModal").classList.add("show");
+}
+
+function closeMemberProfileModal() {
+  document.getElementById("memberProfileModal").classList.remove("show");
+}
+
+function toggleFriend(userId) {
+  const idx = state.friends.indexOf(userId);
+  if (idx > -1) {
+    state.friends.splice(idx, 1);
+    toast("🤝 친구에서 삭제되었습니다.");
+  } else {
+    state.friends.push(userId);
+    toast("➕ 친구로 추가되었습니다!");
+  }
+  closeMemberProfileModal();
   save(); render();
 }
 
@@ -609,8 +748,8 @@ function renderHome() {
       </div>
     </div>
 
-    <button class="btn-action-outline" onclick="openDetail('h7')">
-      📍 이 문화유산 방문 인증하러 가기
+    <button class="btn-action-outline" onclick="openReportModal()" style="margin-top:10px;">
+      📢 없는 유산 제보하기 (관리자 검토)
     </button>
   `;
 }
@@ -717,13 +856,15 @@ function renderSchoolClub() {
     <div class="club-main-card">
       <div class="club-top-row">
         <div class="club-title">
-          <span>🏫</span>
+          <span>${currentSchool.icon || '🏫'}</span>
           <span>${currentSchool.name}</span>
         </div>
         <button class="club-change-btn" onclick="openClubModal()">
-          <span>⇄</span> 클럽 변경
+          <span>⇄</span> 클럽 변경 / 생성
         </button>
       </div>
+
+      <p style="font-size:11px; margin:0 0 12px 0; opacity:0.9;">${currentSchool.desc || ''}</p>
 
       <div class="club-badge-row">
         <span class="club-tag-badge">${currentSchool.tag}</span>
@@ -753,8 +894,26 @@ function renderSchoolClub() {
         <span>👤 내 활동이 클럽에 반영되고 있어요</span>
         <span>•</span>
         <span>방문 ${Object.keys(state.visits).length}회</span>
-        <span>•</span>
-        <span>포인트 ${state.points}P</span>
+      </div>
+    </div>
+
+    <!-- [신규 3] 클럽 멤버 리스트 & 프로필 열람 기능 -->
+    <div class="card">
+      <div class="section-title">👥 클럽 멤버 목록 (클릭 시 프로필 열람)</div>
+      <div style="margin-top:8px;">
+        <div class="member-item-btn" onclick="openMemberProfile('u1')">
+          <div class="member-item-left">🎓 <span>${state.nickname} (나)</span></div>
+          <span style="font-size:11px; color:#e05627; font-weight:800;">내 프로필</span>
+        </div>
+        ${(currentSchool.memberList || []).map(mId => {
+          const user = allUserDB.find(u => u.id === mId) || { nickname: mId, icon: "👤" };
+          return `
+            <div class="member-item-btn" onclick="openMemberProfile('${mId}')">
+              <div class="member-item-left">${user.icon} <span>${user.nickname}</span></div>
+              <span style="font-size:11px; color:#888;">프로필 보기 ></span>
+            </div>
+          `;
+        }).join('')}
       </div>
     </div>
 
@@ -762,7 +921,7 @@ function renderSchoolClub() {
       <span>🎯 클럽 미션</span>
     </div>
     <div class="page-sub" style="margin-bottom:14px;">
-      ${currentSchool.name}의 미션 진행도입니다. 클럽을 바꿔도 다른 클럽의 미션 데이터와 섞이지 않아요.
+      ${currentSchool.name}의 미션 진행도입니다.
     </div>
 
     <div>
@@ -777,8 +936,6 @@ function renderSchoolClub() {
               </div>
               <div class="mission-count-text">${m.current} / ${m.target}</div>
             </div>
-
-            <div class="mission-sub">목표: ${m.target}${m.title.includes('방문') ? '곳 방문' : m.title.includes('해결') ? '문제 해결' : m.title.includes('기록') ? '건 기록' : m.title.includes('등록') ? '곳 등록' : '회 완주'}</div>
 
             <div class="mission-progress-bg">
               <div class="mission-progress-fill" style="width: ${percent}%;"></div>
@@ -821,7 +978,7 @@ function openClubModal() {
   modalList.innerHTML = schoolData.map(s => `
     <div class="modal-school-item ${s.id === state.joinedSchool ? 'active' : ''}" onclick="selectSchoolClub('${s.id}')">
       <div>
-        <div style="font-weight:800; font-size:14px; color:#2c2523;">${s.name}</div>
+        <div style="font-weight:800; font-size:14px; color:#2c2523;">${s.icon || '🏫'} ${s.name}</div>
         <div style="font-size:11px; color:#888;">📍 ${s.region} · 회원 ${s.members}명 · ${s.points.toLocaleString()}P</div>
       </div>
       <div style="font-size:12px; font-weight:800; color:#e55322;">${s.id === state.joinedSchool ? '선택됨' : '선택'}</div>
@@ -893,72 +1050,50 @@ function renderProfile() {
       </div>
     </div>
 
+    <!-- [신규 4] 친구 목록 표시 -->
+    <div class="card">
+      <div class="section-title">🤝 나의 친구 목록 (${state.friends.length}명)</div>
+      <div style="margin-top:8px;">
+        ${state.friends.length === 0 ? '<div style="font-size:12px; color:#aaa; text-align:center;">아직 친구가 없어요. 클럽 멤버 프로필에서 추가해보세요!</div>' : ''}
+        ${state.friends.map(fId => {
+          const user = allUserDB.find(u => u.id === fId) || { nickname: fId, icon: "👤" };
+          return `
+            <div class="member-item-btn" onclick="openMemberProfile('${fId}')">
+              <div class="member-item-left">${user.icon} <span>${user.nickname}</span></div>
+              <span style="font-size:11px; color:#e05627; font-weight:800;">프로필 열람</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- [신규 2] 내 제보 현황 -->
+    <div class="card">
+      <div class="section-title">📢 내가 제보한 유산 현황</div>
+      <div style="margin-top:8px;">
+        ${state.reports.length === 0 ? '<div style="font-size:12px; color:#aaa; text-align:center; padding:8px;">제보 내역이 없습니다.</div>' : ''}
+        ${state.reports.map(rep => `
+          <div style="padding:10px; background:#faf6f0; border-radius:12px; margin-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:800;">
+              <span>${rep.name}</span>
+              <span style="color:#e05627; font-size:11px;">${rep.status}</span>
+            </div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">${rep.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span class="section-title">🎖️ 대표 배지</span>
         <span style="font-size:11px; color:#e05627; font-weight:800; cursor:pointer;" onclick="toast('대표 배지는 최대 6개까지 선택할 수 있습니다.')">편집 ></span>
-      </div>
-      <div style="font-size:11px; color:#888; margin-bottom:12px;">
-        획득 배지 ${unlockedCount}개 · 대표 배지는 최대 6개까지 선택할 수 있어요.
       </div>
 
       <div class="rep-badge-grid">
         ${badgePool.map(b => `
           <div class="badge-badge-card ${b.unlocked ? '' : 'locked'}">
             <div class="icon">${b.unlocked ? b.icon : '🔒'}</div>
-            <div class="title">${b.title}</div>
-            <div class="desc">${b.desc}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="menu-list-card">
-      <div class="menu-link-item is-locked">
-        <div class="menu-link-left"><span style="font-size:16px;">🎖️</span><span>배지 전체 보기</span></div>
-        <span>🔒</span>
-      </div>
-      <div class="menu-link-item" onclick="switchTab('explore')">
-        <div class="menu-link-left"><span style="font-size:16px;">🗺️</span><span>탐험 루트</span></div>
-        <span>🗺️</span>
-      </div>
-      <div class="menu-link-item" onclick="openSchoolClub()">
-        <div class="menu-link-left"><span style="font-size:16px;">🏫</span><span>학교 클럽</span></div>
-        <span>🏫</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">📌 최근 활동</div>
-      <div class="activity-list">
-        ${state.activities.map(act => `
-          <div class="activity-item">
-            <span style="font-size:16px;">${act.type === 'quiz' ? '🧠' : act.type === 'club' ? '🏫' : '🎯'}</span>
-            <div>
-              <div class="activity-title">${act.title}</div>
-              <div class="activity-time">${act.time}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">📌 방문 기록</div>
-      <div style="text-align:center; padding:16px; font-size:12px; color:#aaa;">
-        ${visitedCount === 0 ? '아직 방문 기록이 없어요.' : `총 ${visitedCount}곳의 문화유산을 방문했습니다.`}
-      </div>
-    </div>
-
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span class="section-title">🎖️ 획득한 배지</span>
-        <span style="font-size:11px; color:#888;">${unlockedCount} / 17</span>
-      </div>
-      <div class="rep-badge-grid">
-        ${badgePool.filter(b => b.unlocked).map(b => `
-          <div class="badge-badge-card">
-            <div class="icon">${b.icon}</div>
             <div class="title">${b.title}</div>
             <div class="desc">${b.desc}</div>
           </div>
@@ -986,7 +1121,7 @@ function resetTestData() {
 }
 
 function fullReset() {
-  localStorage.removeItem("heritageGO_v14");
+  localStorage.removeItem("heritageGO_v15");
   location.reload();
 }
 
@@ -1036,7 +1171,7 @@ function renderHeritageDetail(id) {
       </button>
     </div>
 
-    <!-- 2. 현장 인증 사진 업로드 (요청사항: 아이콘 선택 영역만 깔끔하게 제거) -->
+    <!-- 2. 현장 인증 사진 업로드 -->
     <div class="card">
       <div class="section-title">📸 현장 인증 사진 업로드</div>
       <div class="upload-wrapper">
@@ -1127,7 +1262,7 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 6. 변화 기록 남기기 (요청사항: 아이콘 선택 영역만 깔끔하게 제거) -->
+    <!-- 6. 변화 기록 남기기 -->
     <div class="card">
       <div class="section-title">🔄 변화 기록 남기기</div>
       <div class="section-sub">
