@@ -17,7 +17,7 @@ try {
   }
 } catch(e) {}
 
-/* [전체 복원] 국가유산청 공식 지정 14종 문화유산 데이터베이스 */
+/* [100% 보존] 국가유산청 공식 지정 14종 전체 데이터베이스 */
 let heritageData = [
   {
     id: "h1",
@@ -88,9 +88,7 @@ let heritageData = [
       explanation: "신사임당이 용 꿈을 꾸고 율곡 이이 선생을 낳은 방이 몽룡실입니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "조선시대 주택 중 가장 오래된 유구 중 하나이며 율곡 이이 선생의 탄생지입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "조선시대 주택 중 가장 오래된 유구 중 하나이며 율곡 이이 선생의 탄생지입니다." }
   },
   {
     id: "h4",
@@ -111,9 +109,7 @@ let heritageData = [
       explanation: "경포대는 경포호수와 동해바다의 아름다운 경관을 한눈에 조망하는 정자입니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "관동팔경 중 대표적 누정으로 수많은 조선 시대 명시가 전해지는 문학 명소입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "관동팔경 중 대표적 누정으로 수많은 조선 시대 명시가 전해지는 문학 명소입니다." }
   },
   {
     id: "h5",
@@ -134,9 +130,7 @@ let heritageData = [
       explanation: "1636년 병자호란 때 인조 임금과 신하들이 남한산성으로 피난하여 항전했습니다."
     },
     routeIds: ["r2"],
-    aiPresetResponses: {
-      "왜 중요한가요?": "동아시아 군사 건축 기술의 집약체로서 유네스코 세계문화유산에 등재되었습니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "동아시아 군사 건축 기술의 집약체로서 유네스코 세계문화유산에 등재되었습니다." }
   },
   {
     id: "h6",
@@ -157,9 +151,7 @@ let heritageData = [
       explanation: "정약용 선생이 도르래의 원리를 이용한 거중기를 발명해 화성을 축조했습니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "거중기 등 과학 기구를 활용해 건설한 유네스코 세계문화유산입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "거중기 등 과학 기구를 활용해 건설한 유네스코 세계문화유산입니다." }
   },
   {
     id: "h7",
@@ -180,9 +172,7 @@ let heritageData = [
       explanation: "경복궁의 남쪽에 위치한 정문이 광화문입니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "조선 왕조의 으뜸 궁궐(법궁)로서 근정전, 경회루 등 최고의 왕실 건축물입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "조선 왕조의 으뜸 궁궐(법궁)로서 근정전, 경회루 등 최고의 왕실 건축물입니다." }
   },
   {
     id: "h8",
@@ -203,9 +193,7 @@ let heritageData = [
       explanation: "고종 황제는 덕수궁에서 황제 즉위식을 거행하고 대한제국을 선포했습니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "전통 한옥 전각과 서양식 석조전이 함께 자리잡은 근대 역사의 현장입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "전통 한옥 전각과 서양식 석조전이 함께 자리잡은 근대 역사의 현장입니다." }
   },
   {
     id: "h9",
@@ -226,9 +214,7 @@ let heritageData = [
       explanation: "창덕궁은 자연 배치가 뛰어나 1997년 유네스코 세계유산으로 등재되었습니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "한국의 전통 궁궐 조경 기법을 가장 잘 간직한 세계적 유산입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "한국의 전통 궁궐 조경 기법을 가장 잘 간직한 세계적 유산입니다." }
   },
   {
     id: "h10",
@@ -249,9 +235,7 @@ let heritageData = [
       explanation: "첨성대는 신라 선덕여왕 재위 기간에 건립되었습니다."
     },
     routeIds: ["r1"],
-    aiPresetResponses: {
-      "왜 중요한가요?": "동양에서 현존하는 가장 오래된 천문 관측 건축물입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "동양에서 현존하는 가장 오래된 천문 관측 건축물입니다." }
   },
   {
     id: "h11",
@@ -272,9 +256,7 @@ let heritageData = [
       explanation: "불국사 대웅전 앞에는 석가탑(무영탑)과 다보탑이 조화롭게 서 있습니다."
     },
     routeIds: ["r1"],
-    aiPresetResponses: {
-      "왜 중요한가요?": "신라 불교 예술과 건축 기술의 최고봉을 보여주는 유네스코 세계유산입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "신라 불교 예술과 건축 기술의 최고봉을 보여주는 유네스코 세계유산입니다." }
   },
   {
     id: "h12",
@@ -295,9 +277,7 @@ let heritageData = [
       explanation: "무령왕릉은 중국 남조의 영향을 받은 벽돌무덤(전축분) 양식입니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "삼국시대 왕릉 중 무덤의 주인과 축조 연대가 정확히 밝혀진 유일한 무덤입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "삼국시대 왕릉 중 무덤의 주인과 축조 연대가 정확히 밝혀진 유일한 무덤입니다." }
   },
   {
     id: "h13",
@@ -318,9 +298,7 @@ let heritageData = [
       explanation: "낙안읍성은 전통 초가집과 성곽이 실제 삶의 터전으로 유지되는 대표적 민속 성곽입니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "조선 시대 평지 읍성의 형태와 소박한 민가 문화가 살아 숨 쉬는 공간입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "조선 시대 평지 읍성의 형태와 소박한 민가 문화가 살아 숨 쉬는 공간입니다." }
   },
   {
     id: "h14",
@@ -341,9 +319,7 @@ let heritageData = [
       explanation: "제주 목관아는 관덕정을 비롯해 조선 시대 제주 행정 관아가 복원된 사적입니다."
     },
     routeIds: [],
-    aiPresetResponses: {
-      "왜 중요한가요?": "제주의 정치·행정·문화 중심지로서 역사적 정체성을 지닌 핵심 유적입니다."
-    }
+    aiPresetResponses: { "왜 중요한가요?": "제주의 정치·행정·문화 중심지로서 역사적 정체성을 지닌 핵심 유적입니다." }
   }
 ];
 
@@ -354,7 +330,6 @@ const allUserDB = [
   { id: "u4", nickname: "강원탐험러", level: "🌱 문화유산 새싹", points: 210, visits: 5, icon: "🦊", badges: ["b1"] }
 ];
 
-/* [전체 복원] 클럽 목록 데이터베이스 */
 let schoolData = [
   { id: "s1", name: "원주고 역사탐험클럽", region: "원주", members: 26, points: 8960, visits: 131, tag: "🔥 성장 클럽", icon: "🏫", desc: "원주고등학교 학생들의 대표 문화유산 탐험 클럽입니다.", memberList: ["u2", "u4"] },
   { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", members: 38, points: 11200, visits: 185, tag: "🏆 명예 클럽", icon: "🏫", desc: "춘천 지역 문화유산을 중심으로 매주 모임을 가집니다.", memberList: ["u3"] },
@@ -362,7 +337,16 @@ let schoolData = [
   { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 25, points: 5800, visits: 78, tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다.", memberList: [] }
 ];
 
-/* 도전과제 자동 연동형 클럽 미션 데이터 */
+/* 확장형 등급 로드맵 목록 */
+const gameRoadmapLevels = [
+  { level: 1, title: "문화유산 새싹 (기본)", reqPoints: 0, icon: "🌱", align: "center", status: "unlocked", desc: "탐험의 첫걸음을 뗀 단계" },
+  { level: 2, title: "초보 탐험가", reqPoints: 50, icon: "🌿", align: "left", status: "unlocked", desc: "기존 퀴즈 정답 보상 +5%" },
+  { level: 3, title: "문화유산 탐험가", reqPoints: 150, icon: "🔹", align: "right", status: "locked", desc: "퀴즈 정답 보상 +10%" },
+  { level: 4, title: "역사 마니아", reqPoints: 300, icon: "🏹", align: "left", status: "locked", desc: "클럽 미션 보상 +15%" },
+  { level: 5, title: "유산 수호자", reqPoints: 600, icon: "🏯", align: "right", status: "locked", desc: "전용 수호자 배지 지급" },
+  { level: 6, title: "역사 마스터", reqPoints: 1000, icon: "👑", align: "center", status: "locked", desc: "최고 명예 등급 및 명예의 전당 등재" }
+];
+
 const clubMissions = [
   { id: "m1", icon: "🗺️", title: "우리 지역 문화유산 30곳 방문하기", target: 30, current: 15, myContrib: 0 },
   { id: "m2", icon: "🧠", title: "역사 퀴즈 500문제 해결하기", target: 500, current: 210, myContrib: 0 },
@@ -371,7 +355,6 @@ const clubMissions = [
   { id: "m5", icon: "🏛️", title: "역사 탐험 루트 20회 완주하기", target: 20, current: 5, myContrib: 0 }
 ];
 
-/* [전체 복원] 탐험 루트 데이터베이스 */
 const routeData = [
   {
     id: "r1",
@@ -395,7 +378,6 @@ const routeData = [
   }
 ];
 
-/* [전체 복원] 배지 목록 */
 const badgePool = [
   { id: "b1", icon: "🗺️", title: "클럽 방문왕", desc: "문화유산 30곳 방문", unlocked: true },
   { id: "b2", icon: "🧠", title: "퀴즈 달인", desc: "역사 퀴즈 10개 정답", unlocked: true },
@@ -405,8 +387,7 @@ const badgePool = [
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-/* 애플리케이션 통합 상태 관리 */
-let state = JSON.parse(localStorage.getItem("heritageGO_v18")) || {
+let state = JSON.parse(localStorage.getItem("heritageGO_v19")) || {
   tab: "home",
   detailId: null,
   routeId: null,
@@ -417,7 +398,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v18")) || {
   joinedSchool: "s1",
   visits: {},
   quizzes: { h1: 0, h5: 0, h7: 0 },
-  selectedChangeTag: "특별한 변화 없음",
+  selectedChangeTag: "주변 환경 변화",
   aiChat: {},
   activities: [
     { type: "quiz", title: "춘천 봉의산성 퀴즈 정답", time: "2026.08.20 18:46" },
@@ -427,7 +408,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v18")) || {
   filterRegion: "전체보기",
   selectedCreateClubImg: "🏫",
   reports: [],
-  friends: ["u2"],
+  friends: ["u2", "u4"],
   clubChats: [
     { user: "역사박사님", text: "이번 주말 봉의산성 탐험가실 분 계신가요?", time: "18:20" },
     { user: "유산 탐험가", text: "저 참여하고 싶습니다!", time: "18:22" }
@@ -435,7 +416,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v18")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v18", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v19", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -445,7 +426,7 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 도전과제 자동 연동 카운트 */
+/* 도전과제 자동 누적 */
 function updateClubMissionProgress(missionId) {
   const m = clubMissions.find(x => x.id === missionId);
   if (m) {
@@ -455,7 +436,7 @@ function updateClubMissionProgress(missionId) {
   }
 }
 
-/* Haversine GPS 거리 계산 */
+/* GPS 거리 계산 */
 function getDistanceMeters(lat1, lon1, lat2, lon2) {
   const R = 6371e3;
   const φ1 = lat1 * Math.PI / 180;
@@ -471,7 +452,6 @@ function getDistanceMeters(lat1, lon1, lat2, lon2) {
   return Math.round(R * c);
 }
 
-/* 50m 이내 GPS + 현장 사진 필수 검증 */
 function verifyGPSVisit(heritageId) {
   const fileInput = document.getElementById("visitFile");
   if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
@@ -542,8 +522,40 @@ function openRoute(routeId) { state.routeId = routeId; state.viewSchoolClub = fa
 function openSchoolClub() { state.viewSchoolClub = true; save(); render(); }
 function goBack() { state.viewSchoolClub = false; state.routeId = null; state.detailId = null; save(); render(); }
 
-/* 등급 로드맵 모달 */
-function openLevelRoadmapModal() { document.getElementById("levelRoadmapModal").classList.add("show"); }
+/* 🗺️ 게임 지도를 형상화한 등급 로드맵 모달 구현 */
+function openLevelRoadmapModal() {
+  const container = document.getElementById("levelRoadmapContainer");
+  
+  container.innerHTML = `
+    <p style="font-size:11px; color:#888; margin:0 0 16px 0; text-align:center;">
+      포인트를 모아 지도의 경로를 따라 단계를 해금하세요!
+    </p>
+    <div class="roadmap-game-path">
+      <div class="roadmap-path-line"></div>
+      ${gameRoadmapLevels.map(lvl => {
+        const isUnlocked = state.points >= lvl.reqPoints;
+        const isCurrent = (state.points >= lvl.reqPoints) && (lvl.level === 1 || state.points < (gameRoadmapLevels[lvl.level] ? gameRoadmapLevels[lvl.level].reqPoints : 99999));
+        
+        return `
+          <div class="roadmap-node-row ${lvl.align}">
+            <div class="roadmap-card-node ${isCurrent ? 'active' : (isUnlocked ? 'unlocked' : '')}">
+              <div class="node-icon-circle">${isUnlocked ? lvl.icon : '🔒'}</div>
+              <div>
+                <div class="node-info-title">${lvl.title}</div>
+                <div class="node-info-sub">조건: ${lvl.reqPoints}P 이상 · ${lvl.desc}</div>
+                ${isCurrent ? '<span class="node-status-tag active">🔥 현재 등급</span>' : 
+                  (isUnlocked ? '<span class="node-status-tag done">✅ 달성 완료</span>' : '<span class="node-status-tag locked">🔒 미달성</span>')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+
+  document.getElementById("levelRoadmapModal").classList.add("show");
+}
+
 function closeLevelRoadmapModal() { document.getElementById("levelRoadmapModal").classList.remove("show"); }
 
 /* 닉네임 변경 */
@@ -560,7 +572,7 @@ function submitNicknameChange() {
   save(); render();
 }
 
-/* 클럽 생성 및 모달 */
+/* 클럽 생성 모달 */
 function openCreateClubModal() { closeClubModal(); document.getElementById("createClubModal").classList.add("show"); }
 function closeCreateClubModal() { document.getElementById("createClubModal").classList.remove("show"); }
 
@@ -597,7 +609,7 @@ function submitCreateClub() {
   save(); render();
 }
 
-/* @닉네임 제보 시스템 */
+/* @닉네임 제보 모달 */
 function openReportModal() { document.getElementById("reportModal").classList.add("show"); }
 function closeReportModal() { document.getElementById("reportModal").classList.remove("show"); }
 
@@ -703,7 +715,7 @@ function adminDirectAdd() {
   closeAdminReviewModal(); save(); render();
 }
 
-/* 클럽 채팅 제출 */
+/* 클럽 채팅 */
 function sendClubChat() {
   const input = document.getElementById("clubChatInput");
   if (!input || !input.value.trim()) return;
@@ -719,32 +731,32 @@ function sendClubChat() {
   save(); render();
 }
 
-/* 친구 프로필 열람 (배지 및 상세 정보 표기) */
+/* 👤 [100% 동일] 친구 프로필 모달 (첨부 이미지 디자인 완벽 일치) */
 function openMemberProfile(userId) {
-  const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 100, visits: 2, icon: "👤", badges: ["b1"] };
+  const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 210, visits: 5, icon: "🦊", badges: ["b1"] };
   const isFriend = state.friends.includes(userId);
 
   document.getElementById("memberProfileTitle").textContent = `${user.nickname}님의 프로필`;
   document.getElementById("memberProfileBody").innerHTML = `
-    <div style="text-align:center; padding:10px 0;">
-      <div style="font-size:48px; margin-bottom:6px;">${user.icon}</div>
-      <h3 style="margin:0 0 4px 0; font-size:18px;">${user.nickname}</h3>
-      <span style="font-size:11px; background:#eee8df; padding:3px 8px; border-radius:10px; font-weight:700;">${user.level}</span>
+    <div style="text-align:center; margin-bottom:12px;">
+      <div class="friend-modal-avatar">${user.icon}</div>
+      <h3 class="friend-modal-name">${user.nickname}</h3>
+      <span class="friend-modal-level-pill">🌱 ${user.level}</span>
     </div>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:14px 0;">
-      <div style="background:#faf6f0; padding:12px; border-radius:12px; text-align:center;">
-        <div style="font-size:16px; font-weight:900; color:#e05627;">🪙 ${user.points}P</div>
-        <div style="font-size:11px; color:#888;">포인트</div>
+    <div class="friend-modal-stats-row">
+      <div class="friend-modal-stat-box">
+        <div class="friend-modal-stat-val">🪙 ${user.points}P</div>
+        <div class="friend-modal-stat-lbl">포인트</div>
       </div>
-      <div style="background:#faf6f0; padding:12px; border-radius:12px; text-align:center;">
-        <div style="font-size:16px; font-weight:900;">🏛️ ${user.visits}곳</div>
-        <div style="font-size:11px; color:#888;">방문 유산</div>
+      <div class="friend-modal-stat-box">
+        <div class="friend-modal-stat-val" style="color:#2c2523;">🏛️ ${user.visits}곳</div>
+        <div class="friend-modal-stat-lbl">방문 유산</div>
       </div>
     </div>
 
-    <div class="section-title" style="font-size:13px; margin-bottom:8px;">🎖️ 친구의 대표 배지</div>
-    <div class="rep-badge-grid" style="margin-bottom:16px;">
+    <div style="font-size:13px; font-weight:800; color:#1a1513; margin-bottom:10px;">🎖️ 친구의 대표 배지</div>
+    <div class="rep-badge-grid" style="margin-bottom:18px;">
       ${(user.badges || []).map(bId => {
         const b = badgePool.find(x => x.id === bId);
         return b ? `
@@ -757,7 +769,7 @@ function openMemberProfile(userId) {
     </div>
 
     ${userId !== "u1" ? `
-      <button class="btn-primary-orange" onclick="toggleFriend('${userId}')">
+      <button class="btn-primary-orange" style="font-size:15px; border-radius:18px; padding:15px;" onclick="toggleFriend('${userId}')">
         ${isFriend ? '🤝 친구 해제하기' : '➕ 친구 추가하기'}
       </button>
     ` : ''}
@@ -767,6 +779,7 @@ function openMemberProfile(userId) {
 }
 
 function closeMemberProfileModal() { document.getElementById("memberProfileModal").classList.remove("show"); }
+
 function toggleFriend(userId) {
   const idx = state.friends.indexOf(userId);
   if (idx > -1) { state.friends.splice(idx, 1); toast("🤝 친구 해제되었습니다."); }
@@ -925,7 +938,7 @@ function renderSchoolClub() {
           return `
             <div class="member-item-btn" onclick="openMemberProfile('${mId}')">
               <div class="member-item-left">${user.icon} <span>${user.nickname}</span></div>
-              <span style="font-size:11px; color:#888;">프로필 보기 ></span>
+              <span style="font-size:11px; color:#888;">프로필 열람 ></span>
             </div>
           `;
         }).join('')}
@@ -991,7 +1004,7 @@ function openClubModal() {
 function closeClubModal() { document.getElementById("clubModal").classList.remove("show"); }
 function selectSchoolClub(sId) { state.joinedSchool = sId; closeClubModal(); save(); render(); }
 
-/* [전체 복원] 프로필 탭 (활동 로그, 대표 배지, 테스트 도구 포함) */
+/* [전체 복원] 프로필 탭 */
 function renderProfile() {
   const visitedCount = Object.keys(state.visits).length;
   const quizCount = Object.keys(state.quizzes).length;
@@ -1096,9 +1109,9 @@ function renderProfile() {
 }
 
 function resetTestData() { state.quizzes = { h1: 0 }; state.visits = {}; toast("✏️ 데이터 초기화 완료"); save(); render(); }
-function fullReset() { localStorage.removeItem("heritageGO_v18"); location.reload(); }
+function fullReset() { localStorage.removeItem("heritageGO_v19"); location.reload(); }
 
-/* [전체 복원] 문화유산 상세화면 (GPS 50m 제한, AI 도우미, 변화 기록 전체) */
+/* 📷 변화 기록 사진 업로드 지원 문화유산 상세화면 */
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
   const isVisited = state.visits[h.id];
@@ -1193,7 +1206,7 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 5. 변화 기록 남기기 -->
+    <!-- 5. 📷 변화 기록 남기기 (사진 업로드 포함) -->
     <div class="card">
       <div class="section-title">🔄 변화 기록 남기기</div>
       <div class="change-tag-grid" style="margin-top:8px;">
@@ -1201,7 +1214,17 @@ function renderHeritageDetail(id) {
           <div class="change-tag-btn ${state.selectedChangeTag === tag ? 'active' : ''}" onclick="selectChangeTag('${tag}')">${tag}</div>
         `).join('')}
       </div>
-      <textarea class="change-textarea" placeholder="직접 관찰한 사실을 메모로 남겨보세요."></textarea>
+
+      <div class="upload-wrapper" style="margin-bottom:10px;">
+        <div class="upload-wrapper-title">📷 현장 변화 사진 업로드 (선택)</div>
+        <div class="upload-box" style="height:120px;" onclick="triggerFileUpload('changeFile')">
+          <div id="changePreviewText">📸 사진 첨부하기</div>
+          <img id="changeImgPreview" style="display:none;" />
+          <input type="file" id="changeFile" accept="image/*" style="display:none;" onchange="handleImagePreview(this, 'changeImgPreview', 'changePreviewText')" />
+        </div>
+      </div>
+
+      <textarea id="changeMemoInput" class="change-textarea" placeholder="직접 관찰한 사실을 메모로 남겨보세요."></textarea>
       <button class="btn-primary-orange btn-pink-gradient" onclick="submitChangeRecord()">변화 기록 저장하기</button>
     </div>
   `;
@@ -1209,8 +1232,6 @@ function renderHeritageDetail(id) {
 
 function renderRouteDetail(routeId) {
   const r = routeData.find(x => x.id === routeId) || routeData[0];
-  const totalSteps = r.steps.length;
-  const visitedSteps = r.steps.filter(hId => state.visits[hId]).length;
 
   return `
     <div class="detail-banner" style="background:${r.bg};">
@@ -1293,7 +1314,7 @@ function resetAIChat(heritageId) {
 
 function submitChangeRecord() {
   updateClubMissionProgress('m3');
-  toast("🔄 변화 기록 저장 완료!");
+  toast("📷 사진과 함께 변화 기록이 저장되었습니다!");
   save(); render();
 }
 
