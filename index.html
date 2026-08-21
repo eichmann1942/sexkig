@@ -129,36 +129,14 @@
     </div>
   </div>
 
-  <!-- 등급 로드맵 모달 -->
+  <!-- 게임 지도 스타일 탐험가 등급 로드맵 모달 -->
   <div class="modal-overlay" id="levelRoadmapModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:400px; padding:20px 16px;">
       <div class="modal-header">
-        <h3>📜 탐험가 등급 로드맵</h3>
+        <h3>🗺️ 탐험가 등급 로드맵</h3>
         <button class="modal-close-btn" onclick="closeLevelRoadmapModal()">✕</button>
       </div>
-      <div class="modal-body">
-        <div class="roadmap-item current">
-          <div class="roadmap-icon">🌱</div>
-          <div>
-            <div class="roadmap-title">문화유산 새싹 (기본)</div>
-            <div class="roadmap-desc">누적 0P 이상 · 탐험 시작 단계</div>
-          </div>
-        </div>
-        <div class="roadmap-item">
-          <div class="roadmap-icon">🔹</div>
-          <div>
-            <div class="roadmap-title">문화유산 탐험가</div>
-            <div class="roadmap-desc">누적 100P 달성 시 승급 · 퀴즈 보상 +10%</div>
-          </div>
-        </div>
-        <div class="roadmap-item">
-          <div class="roadmap-icon">👑</div>
-          <div>
-            <div class="roadmap-title">유산 수호자</div>
-            <div class="roadmap-desc">누적 1,000P 달성 시 승급 · 전용 수호자 배지 지급</div>
-          </div>
-        </div>
-      </div>
+      <div class="modal-body" id="levelRoadmapContainer"></div>
     </div>
   </div>
 
@@ -179,11 +157,11 @@
     </div>
   </div>
 
-  <!-- 멤버 프로필 & 친구추가 모달 -->
+  <!-- 친구 프로필 모달 (이미지 스크린샷 전용 디자인) -->
   <div class="modal-overlay" id="memberProfileModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="memberProfileTitle">👤 프로필</h3>
+    <div class="modal-card" style="border-radius:28px; padding:22px 18px;">
+      <div class="modal-header" style="margin-bottom:10px;">
+        <h3 id="memberProfileTitle" style="font-size:17px; font-weight:900;">프로필</h3>
         <button class="modal-close-btn" onclick="closeMemberProfileModal()">✕</button>
       </div>
       <div class="modal-body" id="memberProfileBody"></div>
