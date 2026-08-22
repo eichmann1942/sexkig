@@ -1,8 +1,8 @@
-/* 1. Firebase 실시간 데이터베이스 설정 (databaseURL 추가 완료) */
+/* 1. Firebase 실시간 데이터베이스 설정 (싱가포르 DB 주소 적용) */
 const firebaseConfig = {
   apiKey: "AIzaSyBvya39ivMpmfWo0z5_K5rL-5dgQ-mc64I",
   authDomain: "sexking-3937f.firebaseapp.com",
-  databaseURL: "https://sexking-3937f-default-rtdb.asia-southeast1.firebasedatabase.app", // 싱가포르 DB 주소 적용
+  databaseURL: "https://sexking-3937f-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "sexking-3937f",
   storageBucket: "sexking-3937f.firebasestorage.app",
   messagingSenderId: "1063254666908",
@@ -22,7 +22,7 @@ try {
   console.warn("⚠️ 서버 연결 실패: 로컬 오프라인 모드로 동작합니다.", e);
 }
 
-/* 국가유산청 지정 14종 전체 데이터 */
+/* 국가유산청 지정 14종 전체 데이터 (완전 보존) */
 let heritageData = [
   {
     id: "h1",
@@ -328,18 +328,17 @@ let heritageData = [
   }
 ];
 
+/* 유저 DB (가상 유저 삭제 및 현재 유저만 초기 상태로 배치) */
 const allUserDB = [
-  { id: "u1", nickname: "유산 탐험가", level: "🌱 문화유산 새싹", points: 40, visits: 0, icon: "🎓", badges: ["b1", "b2"] },
-  { id: "u2", nickname: "역사박사님", level: "🔹 문화유산 탐험가", points: 840, visits: 18, icon: "🦁", badges: ["b1", "b2", "b3"] },
-  { id: "u3", nickname: "춘천유적왕", level: "👑 유산 수호자", points: 1520, visits: 32, icon: "🐯", badges: ["b1", "b2", "b3", "b6"] },
-  { id: "u4", nickname: "강원탐험러", level: "🌱 문화유산 새싹", points: 210, visits: 5, icon: "🦊", badges: ["b1"] }
+  { id: "u1", nickname: "유산 탐험가", level: "🌱 문화유산 새싹", points: 0, visits: 0, icon: "🎓", badges: [] }
 ];
 
+/* 클럽 데이터 (기록 0으로 초기화) */
 let schoolData = [
-  { id: "s1", name: "원주고 역사탐험클럽", region: "원주", members: 26, points: 8960, visits: 131, tag: "🔥 성장 클럽", icon: "🏫", desc: "원주고등학교 학생들의 대표 문화유산 탐험 클럽입니다.", memberList: ["u2", "u4"] },
-  { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", members: 38, points: 11200, visits: 185, tag: "🏆 명예 클럽", icon: "🏫", desc: "춘천 지역 문화유산을 중심으로 매주 모임을 가집니다.", memberList: ["u3"] },
-  { id: "s3", name: "봉의고 역사탐험클럽", region: "춘천", members: 29, points: 6400, visits: 92, tag: "🌱 열정 클럽", icon: "🏫", desc: "봉의산성 유적 수호 소모임입니다.", memberList: [] },
-  { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 25, points: 5800, visits: 78, tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다.", memberList: [] }
+  { id: "s1", name: "원주고 역사탐험클럽", region: "원주", members: 1, points: 0, visits: 0, tag: "🔥 성장 클럽", icon: "🏫", desc: "원주고등학교 학생들의 대표 문화유산 탐험 클럽입니다.", memberList: [] },
+  { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", members: 1, points: 0, visits: 0, tag: "🏆 명예 클럽", icon: "🏫", desc: "춘천 지역 문화유산을 중심으로 매주 모임을 가집니다.", memberList: [] },
+  { id: "s3", name: "봉의고 역사탐험클럽", region: "춘천", members: 1, points: 0, visits: 0, tag: "🌱 열정 클럽", icon: "🏫", desc: "봉의산성 유적 수호 소모임입니다.", memberList: [] },
+  { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 1, points: 0, visits: 0, tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다.", memberList: [] }
 ];
 
 const gameRoadmapLevels = [
@@ -351,12 +350,13 @@ const gameRoadmapLevels = [
   { level: 6, title: "역사 마스터", reqPoints: 1000, icon: "👑", align: "center", status: "locked", desc: "최고 명예 등급 및 명예의 전당 등재" }
 ];
 
+/* 클럽 미션 (0부터 시작하도록 초기화) */
 const clubMissions = [
-  { id: "m1", icon: "🗺️", title: "우리 지역 문화유산 30곳 방문하기", target: 30, current: 15, myContrib: 0 },
-  { id: "m2", icon: "🧠", title: "역사 퀴즈 500문제 해결하기", target: 500, current: 210, myContrib: 0 },
-  { id: "m3", icon: "📷", title: "문화유산 변화 기록 50건 만들기", target: 50, current: 12, myContrib: 0 },
+  { id: "m1", icon: "🗺️", title: "우리 지역 문화유산 30곳 방문하기", target: 30, current: 0, myContrib: 0 },
+  { id: "m2", icon: "🧠", title: "역사 퀴즈 500문제 해결하기", target: 500, current: 0, myContrib: 0 },
+  { id: "m3", icon: "📷", title: "문화유산 변화 기록 50건 만들기", target: 50, current: 0, myContrib: 0 },
   { id: "m4", icon: "🔍", title: "새로운 문화유산 5곳 등록하기", target: 5, current: 0, myContrib: 0 },
-  { id: "m5", icon: "🏛️", title: "역사 탐험 루트 20회 완주하기", target: 20, current: 5, myContrib: 0 }
+  { id: "m5", icon: "🏛️", title: "역사 탐험 루트 20회 완주하기", target: 20, current: 0, myContrib: 0 }
 ];
 
 const routeData = [
@@ -381,43 +381,37 @@ const routeData = [
 ];
 
 const badgePool = [
-  { id: "b1", icon: "🗺️", title: "클럽 방문왕", desc: "문화유산 30곳 방문", unlocked: true },
-  { id: "b2", icon: "🧠", title: "퀴즈 달인", desc: "역사 퀴즈 10개 정답", unlocked: true },
-  { id: "b3", icon: "📸", title: "인증 수집가", desc: "첫 방문 인증 성공", unlocked: true },
+  { id: "b1", icon: "🗺️", title: "클럽 방문왕", desc: "문화유산 30곳 방문", unlocked: false },
+  { id: "b2", icon: "🧠", title: "퀴즈 달인", desc: "역사 퀴즈 10개 정답", unlocked: false },
+  { id: "b3", icon: "📸", title: "인증 수집가", desc: "첫 방문 인증 성공", unlocked: false },
   { id: "b4", icon: "🛡️", title: "호국 탐험가", desc: "산성 코스 완주", unlocked: false },
   { id: "b5", icon: "🏛️", title: "궁궐 박사", desc: "모든 궁궐 방문", unlocked: false },
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-let state = JSON.parse(localStorage.getItem("heritageGO_v19")) || {
+/* 클린 상태 (모든 포인트, 방문, 활동기록, 친구, 채팅 0으로 초기화) */
+let state = JSON.parse(localStorage.getItem("heritageGO_v20")) || {
   tab: "home",
   detailId: null,
   routeId: null,
   viewSchoolClub: false,
-  points: 40,
+  points: 0,
   nickname: "유산 탐험가",
   joinedSchool: "s1",
   visits: {},
-  quizzes: { h1: 0, h5: 0, h7: 0 },
+  quizzes: {},
   selectedChangeTag: "주변 환경 변화",
   aiChat: {},
-  activities: [
-    { type: "quiz", title: "춘천 봉의산성 퀴즈 정답", time: "2026.08.20 18:46" },
-    { type: "quiz", title: "경복궁 퀴즈 정답 (+20P)", time: "2026.08.20 18:43" },
-    { type: "club", title: "원주고 역사탐험클럽 가입", time: "2026.08.19 19:13" }
-  ],
+  activities: [],
   filterRegion: "전체보기",
   selectedCreateClubImg: "🏫",
   reports: [],
-  friends: ["u2", "u4"],
-  clubChats: [
-    { user: "역사박사님", text: "이번 주말 봉의산성 탐험가실 분 계신가요?", time: "18:20" },
-    { user: "유산 탐험가", text: "저 참여하고 싶습니다!", time: "18:22" }
-  ]
+  friends: [],
+  clubChats: []
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v19", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v20", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -427,13 +421,13 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 2. 서버 실시간 채팅 및 제보 수신기 */
+/* 2. 서버 실시간 데이터 동기화 수신기 */
 function initServerListeners() {
   if (!db) return;
 
   const currentClubId = state.joinedSchool || "s1";
   
-  // 실시간 채팅 동기화
+  // 실시간 채팅 수신
   db.ref(`chats/${currentClubId}`).limitToLast(30).on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -444,7 +438,7 @@ function initServerListeners() {
     console.error("서버 동기화 에러 (규칙 확인 필요):", err);
   });
 
-  // 실시간 유산 제보 동기화
+  // 실시간 제보 수신
   db.ref('reports').on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -452,7 +446,7 @@ function initServerListeners() {
     }
   });
 
-  // 실시간 승인 유산 동기화
+  // 실시간 승인된 유산 수신
   db.ref('approvedHeritages').on('child_added', (snapshot) => {
     const newHeritage = snapshot.val();
     if (newHeritage && !heritageData.find(h => h.id === newHeritage.id)) {
@@ -795,7 +789,7 @@ function adminDirectAdd() {
 }
 
 function openMemberProfile(userId) {
-  const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 210, visits: 5, icon: "🦊", badges: ["b1"] };
+  const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 0, visits: 0, icon: "👤", badges: [] };
   const isFriend = state.friends.includes(userId);
 
   document.getElementById("memberProfileTitle").textContent = `${user.nickname}님의 프로필`;
@@ -819,6 +813,7 @@ function openMemberProfile(userId) {
 
     <div style="font-size:13px; font-weight:800; color:#1a1513; margin-bottom:10px;">🎖️ 친구의 대표 배지</div>
     <div class="rep-badge-grid" style="margin-bottom:18px;">
+      ${(user.badges || []).length === 0 ? '<div style="font-size:12px; color:#aaa; grid-column:span 3; text-align:center;">획득한 배지가 없습니다.</div>' : ''}
       ${(user.badges || []).map(bId => {
         const b = badgePool.find(x => x.id === bId);
         return b ? `
@@ -958,7 +953,7 @@ function renderRanking() {
     <h2 class="page-title">랭킹</h2>
     <p class="page-sub">열심히 탐험하고 순위를 올려보세요!</p>
     <div class="rank-item my-rank">
-      <div class="rank-num">7</div>
+      <div class="rank-num">1</div>
       <div class="rank-user"><span>🎓</span> ${state.nickname}</div>
       <div style="font-weight:900; font-size:15px;">${state.points}P</div>
     </div>
@@ -984,7 +979,7 @@ function renderSchoolClub() {
         <div><div class="club-stat-val">${currentSchool.members}명</div><div class="club-stat-lbl">회원 수</div></div>
         <div><div class="club-stat-val">${currentSchool.points.toLocaleString()}P</div><div class="club-stat-lbl">클럽 포인트</div></div>
         <div><div class="club-stat-val">${currentSchool.visits}회</div><div class="club-stat-lbl">방문 기록</div></div>
-        <div><div class="club-stat-val">2개</div><div class="club-stat-lbl">지역 ${currentSchool.region}</div></div>
+        <div><div class="club-stat-val">1개</div><div class="club-stat-lbl">지역 ${currentSchool.region}</div></div>
       </div>
     </div>
 
@@ -1010,6 +1005,7 @@ function renderSchoolClub() {
     <div class="card">
       <div class="section-title">💬 클럽 멤버 실시간 대화</div>
       <div class="club-chat-box">
+        ${state.clubChats.length === 0 ? '<div style="font-size:11px; color:#aaa; text-align:center; padding-top:60px;">첫 메시지를 남겨보세요!</div>' : ''}
         ${state.clubChats.map(c => `
           <div class="chat-item"><strong>${c.user}:</strong> ${c.text} <span style="font-size:9px; color:#aaa;">(${c.time})</span></div>
         `).join('')}
@@ -1081,7 +1077,7 @@ function renderProfile() {
 
       <div class="level-progress-box" onclick="openLevelRoadmapModal()">
         <div class="level-progress-text"><span>현재 문화유산 새싹</span><span>상세 등급 로드맵 보기 ></span></div>
-        <div class="level-bar-bg"><div class="level-bar-fill" style="width:40%;"></div></div>
+        <div class="level-bar-bg"><div class="level-bar-fill" style="width:0%;"></div></div>
       </div>
     </div>
 
@@ -1102,6 +1098,7 @@ function renderProfile() {
     <div class="card">
       <div class="section-title">🤝 나의 친구 목록 (${state.friends.length}명)</div>
       <div style="margin-top:8px;">
+        ${state.friends.length === 0 ? '<div style="font-size:12px; color:#aaa; text-align:center; padding:8px;">추가된 친구가 없습니다.</div>' : ''}
         ${state.friends.map(fId => {
           const user = allUserDB.find(u => u.id === fId) || { nickname: fId, icon: "👤" };
           return `
@@ -1144,6 +1141,7 @@ function renderProfile() {
     <div class="card">
       <div class="section-title">📜 최근 활동 기록</div>
       <div class="activity-list">
+        ${state.activities.length === 0 ? '<div style="font-size:12px; color:#aaa; text-align:center; padding:10px;">최근 활동 기록이 없습니다.</div>' : ''}
         ${state.activities.map(a => `
           <div class="activity-item">
             <div>
@@ -1167,8 +1165,8 @@ function renderProfile() {
   `;
 }
 
-function resetTestData() { state.quizzes = { h1: 0 }; state.visits = {}; toast("✏️ 데이터 초기화 완료"); save(); render(); }
-function fullReset() { localStorage.removeItem("heritageGO_v19"); location.reload(); }
+function resetTestData() { state.quizzes = {}; state.visits = {}; state.points = 0; toast("✏️ 데이터 초기화 완료"); save(); render(); }
+function fullReset() { localStorage.removeItem("heritageGO_v20"); location.reload(); }
 
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
