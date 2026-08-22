@@ -22,7 +22,7 @@ try {
   console.warn("⚠️ 서버 연결 실패: 로컬 오프라인 모드로 동작합니다.", e);
 }
 
-/* 국가유산청 지정 14종 전체 데이터 (100% 보존) */
+/* 국가유산청 지정 14종 전체 데이터 (완전 보존) */
 let heritageData = [
   {
     id: "h1",
@@ -382,14 +382,16 @@ const badgePool = [
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-let state = JSON.parse(localStorage.getItem("heritageGO_v21")) || {
+/* 상태 제어 (로그인 여부 포함) */
+let state = JSON.parse(localStorage.getItem("heritageGO_v22")) || {
   tab: "home",
   detailId: null,
   routeId: null,
   viewSchoolClub: false,
   points: 0,
-  nickname: "유산 탐험가",
-  myUserId: "user_" + Date.now(),
+  nickname: "",
+  myUserId: "",
+  isLoggedIn: false,
   joinedSchool: "s1",
   visits: {},
   quizzes: {},
@@ -405,24 +407,74 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v21")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v21", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v22", JSON.stringify(state));
 }
 
 function toast(msg) {
   const t = document.getElementById("toast");
+  if (!t) return;
   t.textContent = msg;
   t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 2. 내 정보를 클럽 서버 데이터로 실시간 동기화 */
-function syncMyClubMemberData() {
-  if (!db) return;
-  const currentClubId = state.joinedSchool || "s1";
-  if (!state.myUserId) {
-    state.myUserId = "user_" + Date.now();
-    save();
+/* 2. 로그인 화면 레이어 생성 */
+function renderLoginModal() {
+  let modal = document.getElementById("loginModalOverlay");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "loginModalOverlay";
+    modal.className = "modal-overlay show";
+    modal.style.zIndex = "99999";
+    document.body.appendChild(modal);
   }
+
+  modal.innerHTML = `
+    <div class="modal-card" style="text-align:center; padding:28px 20px;">
+      <div style="font-size:42px; margin-bottom:8px;">🏛️</div>
+      <h2 style="font-size:20px; font-weight:900; margin-bottom:6px; color:#1a1513;">유산GO에 오신 것을 환영합니다!</h2>
+      <p style="font-size:12px; color:#666; margin-bottom:20px;">탐험에서 사용할 나만의 닉네임을 설정하세요.</p>
+      
+      <div style="text-align:left; margin-bottom:16px;">
+        <label class="input-label">닉네임 입력</label>
+        <input type="text" id="loginNicknameInput" class="modal-input" placeholder="예: 춘천역사왕 (2~10자)" style="margin-top:4px;">
+      </div>
+      
+      <button class="btn-primary-orange" style="font-size:15px; padding:14px; border-radius:14px;" onclick="handleLoginSubmit()">
+        🚀 로그인 및 탐험 시작
+      </button>
+    </div>
+  `;
+}
+
+function handleLoginSubmit() {
+  const input = document.getElementById("loginNicknameInput");
+  if (!input) return;
+  const val = input.value.trim();
+  if (val.length < 2 || val.length > 10) {
+    toast("닉네임은 2~10자로 입력해주세요!");
+    return;
+  }
+
+  state.nickname = val;
+  state.myUserId = "user_" + encodeURIComponent(val);
+  state.isLoggedIn = true;
+
+  const modal = document.getElementById("loginModalOverlay");
+  if (modal) modal.remove();
+
+  save();
+  syncMyClubMemberData();
+  initServerListeners();
+  toast(`🎉 환영합니다, ${val}님!`);
+  render();
+}
+
+/* 3. 내 정보를 클럽 서버 데이터로 실시간 고유 동기화 */
+function syncMyClubMemberData() {
+  if (!db || !state.isLoggedIn || !state.myUserId) return;
+  const currentClubId = state.joinedSchool || "s1";
+
   const memberData = {
     id: state.myUserId,
     nickname: state.nickname,
@@ -431,16 +483,16 @@ function syncMyClubMemberData() {
     icon: "🎓",
     level: "🌱 문화유산 새싹"
   };
+
   db.ref(`clubs/${currentClubId}/members/${state.myUserId}`).set(memberData);
 }
 
-/* 3. 서버 실시간 리스너 */
+/* 4. 서버 실시간 리스너 */
 function initServerListeners() {
-  if (!db) return;
+  if (!db || !state.isLoggedIn) return;
 
   const currentClubId = state.joinedSchool || "s1";
   
-  // 내 유저 정보 클럽 서버 등록
   syncMyClubMemberData();
 
   // 실시간 클럽 멤버 목록 수신
@@ -449,6 +501,8 @@ function initServerListeners() {
     if (data) {
       state.clubMembers = Object.values(data);
       if (state.viewSchoolClub) render();
+    } else {
+      state.clubMembers = [];
     }
   });
 
@@ -639,6 +693,7 @@ function submitNicknameChange() {
   const newName = document.getElementById("nicknameInput").value.trim();
   if (newName.length < 2 || newName.length > 10) { toast("닉네임은 2~10자로 입력해주세요."); return; }
   state.nickname = newName;
+  state.myUserId = "user_" + encodeURIComponent(newName);
   syncMyClubMemberData();
   closeNicknameModal();
   toast(`✏️ 닉네임이 '${newName}'(으)로 변경되었습니다.`);
@@ -853,7 +908,7 @@ function renderHome() {
   return `
     <div style="font-size:16px; color:#555; margin-bottom:12px; font-weight:800;">오늘은 어떤 역사를 탐험할까?</div>
     <div class="home-banner">
-      <h3>🌱 문화유산 새싹</h3>
+      <h3>🌱 문화유산 새싹 (${state.nickname}님)</h3>
       <div class="banner-stats">
         <div class="stat-item">🪙 내 포인트 <strong>${state.points}P</strong></div>
         <div class="stat-item">🏛️ 방문 유산 <strong>${visitedCount}곳</strong></div>
@@ -989,7 +1044,7 @@ function renderSchoolClub() {
     </div>
 
     <div class="card">
-      <div class="section-title">👥 클럽 멤버 목록 (실시간 서버 연결)</div>
+      <div class="section-title">👥 클럽 멤버 목록 (실시간 서버 연동)</div>
       <div style="margin-top:8px;">
         ${membersList.length > 0 ? membersList.map(m => `
           <div class="member-item-btn" onclick="openMemberProfile('${m.id}')">
@@ -1172,7 +1227,7 @@ function renderProfile() {
 }
 
 function resetTestData() { state.quizzes = {}; state.visits = {}; state.points = 0; syncMyClubMemberData(); toast("✏️ 데이터 초기화 완료"); save(); render(); }
-function fullReset() { localStorage.removeItem("heritageGO_v21"); location.reload(); }
+function fullReset() { localStorage.removeItem("heritageGO_v22"); location.reload(); }
 
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
@@ -1378,6 +1433,15 @@ function submitChangeRecord() {
 }
 
 function render() {
+  // 미로그인 시 로그인 레이어 렌더링
+  if (!state.isLoggedIn) {
+    renderLoginModal();
+    return;
+  } else {
+    const existingModal = document.getElementById("loginModalOverlay");
+    if (existingModal) existingModal.remove();
+  }
+
   document.getElementById("headerPoints").textContent = state.points;
   const headerTitle = document.getElementById("headerTitle");
   
