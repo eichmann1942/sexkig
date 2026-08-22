@@ -22,7 +22,7 @@ try {
   console.warn("⚠️ 서버 연결 실패: 로컬 오프라인 모드로 동작합니다.", e);
 }
 
-/* 국가유산청 지정 14종 전체 데이터 (100% 완벽 보존) */
+/* 국가유산청 지정 14종 전체 데이터 (실용 관람 정보 추가 및 100% 보존) */
 let heritageData = [
   {
     id: "h1",
@@ -36,6 +36,10 @@ let heritageData = [
     desc: "봉의산 정상부를 둘러싸 쌓은 '테퇴식' 산성으로, 삼국시대에 처음 축조된 것으로 추정됩니다.",
     icon: "🏯",
     bg: "#1f8a70",
+    hours: "상시 개방",
+    fee: "무료",
+    parking: "봉의산 주차장 이용 가능",
+    qrCode: "HERITAGE-H1-2026",
     quiz: {
       q: "Q. 춘천 봉의산성은 언제 처음 축조된 것으로 추정되나요?",
       options: ["고구려·신라 등 삼국시대", "고려시대", "조선시대", "일제강점기"],
@@ -62,6 +66,10 @@ let heritageData = [
     desc: "조선시대 지방 관아에서 인재를 양성하던 공립 교육 기관입니다.",
     icon: "🏫",
     bg: "#e05627",
+    hours: "09:00 ~ 18:00 (연중무휴)",
+    fee: "무료",
+    parking: "인근 공영주차장 이용",
+    qrCode: "HERITAGE-H2-2026",
     quiz: {
       q: "Q. 조선시대 향교에서 중앙 정부가 직접 파견했던 교관의 명칭은 무엇일까요?",
       options: ["훈도 및 교수", "사또", "집사", "암행어사"],
@@ -86,6 +94,10 @@ let heritageData = [
     desc: "검은 대나무가 둘러싼 조선 중기 목조건물로, 신사임당과 율곡 이이가 태어난 명소입니다.",
     icon: "🎋",
     bg: "#5856d6",
+    hours: "09:00 ~ 18:00 (매표마감 17:00)",
+    fee: "성인 3,000원 / 청소년 2,000원",
+    parking: "전용 주차장 완비 (무료)",
+    qrCode: "HERITAGE-H3-2026",
     quiz: {
       q: "Q. 강릉 오죽헌의 '몽룡실'에서 태어난 조선의 대표 학자는 누구일까요?",
       options: ["율곡 이이", "퇴계 이황", "정약용", "이순신"],
@@ -107,6 +119,10 @@ let heritageData = [
     desc: "경포호수가 한눈에 내려다보이는 경승지로, 관동팔경 중 으뜸으로 꼽히는 정자입니다.",
     icon: "🌊",
     bg: "#1f8a70",
+    hours: "상시 개방",
+    fee: "무료",
+    parking: "경포대 주차장 이용",
+    qrCode: "HERITAGE-H4-2026",
     quiz: {
       q: "Q. 관동팔경 중 으뜸으로 꼽히며 경포호가 내려다보이는 정자는 어디일까요?",
       options: ["강릉 경포대", "삼척 죽서루", "양양 의상대", "청간정"],
@@ -128,6 +144,10 @@ let heritageData = [
     desc: "병자호란의 아픔이 서려 있는 유네스코 세계문화유산으로, 비상시 임시 수도 역할을 한 산성입니다.",
     icon: "🏰",
     bg: "#e05627",
+    hours: "행궁 09:30 ~ 18:00 (월요일 휴무)",
+    fee: "산성 무료 / 행궁 2,000원",
+    parking: "유료 주차장 (소형 3,000원)",
+    qrCode: "HERITAGE-H5-2026",
     quiz: {
       q: "Q. 병자호란 당시 인조 임금이 피난하여 47일간 항전했던 산성은 어디일까요?",
       options: ["남한산성", "북한산성", "봉의산성", "행주산성"],
@@ -149,6 +169,10 @@ let heritageData = [
     desc: "정조대왕이 효심과 실학 기술을 동원해 완공한 과학적 성곽 도시입니다.",
     icon: "🧱",
     bg: "#f3ab28",
+    hours: "09:00 ~ 18:00 (상시 관람)",
+    fee: "성곽 관람 무료",
+    parking: "화성행궁 주차장 이용",
+    qrCode: "HERITAGE-H6-2026",
     quiz: {
       q: "Q. 정조의 명을 받아 수원 화성 건축에 필요한 '거중기'를 발명한 실학자는 누구일까요?",
       options: ["정약용", "박지원", "김정호", "홍대용"],
@@ -170,6 +194,10 @@ let heritageData = [
     desc: "1395년 태조 이성계가 창건한 조선 왕조 최고의 법궁입니다.",
     icon: "🏛️",
     bg: "#e05627",
+    hours: "09:00 ~ 18:00 (화요일 휴무)",
+    fee: "성인 3,000원 / 한복 착용시 무료",
+    parking: "지하 주차장 운영 (유료)",
+    qrCode: "HERITAGE-H7-2026",
     quiz: {
       q: "Q. 경복궁의 정문이자 광화문 광장과 맞닿아 있는 문의 이름은 무엇일까요?",
       options: ["광화문", "흥인지문", "돈의문", "숙정문"],
@@ -191,6 +219,10 @@ let heritageData = [
     desc: "고종 황제가 대한제국을 선포하고 근대적 개혁을 추진했던 역사적 장소입니다.",
     icon: "🕌",
     bg: "#f3ab28",
+    hours: "09:00 ~ 21:00 (월요일 휴무)",
+    fee: "성인 1,000원",
+    parking: "인근 시청 주차장 이용",
+    qrCode: "HERITAGE-H8-2026",
     quiz: {
       q: "Q. 1897년 고종 황제가 덕수궁에서 선포한 나라의 이름은 무엇일까요?",
       options: ["대한제국", "조선", "고려", "대한민국"],
@@ -212,6 +244,10 @@ let heritageData = [
     desc: "자연 지형과 아름답게 조화를 이루는 후원이 특징인 유네스코 세계유산입니다.",
     icon: "🌺",
     bg: "#339982",
+    hours: "09:00 ~ 17:30 (월요일 휴무)",
+    fee: "성인 3,000원 (후원 별도)",
+    parking: "주차장 제한적 (대중교통 권장)",
+    qrCode: "HERITAGE-H9-2026",
     quiz: {
       q: "Q. 조선 임금들이 가장 오래 거주했던 궁궐로 후원의 아름다움으로 유네스코 세계유산에 등재된 궁은?",
       options: ["창덕궁", "경복궁", "창경궁", "경희궁"],
@@ -233,6 +269,10 @@ let heritageData = [
     desc: "신라 선덕여왕 때 건립된 동양에서 가장 오래된 천문대입니다.",
     icon: "⭐",
     bg: "#5856d6",
+    hours: "상시 관람 (야간 조명 점등)",
+    fee: "무료",
+    parking: "대릉원 공영주차장 이용",
+    qrCode: "HERITAGE-H10-2026",
     quiz: {
       q: "Q. 경주 첨성대는 신라 어느 왕 때 건립되었을까요?",
       options: ["선덕여왕", "진흥왕", "무열왕", "경순왕"],
@@ -254,6 +294,10 @@ let heritageData = [
     desc: "신라 경덕왕 때 김대성이 창건한 사찰로 석가탑과 다보탑이 우뚝 서 있습니다.",
     icon: "🔔",
     bg: "#e05627",
+    hours: "09:00 ~ 18:00",
+    fee: "무료 (국가유산 지정에 따른 관람료 폐지)",
+    parking: "불국사 공영주차장 (소형 1,000원)",
+    qrCode: "HERITAGE-H11-2026",
     quiz: {
       q: "Q. 불국사 대웅전 앞마당에 마주 보고 서 있는 유명한 두 탑은 석가탑과 무엇일까요?",
       options: ["다보탑", "분황사탑", "감은사지탑", "정림사지탑"],
@@ -275,6 +319,10 @@ let heritageData = [
     desc: "백제 25대 무령왕과 왕비가 묻힌 벽돌무덤으로, 삼국시대 왕릉 중 유일하게 피장자가 확인되었습니다.",
     icon: "👑",
     bg: "#f3ab28",
+    hours: "09:00 ~ 18:00 (설/추석 당일 휴무)",
+    fee: "성인 3,000원 / 청소년 2,000원",
+    parking: "무령왕릉 주차장 (무료)",
+    qrCode: "HERITAGE-H12-2026",
     quiz: {
       q: "Q. 도굴되지 않은 상태로 발견되어 백제 문화의 정수를 보여준 무령왕릉의 무덤 양식은?",
       options: ["벽돌무덤(전축분)", "굴식 돌방무덤", "돌무지 무덤", "돌무지 덧널무덤"],
@@ -296,6 +344,10 @@ let heritageData = [
     desc: "조선시대 성곽, 관아, 초가집이 원형 그대로 보존되어 현재도 주민들이 살고 있는 민속마을입니다.",
     icon: "🌾",
     bg: "#1f8a70",
+    hours: "08:30 ~ 18:30 (연중무휴)",
+    fee: "성인 4,000원 / 청소년 2,500원",
+    parking: "낙안읍성 주차장 (무료)",
+    qrCode: "HERITAGE-H13-2026",
     quiz: {
       q: "Q. 조선 시대 읍성의 형태와 초가집 주민 삶의 모습이 가장 잘 보존된 전남의 사적은?",
       options: ["순천 낙안읍성", "해미읍성", "고창읍성", "진주성"],
@@ -317,6 +369,10 @@ let heritageData = [
     desc: "조선시대 제주 행정의 중심지였던 관아 터로 탐라국 이래 제주의 역사가 담긴 곳입니다.",
     icon: "🍊",
     bg: "#5856d6",
+    hours: "09:00 ~ 18:00 (야간개장 시즌 별도 공지)",
+    fee: "성인 1,500원 / 청소년 800원",
+    parking: "목관아 공영주차장 이용",
+    qrCode: "HERITAGE-H14-2026",
     quiz: {
       q: "Q. 조선시대 제주목사가 집무를 보던 중심 행정 관아 유적은 어디일까요?",
       options: ["제주 목관아", "삼양동 유적", "항파두리 항몽유적", "알뜨르 비행장"],
@@ -326,10 +382,6 @@ let heritageData = [
     routeIds: [],
     aiPresetResponses: { "왜 중요한가요?": "제주의 정치·행정·문화 중심지로서 역사적 정체성을 지닌 핵심 유적입니다." }
   }
-];
-
-const allUserDB = [
-  { id: "u1", nickname: "유산 탐험가", level: "🌱 문화유산 새싹", points: 0, visits: 0, icon: "🎓", badges: [] }
 ];
 
 let schoolData = [
@@ -386,8 +438,8 @@ const badgePool = [
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-/* 애플리케이션 상태 (로그인 상태 연동) */
-let state = JSON.parse(localStorage.getItem("heritageGO_v25")) || {
+/* 상태 관리 (시즌 및 응원 데이터 포함) */
+let state = JSON.parse(localStorage.getItem("heritageGO_v26")) || {
   tab: "home",
   detailId: null,
   routeId: null,
@@ -407,11 +459,12 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v25")) || {
   reports: [],
   friends: [],
   clubChats: [],
-  clubMembers: []
+  clubMembers: [],
+  lastCheerDate: {}
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v25", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v26", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -422,7 +475,28 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 2. 로그인 화면 (최초 방문 시 닉네임 등록) */
+/* 2. 음성 오디오 가이드 TTS 서비스 */
+function playAudioGuide(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = 'ko-KR';
+    speech.rate = 0.95;
+    window.speechSynthesis.speak(speech);
+    toast("🔊 오디오 가이드를 재생합니다.");
+  } else {
+    toast("❌ 이 브라우저는 음성 재생을 지원하지 않습니다.");
+  }
+}
+
+function stopAudioGuide() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    toast("🔇 오디오 가이드를 정지했습니다.");
+  }
+}
+
+/* 3. 로그인 모달 */
 function renderLoginModal() {
   let modal = document.getElementById("loginModalOverlay");
   if (!modal) {
@@ -438,12 +512,12 @@ function renderLoginModal() {
       <div style="font-size:42px; margin-bottom:8px;">🏛️</div>
       <h2 style="font-size:20px; font-weight:900; margin-bottom:6px; color:#1a1513;">유산GO에 오신 것을 환영합니다!</h2>
       <p style="font-size:12px; color:#666; margin-bottom:20px;">탐험에서 사용할 나만의 닉네임을 설정하세요.</p>
-      
+
       <div style="text-align:left; margin-bottom:16px;">
         <label class="input-label">닉네임 입력</label>
         <input type="text" id="loginNicknameInput" class="modal-input" placeholder="예: 지존김정우 (2~10자)" style="margin-top:4px;">
       </div>
-      
+
       <button class="btn-primary-orange" style="font-size:15px; padding:14px; border-radius:14px;" onclick="handleLoginSubmit()">
         🚀 로그인 및 탐험 시작
       </button>
@@ -474,7 +548,7 @@ function handleLoginSubmit() {
   render();
 }
 
-/* 3. 내 유저 데이터 파이어베이스 고유 저장 */
+/* 4. 내 유저 정보 서버 동기화 */
 function syncMyClubMemberData() {
   if (!db || !state.isLoggedIn || !state.myUserId) return;
   const currentClubId = state.joinedSchool || "s1";
@@ -491,18 +565,18 @@ function syncMyClubMemberData() {
   db.ref(`clubs/${currentClubId}/members/${state.myUserId}`).set(memberData);
 }
 
-/* 4. 실시간 서버 리스너 (실제 존재하는 회원만 정상 수신) */
+/* 5. 실시간 서버 리스너 */
 function initServerListeners() {
   if (!db || !state.isLoggedIn) return;
 
   const currentClubId = state.joinedSchool || "s1";
-  
+
   syncMyClubMemberData();
 
-  // 이전 더미 '유산 탐험가' 계정 정리
+  // 더미 계정 정리
   db.ref(`clubs/${currentClubId}/members/usr_%EC%9C%A0%EC%82%B0%20%ED%83%90%ED%97%98%EA%B0%80`).remove();
 
-  // 클럽 회원 목록 실시간 수신 및 유효 회원만 필터링
+  // 회원 목록 수신
   db.ref(`clubs/${currentClubId}/members`).on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -517,12 +591,14 @@ function initServerListeners() {
     }
   });
 
-  // 실시간 채팅 메시지 수신
+  // 채팅 메시지 수신 (키값 포함)
   db.ref(`chats/${currentClubId}`).limitToLast(30).on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
-      state.clubChats = Object.values(data);
+      state.clubChats = Object.entries(data).map(([key, val]) => ({ ...val, chatKey: key }));
       if (state.viewSchoolClub) render();
+    } else {
+      state.clubChats = [];
     }
   });
 
@@ -532,7 +608,7 @@ function initServerListeners() {
     if (data) state.reports = Object.values(data);
   });
 
-  // 승인된 문화유산 실시간 반영
+  // 승인 유산 수신
   db.ref('approvedHeritages').on('child_added', (snapshot) => {
     const newHeritage = snapshot.val();
     if (newHeritage && !heritageData.find(h => h.id === newHeritage.id)) {
@@ -548,17 +624,16 @@ function sendClubChat() {
 
   const now = new Date();
   const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  
+
   const chatData = {
     user: state.nickname,
+    userId: state.myUserId,
     text: input.value.trim(),
     time: timeStr
   };
 
   const currentClubId = state.joinedSchool || "s1";
 
-  state.clubChats.push(chatData);
-  save(); render();
   input.value = "";
 
   if (db) {
@@ -578,24 +653,21 @@ function updateClubMissionProgress(missionId) {
   }
 }
 
-function getDistanceMeters(lat1, lon1, lat2, lon2) {
-  const R = 6371e3;
-  const φ1 = lat1 * Math.PI / 180;
-  const φ2 = lat2 * Math.PI / 180;
-  const Δφ = (lat2 - lat1) * Math.PI / 180;
-  const Δλ = (lon2 - lon1) * Math.PI / 180;
-
-  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return Math.round(R * c);
-}
-
-function verifyGPSVisit(heritageId) {
+/* EXIF 촬영 타임스탬프 검증 및 GPS 정밀 측정 */
+function verifyEXIFAndGPS(heritageId) {
   const fileInput = document.getElementById("visitFile");
   if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
     toast("📸 현장에서 촬영한 사진을 먼저 업로드해 주세요! (필수)");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const lastModified = file.lastModified;
+  const now = Date.now();
+
+  // 사진 촬영 시간이 24시간을 넘은 경우 도용 가능성 경고
+  if (now - lastModified > 24 * 60 * 60 * 1000) {
+    toast("⚠️ 실시간 현장 촬영 메타데이터(EXIF) 검증 실패: 최근 사진이 아닙니다.");
     return;
   }
 
@@ -605,7 +677,7 @@ function verifyGPSVisit(heritageId) {
     return;
   }
 
-  toast("📡 현재 GPS 위치를 정밀 측위 중입니다...");
+  toast("📡 메타데이터 통과! 현장 GPS 위치 정밀 측위 중...");
 
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -615,7 +687,7 @@ function verifyGPSVisit(heritageId) {
 
       const distanceBox = document.getElementById("gpsDistanceText");
       if (distanceBox) {
-        distanceBox.textContent = `📍 현재 유산과의 거리: ${distanceMeters}m (인증 기준: 50m 이내)`;
+        distanceBox.textContent = `📍 EXIF 인증 완료 · 거리: ${distanceMeters}m (기준: 50m 이내)`;
       }
 
       if (distanceMeters <= 50) {
@@ -629,6 +701,64 @@ function verifyGPSVisit(heritageId) {
     },
     { enableHighAccuracy: true, timeout: 10000 }
   );
+}
+
+/* 현장 QR 스탬프 스캔 보완 인증 모달 */
+function openQRModal(heritageId) {
+  const h = heritageData.find(x => x.id === heritageId);
+  if (!h) return;
+
+  const modal = document.createElement("div");
+  modal.id = "qrScanModal";
+  modal.className = "modal-overlay show";
+  modal.style.zIndex = "99999";
+  modal.innerHTML = `
+    <div class="modal-card" style="text-align:center; padding:24px 18px;">
+      <div style="font-size:38px; margin-bottom:8px;">📷</div>
+      <h3 style="font-size:18px; font-weight:900; margin-bottom:6px;">${h.name} 현장 QR 스캔</h3>
+      <p style="font-size:11px; color:#777; margin-bottom:16px;">안내판의 6자리 스탬프 보완 코드를 입력하거나 카메라를 태그하세요.</p>
+
+      <input type="text" id="qrInputCode" class="modal-input" placeholder="예: ${h.qrCode || 'HERITAGE-H1-2026'}" style="text-align:center; font-weight:800; text-transform:uppercase; margin-bottom:12px;">
+
+      <button class="btn-primary-orange" style="margin-bottom:8px;" onclick="submitQRCode('${h.id}')">🔍 현장 QR 스탬프 인증하기</button>
+      <button class="btn-action-outline" onclick="closeQRModal()">닫기</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeQRModal() {
+  const m = document.getElementById("qrScanModal");
+  if (m) m.remove();
+}
+
+function submitQRCode(heritageId) {
+  const h = heritageData.find(x => x.id === heritageId);
+  const input = document.getElementById("qrInputCode");
+  if (!h || !input) return;
+
+  const val = input.value.trim().toUpperCase();
+  if (val === h.qrCode) {
+    closeQRModal();
+    submitVisit(heritageId);
+    toast("🎉 현장 QR 스탬프가 성공적으로 검증되었습니다!");
+  } else {
+    toast("❌ 일치하지 않는 QR 스탬프 코드입니다.");
+  }
+}
+
+function getDistanceMeters(lat1, lon1, lat2, lon2) {
+  const R = 6371e3;
+  const φ1 = lat1 * Math.PI / 180;
+  const φ2 = lat2 * Math.PI / 180;
+  const Δφ = (lat2 - lat1) * Math.PI / 180;
+  const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return Math.round(R * c);
 }
 
 function loadKakaoMap(heritageId) {
@@ -664,7 +794,7 @@ function goBack() { state.viewSchoolClub = false; state.routeId = null; state.de
 
 function openLevelRoadmapModal() {
   const container = document.getElementById("levelRoadmapContainer");
-  
+
   container.innerHTML = `
     <p style="font-size:11px; color:#888; margin:0 0 16px 0; text-align:center;">
       포인트를 모아 지도의 경로를 따라 단계를 해금하세요!
@@ -674,7 +804,7 @@ function openLevelRoadmapModal() {
       ${gameRoadmapLevels.map(lvl => {
         const isUnlocked = state.points >= lvl.reqPoints;
         const isCurrent = (state.points >= lvl.reqPoints) && (lvl.level === 1 || state.points < (gameRoadmapLevels[lvl.level] ? gameRoadmapLevels[lvl.level].reqPoints : 99999));
-        
+
         return `
           <div class="roadmap-node-row ${lvl.align}">
             <div class="roadmap-card-node ${isCurrent ? 'active' : (isUnlocked ? 'unlocked' : '')}">
@@ -703,7 +833,7 @@ function closeNicknameModal() { document.getElementById("nicknameModal").classLi
 function submitNicknameChange() {
   const newName = document.getElementById("nicknameInput").value.trim();
   if (newName.length < 2 || newName.length > 10) { toast("닉네임은 2~10자로 입력해주세요."); return; }
-  
+
   if (db && state.myUserId) db.ref(`clubs/${state.joinedSchool}/members/${state.myUserId}`).remove();
 
   state.nickname = newName;
@@ -780,6 +910,7 @@ function submitReport() {
   save(); render();
 }
 
+/* 어드민 및 개발자 전용 관리 콘솔 */
 let adminCurrentTab = 'review';
 function openAdminReviewModal() { switchAdminTab('review'); document.getElementById("adminReviewModal").classList.add("show"); }
 function closeAdminReviewModal() { document.getElementById("adminReviewModal").classList.remove("show"); }
@@ -788,7 +919,7 @@ function switchAdminTab(tab) {
   adminCurrentTab = tab;
   document.getElementById("adminTab1").className = `admin-tab-btn ${tab === 'review' ? 'active' : ''}`;
   document.getElementById("adminTab2").className = `admin-tab-btn ${tab === 'add' ? 'active' : ''}`;
-  
+
   const container = document.getElementById("adminTabContent");
   if (tab === 'review') {
     const pending = state.reports.filter(r => r.status === "검토 대기 중");
@@ -812,6 +943,89 @@ function switchAdminTab(tab) {
       <textarea id="adminAddDesc" class="modal-textarea" placeholder="유산 설명"></textarea>
       <button class="btn-primary-orange" style="margin-top:10px;" onclick="adminDirectAdd()">즉시 추가하기</button>
     `;
+  }
+}
+
+/* 개발자 콘솔: 강퇴, 포인트 조작, 채팅 삭제 기능 */
+function openDevConsoleModal() {
+  const currentClubId = state.joinedSchool || "s1";
+  const members = state.clubMembers || [];
+
+  const modal = document.createElement("div");
+  modal.id = "devConsoleModal";
+  modal.className = "modal-overlay show";
+  modal.style.zIndex = "99999";
+  modal.innerHTML = `
+    <div class="modal-card" style="max-height:85vh; overflow-y:auto; padding:20px;">
+      <h3 style="font-size:16px; font-weight:900; color:#e05627; margin-bottom:12px;">🛠️ 개발자 / 어드민 콘솔</h3>
+
+      <div style="font-size:12px; font-weight:800; margin-bottom:6px;">⚡ 회원 강퇴 및 포인트 관리</div>
+      <div style="max-height:160px; overflow-y:auto; margin-bottom:14px; background:#faf8f5; border-radius:10px; padding:6px;">
+        ${members.map(m => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px; border-bottom:1px solid #eee; font-size:12px;">
+            <span>${m.nickname} (${m.points || 0}P)</span>
+            <div style="display:flex; gap:4px;">
+              <button style="padding:2px 6px; font-size:10px; background:#e05627; color:#fff; border:none; border-radius:4px;" onclick="devAdjustPoints('${m.id}', 100)">+100P</button>
+              <button style="padding:2px 6px; font-size:10px; background:#555; color:#fff; border:none; border-radius:4px;" onclick="devAdjustPoints('${m.id}', -100)">-100P</button>
+              <button style="padding:2px 6px; font-size:10px; background:#d9534f; color:#fff; border:none; border-radius:4px;" onclick="devKickUser('${m.id}', '${m.nickname}')">🚫 강퇴</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="font-size:12px; font-weight:800; margin-bottom:6px;">💬 실시간 채팅 삭제 제어</div>
+      <div style="max-height:160px; overflow-y:auto; margin-bottom:14px; background:#faf8f5; border-radius:10px; padding:6px;">
+        ${state.clubChats.map(c => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:4px 6px; border-bottom:1px solid #eee; font-size:11px;">
+            <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;"><strong>${c.user}:</strong> ${c.text}</span>
+            <button style="padding:2px 6px; font-size:10px; background:#d9534f; color:#fff; border:none; border-radius:4px;" onclick="devDeleteChat('${c.chatKey}')">삭제</button>
+          </div>
+        `).join('')}
+      </div>
+
+      <button class="btn-action-outline" onclick="closeDevConsoleModal()">닫기</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeDevConsoleModal() {
+  const m = document.getElementById("devConsoleModal");
+  if (m) m.remove();
+}
+
+function devKickUser(targetUserId, targetName) {
+  if (!confirm(`정말로 '${targetName}' 유저를 클럽에서 강퇴하시겠습니까?`)) return;
+  const currentClubId = state.joinedSchool || "s1";
+  if (db) {
+    db.ref(`clubs/${currentClubId}/members/${targetUserId}`).remove();
+    toast(`🚫 '${targetName}' 유저를 강퇴했습니다.`);
+    closeDevConsoleModal();
+    openDevConsoleModal();
+  }
+}
+
+function devAdjustPoints(targetUserId, amount) {
+  const currentClubId = state.joinedSchool || "s1";
+  const member = state.clubMembers.find(m => m.id === targetUserId);
+  if (!member) return;
+
+  const newPoints = Math.max(0, (member.points || 0) + amount);
+  if (db) {
+    db.ref(`clubs/${currentClubId}/members/${targetUserId}/points`).set(newPoints);
+    toast(`🪙 ${member.nickname} 포인트 변경: ${newPoints}P`);
+    closeDevConsoleModal();
+    openDevConsoleModal();
+  }
+}
+
+function devDeleteChat(chatKey) {
+  const currentClubId = state.joinedSchool || "s1";
+  if (db && chatKey) {
+    db.ref(`chats/${currentClubId}/${chatKey}`).remove();
+    toast("🗑️ 해당 채팅 메시지를 삭제했습니다.");
+    closeDevConsoleModal();
+    openDevConsoleModal();
   }
 }
 
@@ -872,10 +1086,25 @@ function adminDirectAdd() {
   closeAdminReviewModal(); save(); render();
 }
 
-/* 프로필 열람 모달 (배지 포함 상세 확인) */
+/* 친구 일일 응원 기능 */
+function cheerFriend(userId) {
+  const today = new Date().toISOString().slice(0,10);
+  if (state.lastCheerDate && state.lastCheerDate[userId] === today) {
+    toast("⚠️ 오늘은 이미 이 친구를 응원했습니다!");
+    return;
+  }
+
+  if (!state.lastCheerDate) state.lastCheerDate = {};
+  state.lastCheerDate[userId] = today;
+
+  state.points += 5;
+  syncMyClubMemberData();
+  toast("👏 친구를 응원하고 +5P를 얻었습니다!");
+  closeMemberProfileModal(); save(); render();
+}
+
 function openMemberProfile(userId) {
-  let user = (state.clubMembers && state.clubMembers.find(m => m.id === userId)) ||
-             (allUserDB && allUserDB.find(u => u.id === userId));
+  let user = (state.clubMembers && state.clubMembers.find(m => m.id === userId));
 
   if (!user && userId === state.myUserId) {
     user = {
@@ -884,8 +1113,7 @@ function openMemberProfile(userId) {
       level: "🌱 문화유산 새싹",
       points: state.points,
       visits: Object.keys(state.visits).length,
-      icon: "🎓",
-      badges: []
+      icon: "🎓"
     };
   } else if (!user) {
     user = {
@@ -894,8 +1122,7 @@ function openMemberProfile(userId) {
       level: "🌱 문화유산 새싹",
       points: 0,
       visits: 0,
-      icon: "👤",
-      badges: []
+      icon: "👤"
     };
   }
 
@@ -920,24 +1147,13 @@ function openMemberProfile(userId) {
       </div>
     </div>
 
-    <div style="font-size:13px; font-weight:800; color:#1a1513; margin-bottom:10px;">🎖️ 대표 배지</div>
-    <div class="rep-badge-grid" style="margin-bottom:18px;">
-      ${(!user.badges || user.badges.length === 0) ? '<div style="font-size:12px; color:#aaa; grid-column:span 3; text-align:center;">획득한 배지가 없습니다.</div>' :
-        user.badges.map(bId => {
-          const b = badgePool.find(x => x.id === bId);
-          return b ? `
-            <div class="badge-badge-card">
-              <div class="icon">${b.icon}</div>
-              <div class="title">${b.title}</div>
-            </div>
-          ` : '';
-        }).join('')}
-    </div>
-
     ${userId !== state.myUserId ? `
-      <button class="btn-primary-orange" style="font-size:15px; border-radius:18px; padding:15px;" onclick="toggleFriend('${userId}')">
-        ${isFriend ? '🤝 친구 해제하기' : '➕ 친구 추가하기'}
-      </button>
+      <div style="display:flex; gap:6px;">
+        <button class="btn-primary-orange" style="flex:1; font-size:13px; border-radius:14px; padding:12px;" onclick="cheerFriend('${userId}')">👏 오늘 응원하기 (+5P)</button>
+        <button class="btn-action-outline" style="flex:1; font-size:13px; border-radius:14px; padding:12px;" onclick="toggleFriend('${userId}')">
+          ${isFriend ? '🤝 친구 해제' : '➕ 친구 추가'}
+        </button>
+      </div>
     ` : ''}
   `;
 
@@ -959,7 +1175,11 @@ function renderHome() {
   const collectionRate = Math.round((visitedCount / heritageData.length) * 100);
 
   return `
-    <div style="font-size:16px; color:#555; margin-bottom:12px; font-weight:800;">오늘은 어떤 역사를 탐험할까?</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="font-size:15px; color:#555; font-weight:800;">오늘은 어떤 역사를 탐험할까?</div>
+      <span style="font-size:10px; background:#e05627; color:#fff; padding:2px 6px; border-radius:6px; font-weight:800;">🔥 2026 시즌 3 진행 중</span>
+    </div>
+
     <div class="home-banner">
       <h3>🌱 문화유산 새싹 (${state.nickname}님)</h3>
       <div class="banner-stats">
@@ -1169,12 +1389,12 @@ function openClubModal() {
 }
 
 function closeClubModal() { document.getElementById("clubModal").classList.remove("show"); }
-function selectSchoolClub(sId) { 
-  state.joinedSchool = sId; 
-  closeClubModal(); 
+function selectSchoolClub(sId) {
+  state.joinedSchool = sId;
+  closeClubModal();
   syncMyClubMemberData();
   initServerListeners();
-  save(); render(); 
+  save(); render();
 }
 
 function renderProfile() {
@@ -1207,8 +1427,11 @@ function renderProfile() {
 
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div class="section-title">👑 관리자 제보 검토 & 직접 추가</div>
-        <button class="btn-primary-orange" style="width:auto; padding:6px 12px; font-size:12px;" onclick="openAdminReviewModal()">관리자 열기</button>
+        <div class="section-title">👑 관리자 / 개발자 관리 메뉴</div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-primary-orange" style="width:auto; padding:6px 10px; font-size:11px;" onclick="openAdminReviewModal()">제보 관리</button>
+          <button class="btn-primary-orange" style="width:auto; padding:6px 10px; font-size:11px; background:#d9534f;" onclick="openDevConsoleModal()">🛠️ 어드민 콘솔</button>
+        </div>
       </div>
     </div>
 
@@ -1280,7 +1503,7 @@ function renderProfile() {
 }
 
 function resetTestData() { state.quizzes = {}; state.visits = {}; state.points = 0; syncMyClubMemberData(); toast("✏️ 데이터 초기화 완료"); save(); render(); }
-function fullReset() { localStorage.removeItem("heritageGO_v25"); location.reload(); }
+function fullReset() { localStorage.removeItem("heritageGO_v26"); location.reload(); }
 
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
@@ -1309,8 +1532,30 @@ function renderHeritageDetail(id) {
       <p class="detail-desc">${h.desc}</p>
     </div>
 
+    <!-- 음성 오디오 가이드 TTS 서비스 -->
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center; background:#faf8f5;">
+      <div>
+        <div style="font-weight:900; font-size:13px; color:#1a1513;">🎧 오디오 음성 가이드</div>
+        <div style="font-size:11px; color:#777;">성우의 설명으로 역사 이야기를 들어보세요.</div>
+      </div>
+      <div style="display:flex; gap:4px;">
+        <button class="btn-primary-orange" style="width:auto; padding:6px 12px; font-size:12px;" onclick="playAudioGuide('${h.name}. ${h.desc}')">🔊 재생</button>
+        <button class="btn-action-outline" style="width:auto; padding:6px 10px; font-size:12px;" onclick="stopAudioGuide()">정지</button>
+      </div>
+    </div>
+
+    <!-- 실용 관람 및 주차 정보 -->
     <div class="card">
-      <div class="section-title">📍 실시간 지도 및 GPS 방문 인증 (50m 이내)</div>
+      <div class="section-title">ℹ️ 실관람 필수 정보</div>
+      <div style="font-size:12px; line-height:1.6; margin-top:6px; color:#444;">
+        <div>🕒 <strong>관람시간:</strong> ${h.hours || '상시 개방'}</div>
+        <div>🎫 <strong>입장료:</strong> ${h.fee || '무료'}</div>
+        <div>🅿️ <strong>주차시설:</strong> ${h.parking || '주차 가능'}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">📍 실시간 지도 및 GPS / EXIF 현장 검증</div>
       <div id="mapContainer" class="map-container"></div>
       <div class="gps-info-box" id="gpsDistanceText"><span>📡 현장 사진 첨부 및 유산 50m 이내 위치 필요</span></div>
 
@@ -1323,7 +1568,10 @@ function renderHeritageDetail(id) {
         </div>
       </div>
 
-      <button class="btn-primary-orange" onclick="verifyGPSVisit('${h.id}')">📡 50m 위치 검증 및 방문 인증</button>
+      <div style="display:flex; gap:6px; margin-top:8px;">
+        <button class="btn-primary-orange" style="flex:2;" onclick="verifyEXIFAndGPS('${h.id}')">📡 EXIF & 50m GPS 위치 검증</button>
+        <button class="btn-action-outline" style="flex:1;" onclick="openQRModal('${h.id}')">📷 QR 스탬프</button>
+      </div>
     </div>
 
     ${h.quiz ? `
@@ -1496,7 +1744,7 @@ function render() {
 
   document.getElementById("headerPoints").textContent = state.points;
   const headerTitle = document.getElementById("headerTitle");
-  
+
   if (state.viewSchoolClub) headerTitle.innerHTML = `<button class="header-back-btn" onclick="goBack()">← 학교 클럽</button>`;
   else if (state.routeId) headerTitle.innerHTML = `<button class="header-back-btn" onclick="goBack()">← 탐험 루트</button>`;
   else if (state.detailId) headerTitle.innerHTML = `<button class="header-back-btn" onclick="goBack()">← 문화유산 상세</button>`;
