@@ -1,4 +1,4 @@
-/* 1. Firebase 실시간 데이터베이스 설정 (싱가포르 DB 주소 적용) */
+/* 1. Firebase 실시간 데이터베이스 설정 (싱가포르 DB) */
 const firebaseConfig = {
   apiKey: "AIzaSyBvya39ivMpmfWo0z5_K5rL-5dgQ-mc64I",
   authDomain: "sexking-3937f.firebaseapp.com",
@@ -22,7 +22,7 @@ try {
   console.warn("⚠️ 서버 연결 실패: 로컬 오프라인 모드로 동작합니다.", e);
 }
 
-/* 국가유산청 지정 14종 전체 데이터 (완전 보존) */
+/* 국가유산청 지정 14종 전체 데이터 (100% 보존) */
 let heritageData = [
   {
     id: "h1",
@@ -328,17 +328,11 @@ let heritageData = [
   }
 ];
 
-/* 유저 DB (가상 유저 삭제 및 현재 유저만 초기 상태로 배치) */
-const allUserDB = [
-  { id: "u1", nickname: "유산 탐험가", level: "🌱 문화유산 새싹", points: 0, visits: 0, icon: "🎓", badges: [] }
-];
-
-/* 클럽 데이터 (기록 0으로 초기화) */
 let schoolData = [
-  { id: "s1", name: "원주고 역사탐험클럽", region: "원주", members: 1, points: 0, visits: 0, tag: "🔥 성장 클럽", icon: "🏫", desc: "원주고등학교 학생들의 대표 문화유산 탐험 클럽입니다.", memberList: [] },
-  { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", members: 1, points: 0, visits: 0, tag: "🏆 명예 클럽", icon: "🏫", desc: "춘천 지역 문화유산을 중심으로 매주 모임을 가집니다.", memberList: [] },
-  { id: "s3", name: "봉의고 역사탐험클럽", region: "춘천", members: 1, points: 0, visits: 0, tag: "🌱 열정 클럽", icon: "🏫", desc: "봉의산성 유적 수호 소모임입니다.", memberList: [] },
-  { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 1, points: 0, visits: 0, tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다.", memberList: [] }
+  { id: "s1", name: "원주고 역사탐험클럽", region: "원주", tag: "🔥 성장 클럽", icon: "🏫", desc: "원주고등학교 학생들의 대표 문화유산 탐험 클럽입니다." },
+  { id: "s2", name: "춘천고 역사탐험클럽", region: "춘천", tag: "🏆 명예 클럽", icon: "🏫", desc: "춘천 지역 문화유산을 중심으로 매주 모임을 가집니다." },
+  { id: "s3", name: "봉의고 역사탐험클럽", region: "춘천", tag: "🌱 열정 클럽", icon: "🏫", desc: "봉의산성 유적 수호 소모임입니다." },
+  { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다." }
 ];
 
 const gameRoadmapLevels = [
@@ -350,7 +344,6 @@ const gameRoadmapLevels = [
   { level: 6, title: "역사 마스터", reqPoints: 1000, icon: "👑", align: "center", status: "locked", desc: "최고 명예 등급 및 명예의 전당 등재" }
 ];
 
-/* 클럽 미션 (0부터 시작하도록 초기화) */
 const clubMissions = [
   { id: "m1", icon: "🗺️", title: "우리 지역 문화유산 30곳 방문하기", target: 30, current: 0, myContrib: 0 },
   { id: "m2", icon: "🧠", title: "역사 퀴즈 500문제 해결하기", target: 500, current: 0, myContrib: 0 },
@@ -389,14 +382,14 @@ const badgePool = [
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-/* 클린 상태 (모든 포인트, 방문, 활동기록, 친구, 채팅 0으로 초기화) */
-let state = JSON.parse(localStorage.getItem("heritageGO_v20")) || {
+let state = JSON.parse(localStorage.getItem("heritageGO_v21")) || {
   tab: "home",
   detailId: null,
   routeId: null,
   viewSchoolClub: false,
   points: 0,
   nickname: "유산 탐험가",
+  myUserId: "user_" + Date.now(),
   joinedSchool: "s1",
   visits: {},
   quizzes: {},
@@ -407,11 +400,12 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v20")) || {
   selectedCreateClubImg: "🏫",
   reports: [],
   friends: [],
-  clubChats: []
+  clubChats: [],
+  clubMembers: []
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v20", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v21", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -421,12 +415,43 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 2. 서버 실시간 데이터 동기화 수신기 */
+/* 2. 내 정보를 클럽 서버 데이터로 실시간 동기화 */
+function syncMyClubMemberData() {
+  if (!db) return;
+  const currentClubId = state.joinedSchool || "s1";
+  if (!state.myUserId) {
+    state.myUserId = "user_" + Date.now();
+    save();
+  }
+  const memberData = {
+    id: state.myUserId,
+    nickname: state.nickname,
+    points: state.points,
+    visits: Object.keys(state.visits).length,
+    icon: "🎓",
+    level: "🌱 문화유산 새싹"
+  };
+  db.ref(`clubs/${currentClubId}/members/${state.myUserId}`).set(memberData);
+}
+
+/* 3. 서버 실시간 리스너 */
 function initServerListeners() {
   if (!db) return;
 
   const currentClubId = state.joinedSchool || "s1";
   
+  // 내 유저 정보 클럽 서버 등록
+  syncMyClubMemberData();
+
+  // 실시간 클럽 멤버 목록 수신
+  db.ref(`clubs/${currentClubId}/members`).on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      state.clubMembers = Object.values(data);
+      if (state.viewSchoolClub) render();
+    }
+  });
+
   // 실시간 채팅 수신
   db.ref(`chats/${currentClubId}`).limitToLast(30).on('value', (snapshot) => {
     const data = snapshot.val();
@@ -434,19 +459,15 @@ function initServerListeners() {
       state.clubChats = Object.values(data);
       if (state.viewSchoolClub) render();
     }
-  }, (err) => {
-    console.error("서버 동기화 에러 (규칙 확인 필요):", err);
   });
 
   // 실시간 제보 수신
   db.ref('reports').on('value', (snapshot) => {
     const data = snapshot.val();
-    if (data) {
-      state.reports = Object.values(data);
-    }
+    if (data) state.reports = Object.values(data);
   });
 
-  // 실시간 승인된 유산 수신
+  // 실시간 승인 유산 수신
   db.ref('approvedHeritages').on('child_added', (snapshot) => {
     const newHeritage = snapshot.val();
     if (newHeritage && !heritageData.find(h => h.id === newHeritage.id)) {
@@ -456,7 +477,6 @@ function initServerListeners() {
   });
 }
 
-/* 실시간 클럽 채팅 전송 */
 function sendClubChat() {
   const input = document.getElementById("clubChatInput");
   if (!input || !input.value.trim()) return;
@@ -472,12 +492,10 @@ function sendClubChat() {
 
   const currentClubId = state.joinedSchool || "s1";
 
-  // 화면 즉시 반영
   state.clubChats.push(chatData);
   save(); render();
   input.value = "";
 
-  // 서버 전송
   if (db) {
     db.ref(`chats/${currentClubId}`).push(chatData).catch((err) => {
       console.error("전송 오류:", err);
@@ -621,7 +639,7 @@ function submitNicknameChange() {
   const newName = document.getElementById("nicknameInput").value.trim();
   if (newName.length < 2 || newName.length > 10) { toast("닉네임은 2~10자로 입력해주세요."); return; }
   state.nickname = newName;
-  allUserDB[0].nickname = newName;
+  syncMyClubMemberData();
   closeNicknameModal();
   toast(`✏️ 닉네임이 '${newName}'(으)로 변경되었습니다.`);
   save(); render();
@@ -647,17 +665,14 @@ function submitCreateClub() {
     id: "s" + (schoolData.length + 1),
     name: name,
     region: "신규",
-    members: 1,
-    points: 0,
-    visits: 0,
     tag: "🆕 신생 클럽",
     icon: state.selectedCreateClubImg,
-    desc: desc || "신규 생성된 문화유산 탐험 클럽입니다.",
-    memberList: ["u1"]
+    desc: desc || "신규 생성된 문화유산 탐험 클럽입니다."
   };
 
   schoolData.unshift(newClub);
   state.joinedSchool = newClub.id;
+  syncMyClubMemberData();
   closeCreateClubModal();
   toast(`🏫 '${name}' 클럽이 생성 및 선택되었습니다!`);
   save(); render();
@@ -789,43 +804,29 @@ function adminDirectAdd() {
 }
 
 function openMemberProfile(userId) {
-  const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 0, visits: 0, icon: "👤", badges: [] };
+  const user = (state.clubMembers && state.clubMembers.find(m => m.id === userId)) || { id: userId, nickname: state.nickname, level: "🌱 문화유산 새싹", points: state.points, visits: Object.keys(state.visits).length, icon: "🎓" };
   const isFriend = state.friends.includes(userId);
 
   document.getElementById("memberProfileTitle").textContent = `${user.nickname}님의 프로필`;
   document.getElementById("memberProfileBody").innerHTML = `
     <div style="text-align:center; margin-bottom:12px;">
-      <div class="friend-modal-avatar">${user.icon}</div>
+      <div class="friend-modal-avatar">${user.icon || '🎓'}</div>
       <h3 class="friend-modal-name">${user.nickname}</h3>
-      <span class="friend-modal-level-pill">🌱 ${user.level}</span>
+      <span class="friend-modal-level-pill">${user.level || '🌱 문화유산 새싹'}</span>
     </div>
 
     <div class="friend-modal-stats-row">
       <div class="friend-modal-stat-box">
-        <div class="friend-modal-stat-val">🪙 ${user.points}P</div>
+        <div class="friend-modal-stat-val">🪙 ${user.points || 0}P</div>
         <div class="friend-modal-stat-lbl">포인트</div>
       </div>
       <div class="friend-modal-stat-box">
-        <div class="friend-modal-stat-val" style="color:#2c2523;">🏛️ ${user.visits}곳</div>
+        <div class="friend-modal-stat-val" style="color:#2c2523;">🏛️ ${user.visits || 0}곳</div>
         <div class="friend-modal-stat-lbl">방문 유산</div>
       </div>
     </div>
 
-    <div style="font-size:13px; font-weight:800; color:#1a1513; margin-bottom:10px;">🎖️ 친구의 대표 배지</div>
-    <div class="rep-badge-grid" style="margin-bottom:18px;">
-      ${(user.badges || []).length === 0 ? '<div style="font-size:12px; color:#aaa; grid-column:span 3; text-align:center;">획득한 배지가 없습니다.</div>' : ''}
-      ${(user.badges || []).map(bId => {
-        const b = badgePool.find(x => x.id === bId);
-        return b ? `
-          <div class="badge-badge-card">
-            <div class="icon">${b.icon}</div>
-            <div class="title">${b.title}</div>
-          </div>
-        ` : '';
-      }).join('')}
-    </div>
-
-    ${userId !== "u1" ? `
+    ${userId !== state.myUserId ? `
       <button class="btn-primary-orange" style="font-size:15px; border-radius:18px; padding:15px;" onclick="toggleFriend('${userId}')">
         ${isFriend ? '🤝 친구 해제하기' : '➕ 친구 추가하기'}
       </button>
@@ -963,6 +964,10 @@ function renderRanking() {
 function renderSchoolClub() {
   const currentSchool = schoolData.find(s => s.id === state.joinedSchool) || schoolData[0];
   const completedMissions = clubMissions.filter(m => m.current >= m.target).length;
+  const membersList = state.clubMembers || [];
+  const memberCount = Math.max(1, membersList.length);
+  const totalClubPoints = membersList.reduce((acc, cur) => acc + (cur.points || 0), 0);
+  const totalClubVisits = membersList.reduce((acc, cur) => acc + (cur.visits || 0), 0);
 
   return `
     <div class="club-main-card">
@@ -976,29 +981,27 @@ function renderSchoolClub() {
         <span class="club-tag-badge">미션 ${completedMissions} / ${clubMissions.length}완료</span>
       </div>
       <div class="club-stats-grid">
-        <div><div class="club-stat-val">${currentSchool.members}명</div><div class="club-stat-lbl">회원 수</div></div>
-        <div><div class="club-stat-val">${currentSchool.points.toLocaleString()}P</div><div class="club-stat-lbl">클럽 포인트</div></div>
-        <div><div class="club-stat-val">${currentSchool.visits}회</div><div class="club-stat-lbl">방문 기록</div></div>
+        <div><div class="club-stat-val">${memberCount}명</div><div class="club-stat-lbl">회원 수</div></div>
+        <div><div class="club-stat-val">${totalClubPoints.toLocaleString()}P</div><div class="club-stat-lbl">클럽 포인트</div></div>
+        <div><div class="club-stat-val">${totalClubVisits}회</div><div class="club-stat-lbl">방문 기록</div></div>
         <div><div class="club-stat-val">1개</div><div class="club-stat-lbl">지역 ${currentSchool.region}</div></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="section-title">👥 클럽 멤버 목록 (클릭 시 프로필 열람)</div>
+      <div class="section-title">👥 클럽 멤버 목록 (실시간 서버 연결)</div>
       <div style="margin-top:8px;">
-        <div class="member-item-btn" onclick="openMemberProfile('u1')">
-          <div class="member-item-left">🎓 <span>${state.nickname} (나)</span></div>
-          <span style="font-size:11px; color:#e05627; font-weight:800;">내 프로필</span>
-        </div>
-        ${(currentSchool.memberList || []).map(mId => {
-          const user = allUserDB.find(u => u.id === mId) || { nickname: mId, icon: "👤" };
-          return `
-            <div class="member-item-btn" onclick="openMemberProfile('${mId}')">
-              <div class="member-item-left">${user.icon} <span>${user.nickname}</span></div>
-              <span style="font-size:11px; color:#888;">프로필 열람 ></span>
-            </div>
-          `;
-        }).join('')}
+        ${membersList.length > 0 ? membersList.map(m => `
+          <div class="member-item-btn" onclick="openMemberProfile('${m.id}')">
+            <div class="member-item-left">${m.icon || '🎓'} <span>${m.nickname} ${m.id === state.myUserId ? '(나)' : ''}</span></div>
+            <span style="font-size:11px; color:#e05627; font-weight:800;">${m.points || 0}P · 프로필 ></span>
+          </div>
+        `).join('') : `
+          <div class="member-item-btn" onclick="openMemberProfile('${state.myUserId}')">
+            <div class="member-item-left">🎓 <span>${state.nickname} (나)</span></div>
+            <span style="font-size:11px; color:#e05627; font-weight:800;">내 프로필</span>
+          </div>
+        `}
       </div>
     </div>
 
@@ -1058,7 +1061,13 @@ function openClubModal() {
 }
 
 function closeClubModal() { document.getElementById("clubModal").classList.remove("show"); }
-function selectSchoolClub(sId) { state.joinedSchool = sId; closeClubModal(); save(); render(); }
+function selectSchoolClub(sId) { 
+  state.joinedSchool = sId; 
+  closeClubModal(); 
+  syncMyClubMemberData();
+  initServerListeners();
+  save(); render(); 
+}
 
 function renderProfile() {
   const visitedCount = Object.keys(state.visits).length;
@@ -1099,15 +1108,12 @@ function renderProfile() {
       <div class="section-title">🤝 나의 친구 목록 (${state.friends.length}명)</div>
       <div style="margin-top:8px;">
         ${state.friends.length === 0 ? '<div style="font-size:12px; color:#aaa; text-align:center; padding:8px;">추가된 친구가 없습니다.</div>' : ''}
-        ${state.friends.map(fId => {
-          const user = allUserDB.find(u => u.id === fId) || { nickname: fId, icon: "👤" };
-          return `
-            <div class="member-item-btn" onclick="openMemberProfile('${fId}')">
-              <div class="member-item-left">${user.icon} <span>${user.nickname}</span></div>
-              <span style="font-size:11px; color:#e05627; font-weight:800;">프로필 열람</span>
-            </div>
-          `;
-        }).join('')}
+        ${state.friends.map(fId => `
+          <div class="member-item-btn" onclick="openMemberProfile('${fId}')">
+            <div class="member-item-left">👤 <span>친구 (${fId})</span></div>
+            <span style="font-size:11px; color:#e05627; font-weight:800;">프로필 열람</span>
+          </div>
+        `).join('')}
       </div>
     </div>
 
@@ -1165,8 +1171,8 @@ function renderProfile() {
   `;
 }
 
-function resetTestData() { state.quizzes = {}; state.visits = {}; state.points = 0; toast("✏️ 데이터 초기화 완료"); save(); render(); }
-function fullReset() { localStorage.removeItem("heritageGO_v20"); location.reload(); }
+function resetTestData() { state.quizzes = {}; state.visits = {}; state.points = 0; syncMyClubMemberData(); toast("✏️ 데이터 초기화 완료"); save(); render(); }
+function fullReset() { localStorage.removeItem("heritageGO_v21"); location.reload(); }
 
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
@@ -1328,6 +1334,7 @@ function submitVisit(id) {
   state.visits[id] = true;
   state.points += 10;
   state.activities.unshift({ type: "visit", title: "유산 현장 인증 완료 (+10P)", time: new Date().toLocaleString() });
+  syncMyClubMemberData();
   updateClubMissionProgress('m1');
   toast("📸 50m 현장 방문 인증 완료! (+10P)");
   save(); render();
@@ -1341,6 +1348,7 @@ function answerQuiz(heritageId, selectedIdx) {
   if (selectedIdx === h.quiz.answer) {
     state.points += 20;
     state.activities.unshift({ type: "quiz", title: `${h.name} 퀴즈 정답 (+20P)`, time: new Date().toLocaleString() });
+    syncMyClubMemberData();
     updateClubMissionProgress('m2');
     toast("🎉 정답입니다! (+20P)");
   } else { toast("❌ 오답입니다."); }
