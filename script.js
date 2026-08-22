@@ -1,8 +1,8 @@
-/* 1. 파이어베이스 키 설정 */
+/* 1. Firebase 실시간 데이터베이스 설정 (databaseURL 추가 완료) */
 const firebaseConfig = {
   apiKey: "AIzaSyBvya39ivMpmfWo0z5_K5rL-5dgQ-mc64I",
   authDomain: "sexking-3937f.firebaseapp.com",
-  databaseURL: "https://sexking-3937f-default-rtdb.firebaseio.com",
+  databaseURL: "https://sexking-3937f-default-rtdb.firebaseio.com", // Realtime DB 필수 URL
   projectId: "sexking-3937f",
   storageBucket: "sexking-3937f.firebasestorage.app",
   messagingSenderId: "1063254666908",
@@ -11,17 +11,15 @@ const firebaseConfig = {
 };
 
 let db = null;
-let isServerConnected = false;
 
 try {
   if (typeof firebase !== 'undefined') {
     firebase.initializeApp(firebaseConfig);
     db = firebase.database();
-    isServerConnected = true;
     console.log("⚡ Firebase Realtime Database 서버 연결 성공!");
   }
 } catch(e) {
-  console.warn("⚠️ 서버 연결 실패: 오프라인(로컬 모드)로 동작합니다.", e);
+  console.warn("⚠️ 서버 연결 실패: 로컬 오프라인 모드로 동작합니다.", e);
 }
 
 /* 국가유산청 지정 14종 전체 데이터 */
@@ -429,19 +427,24 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 2. 서버 실시간 동기화 수신기 */
+/* 2. 서버 실시간 채팅 및 제보 수신기 */
 function initServerListeners() {
   if (!db) return;
 
   const currentClubId = state.joinedSchool || "s1";
+  
+  // 실시간 채팅 동기화
   db.ref(`chats/${currentClubId}`).limitToLast(30).on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
       state.clubChats = Object.values(data);
       if (state.viewSchoolClub) render();
     }
+  }, (err) => {
+    console.error("서버 동기화 에러 (규칙 확인 필요):", err);
   });
 
+  // 실시간 유산 제보 동기화
   db.ref('reports').on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -449,6 +452,7 @@ function initServerListeners() {
     }
   });
 
+  // 실시간 승인 유산 동기화
   db.ref('approvedHeritages').on('child_added', (snapshot) => {
     const newHeritage = snapshot.val();
     if (newHeritage && !heritageData.find(h => h.id === newHeritage.id)) {
@@ -456,6 +460,36 @@ function initServerListeners() {
       if (state.tab === 'explore' || state.tab === 'collection') render();
     }
   });
+}
+
+/* 실시간 클럽 채팅 전송 */
+function sendClubChat() {
+  const input = document.getElementById("clubChatInput");
+  if (!input || !input.value.trim()) return;
+
+  const now = new Date();
+  const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  
+  const chatData = {
+    user: state.nickname,
+    text: input.value.trim(),
+    time: timeStr
+  };
+
+  const currentClubId = state.joinedSchool || "s1";
+
+  // 화면 즉시 반영
+  state.clubChats.push(chatData);
+  save(); render();
+  input.value = "";
+
+  // 서버 전송
+  if (db) {
+    db.ref(`chats/${currentClubId}`).push(chatData).catch((err) => {
+      console.error("전송 오류:", err);
+      toast("❌ 전송 실패: 파이어베이스 규칙을 확인하세요.");
+    });
+  }
 }
 
 function updateClubMissionProgress(missionId) {
@@ -638,7 +672,6 @@ function submitCreateClub() {
 function openReportModal() { document.getElementById("reportModal").classList.add("show"); }
 function closeReportModal() { document.getElementById("reportModal").classList.remove("show"); }
 
-/* 서버 연동 제보 송신 */
 function submitReport() {
   const name = document.getElementById("reportName").value.trim();
   const region = document.getElementById("reportRegion").value;
@@ -704,7 +737,6 @@ function switchAdminTab(tab) {
   }
 }
 
-/* 서버 연동 제보 승인 */
 function approveReport(repId) {
   const rep = state.reports.find(r => r.id === repId);
   if (!rep) return;
@@ -760,30 +792,6 @@ function adminDirectAdd() {
 
   toast(`👑 '${name}' 직접 등록 완료!`);
   closeAdminReviewModal(); save(); render();
-}
-
-/* 서버 연동 실시간 클럽 채팅 전송 */
-function sendClubChat() {
-  const input = document.getElementById("clubChatInput");
-  if (!input || !input.value.trim()) return;
-  const now = new Date();
-  const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  
-  const chatData = {
-    user: state.nickname,
-    text: input.value.trim(),
-    time: timeStr
-  };
-
-  const currentClubId = state.joinedSchool || "s1";
-
-  if (db) {
-    db.ref(`chats/${currentClubId}`).push(chatData);
-  } else {
-    state.clubChats.push(chatData);
-    save(); render();
-  }
-  input.value = "";
 }
 
 function openMemberProfile(userId) {
@@ -1393,6 +1401,6 @@ function render() {
   }
 }
 
-// 초기화 시 서버 리스너 연결 및 첫 렌더링
+// 초기화 실행
 initServerListeners();
 render();
