@@ -10,6 +10,9 @@ const firebaseConfig = {
   measurementId: "G-X6TFB0PY0K"
 };
 
+/* 개발자 / 어드민 비밀번호 */
+const DEV_ADMIN_PASSWORD = "04050405kk";
+
 let db = null;
 
 try {
@@ -22,7 +25,7 @@ try {
   console.warn("⚠️ 서버 연결 실패: 로컬 오프라인 모드로 동작합니다.", e);
 }
 
-/* 국가유산청 지정 14종 전체 데이터 (실용 관람 정보 추가 및 100% 보존) */
+/* 국가유산청 지정 14종 전체 데이터 (실용 관람 정보 포함 100% 보존) */
 let heritageData = [
   {
     id: "h1",
@@ -438,8 +441,8 @@ const badgePool = [
   { id: "b6", icon: "👑", title: "유산 수호자", desc: "누적 1,000P 달성", unlocked: false }
 ];
 
-/* 상태 관리 (시즌 및 응원 데이터 포함) */
-let state = JSON.parse(localStorage.getItem("heritageGO_v26")) || {
+/* 상태 관리 */
+let state = JSON.parse(localStorage.getItem("heritageGO_v27")) || {
   tab: "home",
   detailId: null,
   routeId: null,
@@ -464,7 +467,7 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v26")) || {
 };
 
 function save() {
-  localStorage.setItem("heritageGO_v26", JSON.stringify(state));
+  localStorage.setItem("heritageGO_v27", JSON.stringify(state));
 }
 
 function toast(msg) {
@@ -573,7 +576,7 @@ function initServerListeners() {
 
   syncMyClubMemberData();
 
-  // 더미 계정 정리
+  // 더미 계정 자동 정리
   db.ref(`clubs/${currentClubId}/members/usr_%EC%9C%A0%EC%82%B0%20%ED%83%90%ED%97%98%EA%B0%80`).remove();
 
   // 회원 목록 수신
@@ -591,7 +594,7 @@ function initServerListeners() {
     }
   });
 
-  // 채팅 메시지 수신 (키값 포함)
+  // 채팅 메시지 수신
   db.ref(`chats/${currentClubId}`).limitToLast(30).on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -665,7 +668,6 @@ function verifyEXIFAndGPS(heritageId) {
   const lastModified = file.lastModified;
   const now = Date.now();
 
-  // 사진 촬영 시간이 24시간을 넘은 경우 도용 가능성 경고
   if (now - lastModified > 24 * 60 * 60 * 1000) {
     toast("⚠️ 실시간 현장 촬영 메타데이터(EXIF) 검증 실패: 최근 사진이 아닙니다.");
     return;
@@ -910,7 +912,80 @@ function submitReport() {
   save(); render();
 }
 
-/* 어드민 및 개발자 전용 관리 콘솔 */
+/* 6. 숨겨진 설정 모달 및 암호 검증 어드민 메뉴 */
+function openSettingsModal() {
+  let modal = document.getElementById("settingsModal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "settingsModal";
+    modal.className = "modal-overlay show";
+    modal.style.zIndex = "99999";
+    document.body.appendChild(modal);
+  } else {
+    modal.classList.add("show");
+  }
+
+  modal.innerHTML = `
+    <div class="modal-card" style="padding:22px 18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:16px; font-weight:900; margin:0; color:#1a1513;">⚙️ 설정</h3>
+        <button onclick="closeSettingsModal()" style="border:none; background:none; font-size:18px; cursor:pointer; font-weight:800;">✕</button>
+      </div>
+
+      <div style="font-size:12px; color:#555; margin-bottom:16px; line-height:1.7;">
+        <div>📱 <strong>앱 버전:</strong> 유산GO v2.7 Pro</div>
+        <div>📡 <strong>서버 상태:</strong> 정상 작동 중 (Firebase Realtime DB)</div>
+        <div>🎧 <strong>음성 가이드:</strong> 한국어 TTS 엔진 활성화</div>
+      </div>
+
+      <div style="border-top:1px dashed #ddd; padding-top:14px; margin-top:10px;">
+        <button class="btn-action-outline" style="font-size:12px; color:#777; border-color:#ccc;" onclick="accessDevConsoleFromSettings()">
+          🔒 개발자 / 어드민 전용 콘솔
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function closeSettingsModal() {
+  const modal = document.getElementById("settingsModal");
+  if (modal) modal.classList.remove("show");
+}
+
+function accessDevConsoleFromSettings() {
+  const inputPw = prompt("🔒 개발자 어드민 비밀번호를 입력하세요:");
+  if (inputPw === DEV_ADMIN_PASSWORD) {
+    closeSettingsModal();
+    openAdminAndDevChoiceModal();
+  } else if (inputPw !== null) {
+    toast("❌ 비밀번호가 일치하지 않습니다!");
+  }
+}
+
+function openAdminAndDevChoiceModal() {
+  const modal = document.createElement("div");
+  modal.id = "adminChoiceModal";
+  modal.className = "modal-overlay show";
+  modal.style.zIndex = "99999";
+  modal.innerHTML = `
+    <div class="modal-card" style="padding:20px; text-align:center;">
+      <h3 style="font-size:16px; font-weight:900; color:#e05627; margin-bottom:14px;">🛠️ 어드민 / 개발자 관리 메뉴</h3>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
+        <button class="btn-primary-orange" onclick="closeAdminChoiceModal(); openAdminReviewModal();">📢 제보 검토 & 직접 추가</button>
+        <button class="btn-primary-orange" style="background:#d9534f;" onclick="closeAdminChoiceModal(); openDevConsoleModal();">⚡ 회원 강퇴 / 포인트 / 채팅 관리</button>
+      </div>
+      <button class="btn-action-outline" onclick="closeAdminChoiceModal()">닫기</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeAdminChoiceModal() {
+  const m = document.getElementById("adminChoiceModal");
+  if (m) m.remove();
+}
+
+/* 어드민 제보 검토 모달 */
 let adminCurrentTab = 'review';
 function openAdminReviewModal() { switchAdminTab('review'); document.getElementById("adminReviewModal").classList.add("show"); }
 function closeAdminReviewModal() { document.getElementById("adminReviewModal").classList.remove("show"); }
@@ -946,9 +1021,8 @@ function switchAdminTab(tab) {
   }
 }
 
-/* 개발자 콘솔: 강퇴, 포인트 조작, 채팅 삭제 기능 */
+/* 개발자 콘솔: 회원 강퇴, 포인트 조작, 채팅 삭제 */
 function openDevConsoleModal() {
-  const currentClubId = state.joinedSchool || "s1";
   const members = state.clubMembers || [];
 
   const modal = document.createElement("div");
@@ -1406,10 +1480,11 @@ function renderProfile() {
     <div class="profile-main-header">
       <div class="profile-user-row">
         <div class="profile-avatar-circle">🎓</div>
-        <div class="profile-user-info">
+        <div class="profile-user-info" style="flex:1;">
           <h3><span>${state.nickname}</span> <span class="nickname-edit-icon" onclick="openNicknameModal()">✏️</span></h3>
           <span class="badge-label" onclick="openLevelRoadmapModal()">🌱 문화유산 새싹 (로드맵 보기)</span>
         </div>
+        <button onclick="openSettingsModal()" style="background:none; border:none; font-size:20px; cursor:pointer;" title="설정">⚙️</button>
       </div>
 
       <div class="level-progress-box" onclick="openLevelRoadmapModal()">
@@ -1423,16 +1498,6 @@ function renderProfile() {
       <div class="stat-box-card"><div class="stat-box-val">🏛️ ${visitedCount}곳</div><div class="stat-box-lbl">방문 유산</div></div>
       <div class="stat-box-card"><div class="stat-box-val pink">🧠 ${quizCount}개</div><div class="stat-box-lbl">퀴즈 정답</div></div>
       <div class="stat-box-card"><div class="stat-box-val blue">📖 ${collectionRate}%</div><div class="stat-box-lbl">수집률</div></div>
-    </div>
-
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div class="section-title">👑 관리자 / 개발자 관리 메뉴</div>
-        <div style="display:flex; gap:6px;">
-          <button class="btn-primary-orange" style="width:auto; padding:6px 10px; font-size:11px;" onclick="openAdminReviewModal()">제보 관리</button>
-          <button class="btn-primary-orange" style="width:auto; padding:6px 10px; font-size:11px; background:#d9534f;" onclick="openDevConsoleModal()">🛠️ 어드민 콘솔</button>
-        </div>
-      </div>
     </div>
 
     <div class="card">
@@ -1489,21 +1554,8 @@ function renderProfile() {
         `).join('')}
       </div>
     </div>
-
-    <div class="test-tools-card">
-      <div class="section-title" style="font-size:13px;">🧪 테스트 도구 (개발용)</div>
-      <div class="test-btn-grid">
-        <button class="test-btn" onclick="toast('⏰ 7일 경과 시뮬레이션 완료')">⏰ 7일 경과 시뮬레이션</button>
-        <button class="test-btn" onclick="toast('⏰ 1일 경과 시뮬레이션 완료')">⏰ 1일 경과</button>
-        <button class="test-btn" onclick="resetTestData()">✏️ 테스트 데이터 초기화</button>
-        <button class="test-btn danger" onclick="fullReset()">🔥 전체 초기화</button>
-      </div>
-    </div>
   `;
 }
-
-function resetTestData() { state.quizzes = {}; state.visits = {}; state.points = 0; syncMyClubMemberData(); toast("✏️ 데이터 초기화 완료"); save(); render(); }
-function fullReset() { localStorage.removeItem("heritageGO_v26"); location.reload(); }
 
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
@@ -1532,7 +1584,7 @@ function renderHeritageDetail(id) {
       <p class="detail-desc">${h.desc}</p>
     </div>
 
-    <!-- 음성 오디오 가이드 TTS 서비스 -->
+    <!-- 음성 오디오 가이드 TTS -->
     <div class="card" style="display:flex; justify-content:space-between; align-items:center; background:#faf8f5;">
       <div>
         <div style="font-weight:900; font-size:13px; color:#1a1513;">🎧 오디오 음성 가이드</div>
