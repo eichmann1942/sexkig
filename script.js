@@ -1,23 +1,30 @@
-/* Firebase 연동 설정 */
+/* 1. 파이어베이스 키 설정 */
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "your-app.firebaseapp.com",
-  databaseURL: "https://your-app-default-rtdb.firebaseio.com",
-  projectId: "your-app",
-  storageBucket: "your-app.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef"
+  apiKey: "AIzaSyBvya39ivMpmfWo0z5_K5rL-5dgQ-mc64I",
+  authDomain: "sexking-3937f.firebaseapp.com",
+  databaseURL: "https://sexking-3937f-default-rtdb.firebaseio.com",
+  projectId: "sexking-3937f",
+  storageBucket: "sexking-3937f.firebasestorage.app",
+  messagingSenderId: "1063254666908",
+  appId: "1:1063254666908:web:e5ba36d950e4f73ddb8759",
+  measurementId: "G-X6TFB0PY0K"
 };
 
 let db = null;
+let isServerConnected = false;
+
 try {
-  if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY") {
+  if (typeof firebase !== 'undefined') {
     firebase.initializeApp(firebaseConfig);
     db = firebase.database();
+    isServerConnected = true;
+    console.log("⚡ Firebase Realtime Database 서버 연결 성공!");
   }
-} catch(e) {}
+} catch(e) {
+  console.warn("⚠️ 서버 연결 실패: 오프라인(로컬 모드)로 동작합니다.", e);
+}
 
-/* [100% 보존] 국가유산청 공식 지정 14종 전체 데이터베이스 */
+/* 국가유산청 지정 14종 전체 데이터 */
 let heritageData = [
   {
     id: "h1",
@@ -337,7 +344,6 @@ let schoolData = [
   { id: "s4", name: "강원고 역사탐험클럽", region: "춘천", members: 25, points: 5800, visits: 78, tag: "🔥 성장 클럽", icon: "🏫", desc: "역사 상식 퀴즈와 야외 사진 인증 소모임입니다.", memberList: [] }
 ];
 
-/* 확장형 등급 로드맵 목록 */
 const gameRoadmapLevels = [
   { level: 1, title: "문화유산 새싹 (기본)", reqPoints: 0, icon: "🌱", align: "center", status: "unlocked", desc: "탐험의 첫걸음을 뗀 단계" },
   { level: 2, title: "초보 탐험가", reqPoints: 50, icon: "🌿", align: "left", status: "unlocked", desc: "기존 퀴즈 정답 보상 +5%" },
@@ -363,7 +369,6 @@ const routeData = [
     bg: "#1f8a70",
     desc: "춘천 봉의산성과 경주 첨성대, 불국사를 통해 삼국시대 사람들의 방어 기술과 건축 예술을 만나봐요.",
     rewardBadge: "🏆 삼국 역사 탐험가",
-    rewardDesc: "삼국시대의 흔적 루트 완주",
     steps: ["h1", "h10", "h11"]
   },
   {
@@ -373,7 +378,6 @@ const routeData = [
     bg: "#e05627",
     desc: "봉의산성과 남한산성, 춘천향교를 모아 우리 고장의 호국 정신을 살펴보는 코스입니다.",
     rewardBadge: "🛡️ 호국 역사 탐험가",
-    rewardDesc: "전쟁과 지역의 역사 루트 완주",
     steps: ["h1", "h5", "h2"]
   }
 ];
@@ -394,7 +398,6 @@ let state = JSON.parse(localStorage.getItem("heritageGO_v19")) || {
   viewSchoolClub: false,
   points: 40,
   nickname: "유산 탐험가",
-  lastNicknameChange: null,
   joinedSchool: "s1",
   visits: {},
   quizzes: { h1: 0, h5: 0, h7: 0 },
@@ -426,7 +429,35 @@ function toast(msg) {
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* 도전과제 자동 누적 */
+/* 2. 서버 실시간 동기화 수신기 */
+function initServerListeners() {
+  if (!db) return;
+
+  const currentClubId = state.joinedSchool || "s1";
+  db.ref(`chats/${currentClubId}`).limitToLast(30).on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      state.clubChats = Object.values(data);
+      if (state.viewSchoolClub) render();
+    }
+  });
+
+  db.ref('reports').on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      state.reports = Object.values(data);
+    }
+  });
+
+  db.ref('approvedHeritages').on('child_added', (snapshot) => {
+    const newHeritage = snapshot.val();
+    if (newHeritage && !heritageData.find(h => h.id === newHeritage.id)) {
+      heritageData.unshift(newHeritage);
+      if (state.tab === 'explore' || state.tab === 'collection') render();
+    }
+  });
+}
+
 function updateClubMissionProgress(missionId) {
   const m = clubMissions.find(x => x.id === missionId);
   if (m) {
@@ -436,7 +467,6 @@ function updateClubMissionProgress(missionId) {
   }
 }
 
-/* GPS 거리 계산 */
 function getDistanceMeters(lat1, lon1, lat2, lon2) {
   const R = 6371e3;
   const φ1 = lat1 * Math.PI / 180;
@@ -448,7 +478,6 @@ function getDistanceMeters(lat1, lon1, lat2, lon2) {
             Math.cos(φ1) * Math.cos(φ2) *
             Math.sin(Δλ/2) * Math.sin(Δλ/2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
   return Math.round(R * c);
 }
 
@@ -522,7 +551,6 @@ function openRoute(routeId) { state.routeId = routeId; state.viewSchoolClub = fa
 function openSchoolClub() { state.viewSchoolClub = true; save(); render(); }
 function goBack() { state.viewSchoolClub = false; state.routeId = null; state.detailId = null; save(); render(); }
 
-/* 🗺️ 게임 지도를 형상화한 등급 로드맵 모달 구현 */
 function openLevelRoadmapModal() {
   const container = document.getElementById("levelRoadmapContainer");
   
@@ -558,7 +586,6 @@ function openLevelRoadmapModal() {
 
 function closeLevelRoadmapModal() { document.getElementById("levelRoadmapModal").classList.remove("show"); }
 
-/* 닉네임 변경 */
 function openNicknameModal() { document.getElementById("nicknameInput").value = state.nickname; document.getElementById("nicknameModal").classList.add("show"); }
 function closeNicknameModal() { document.getElementById("nicknameModal").classList.remove("show"); }
 
@@ -572,7 +599,6 @@ function submitNicknameChange() {
   save(); render();
 }
 
-/* 클럽 생성 모달 */
 function openCreateClubModal() { closeClubModal(); document.getElementById("createClubModal").classList.add("show"); }
 function closeCreateClubModal() { document.getElementById("createClubModal").classList.remove("show"); }
 
@@ -609,10 +635,10 @@ function submitCreateClub() {
   save(); render();
 }
 
-/* @닉네임 제보 모달 */
 function openReportModal() { document.getElementById("reportModal").classList.add("show"); }
 function closeReportModal() { document.getElementById("reportModal").classList.remove("show"); }
 
+/* 서버 연동 제보 송신 */
 function submitReport() {
   const name = document.getElementById("reportName").value.trim();
   const region = document.getElementById("reportRegion").value;
@@ -620,8 +646,9 @@ function submitReport() {
 
   if (!name || !desc) { toast("유산 이름과 설명을 작성해주세요."); return; }
 
+  const reportId = "rep_" + Date.now();
   const reportItem = {
-    id: "rep_" + Date.now(),
+    id: reportId,
     name: name,
     region: region,
     desc: desc,
@@ -630,14 +657,18 @@ function submitReport() {
     date: new Date().toLocaleDateString()
   };
 
-  state.reports.unshift(reportItem);
+  if (db) {
+    db.ref(`reports/${reportId}`).set(reportItem);
+  } else {
+    state.reports.unshift(reportItem);
+  }
+
   updateClubMissionProgress('m4');
   closeReportModal();
-  toast(`📢 ${reportItem.user} 님의 제보가 접수되었습니다!`);
+  toast(`📢 ${reportItem.user} 님의 제보가 서버로 접수되었습니다!`);
   save(); render();
 }
 
-/* 관리자 툴 */
 let adminCurrentTab = 'review';
 function openAdminReviewModal() { switchAdminTab('review'); document.getElementById("adminReviewModal").classList.add("show"); }
 function closeAdminReviewModal() { document.getElementById("adminReviewModal").classList.remove("show"); }
@@ -673,11 +704,12 @@ function switchAdminTab(tab) {
   }
 }
 
+/* 서버 연동 제보 승인 */
 function approveReport(repId) {
   const rep = state.reports.find(r => r.id === repId);
   if (!rep) return;
-  rep.status = "승인 완료";
-  heritageData.unshift({
+
+  const newHeritage = {
     id: "h_" + Date.now(),
     name: rep.name,
     region: rep.region,
@@ -686,14 +718,24 @@ function approveReport(repId) {
     desc: rep.desc,
     icon: "🏛️",
     bg: "#1f8a70"
-  });
+  };
+
+  if (db) {
+    db.ref(`reports/${repId}/status`).set("승인 완료");
+    db.ref(`approvedHeritages/${newHeritage.id}`).set(newHeritage);
+  } else {
+    rep.status = "승인 완료";
+    heritageData.unshift(newHeritage);
+  }
+
   toast(`🎉 '${rep.name}' 승인 완료!`);
   closeAdminReviewModal(); save(); render();
 }
 
 function rejectReport(repId) {
   const rep = state.reports.find(r => r.id === repId);
-  if (rep) rep.status = "거절됨";
+  if (db) db.ref(`reports/${repId}/status`).set("거절됨");
+  else if (rep) rep.status = "거절됨";
   closeAdminReviewModal(); save(); render();
 }
 
@@ -701,7 +743,8 @@ function adminDirectAdd() {
   const name = document.getElementById("adminAddName").value.trim();
   const desc = document.getElementById("adminAddDesc").value.trim();
   if (!name) return;
-  heritageData.unshift({
+
+  const newHeritage = {
     id: "h_" + Date.now(),
     name: name,
     region: "강원",
@@ -710,28 +753,39 @@ function adminDirectAdd() {
     desc: desc,
     icon: "🏛️",
     bg: "#e05627"
-  });
+  };
+
+  if (db) db.ref(`approvedHeritages/${newHeritage.id}`).set(newHeritage);
+  else heritageData.unshift(newHeritage);
+
   toast(`👑 '${name}' 직접 등록 완료!`);
   closeAdminReviewModal(); save(); render();
 }
 
-/* 클럽 채팅 */
+/* 서버 연동 실시간 클럽 채팅 전송 */
 function sendClubChat() {
   const input = document.getElementById("clubChatInput");
   if (!input || !input.value.trim()) return;
   const now = new Date();
   const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
   
-  state.clubChats.push({
+  const chatData = {
     user: state.nickname,
     text: input.value.trim(),
     time: timeStr
-  });
+  };
+
+  const currentClubId = state.joinedSchool || "s1";
+
+  if (db) {
+    db.ref(`chats/${currentClubId}`).push(chatData);
+  } else {
+    state.clubChats.push(chatData);
+    save(); render();
+  }
   input.value = "";
-  save(); render();
 }
 
-/* 👤 [100% 동일] 친구 프로필 모달 (첨부 이미지 디자인 완벽 일치) */
 function openMemberProfile(userId) {
   const user = allUserDB.find(u => u.id === userId) || { id: userId, nickname: userId, level: "🌱 문화유산 새싹", points: 210, visits: 5, icon: "🦊", badges: ["b1"] };
   const isFriend = state.friends.includes(userId);
@@ -945,7 +999,6 @@ function renderSchoolClub() {
       </div>
     </div>
 
-    <!-- 클럽 실시간 대화창 -->
     <div class="card">
       <div class="section-title">💬 클럽 멤버 실시간 대화</div>
       <div class="club-chat-box">
@@ -959,7 +1012,6 @@ function renderSchoolClub() {
       </div>
     </div>
 
-    <!-- 도전과제 자동 연동형 클럽 미션 구획 -->
     <div class="section-title" style="margin-bottom:2px;"><span>🎯 클럽 미션 (도전과제)</span></div>
     <div class="page-sub" style="margin-bottom:14px;">활동 내용이 클럽 미션으로 자동으로 누적 반영됩니다.</div>
 
@@ -1004,7 +1056,6 @@ function openClubModal() {
 function closeClubModal() { document.getElementById("clubModal").classList.remove("show"); }
 function selectSchoolClub(sId) { state.joinedSchool = sId; closeClubModal(); save(); render(); }
 
-/* [전체 복원] 프로필 탭 */
 function renderProfile() {
   const visitedCount = Object.keys(state.visits).length;
   const quizCount = Object.keys(state.quizzes).length;
@@ -1111,7 +1162,6 @@ function renderProfile() {
 function resetTestData() { state.quizzes = { h1: 0 }; state.visits = {}; toast("✏️ 데이터 초기화 완료"); save(); render(); }
 function fullReset() { localStorage.removeItem("heritageGO_v19"); location.reload(); }
 
-/* 📷 변화 기록 사진 업로드 지원 문화유산 상세화면 */
 function renderHeritageDetail(id) {
   const h = heritageData.find(x => x.id === id) || heritageData[0];
   const isVisited = state.visits[h.id];
@@ -1139,7 +1189,6 @@ function renderHeritageDetail(id) {
       <p class="detail-desc">${h.desc}</p>
     </div>
 
-    <!-- 1. 지도 API & GPS 방문 인증 (50m 제한) -->
     <div class="card">
       <div class="section-title">📍 실시간 지도 및 GPS 방문 인증 (50m 이내)</div>
       <div id="mapContainer" class="map-container"></div>
@@ -1157,7 +1206,6 @@ function renderHeritageDetail(id) {
       <button class="btn-primary-orange" onclick="verifyGPSVisit('${h.id}')">📡 50m 위치 검증 및 방문 인증</button>
     </div>
 
-    <!-- 2. 역사 퀴즈 -->
     ${h.quiz ? `
       <div class="card">
         <div class="quiz-header-bar">
@@ -1176,7 +1224,6 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 3. AI 역사 도우미 모듈 -->
     <div class="ai-card-container">
       <div class="ai-header">
         <div class="ai-header-info">
@@ -1196,7 +1243,6 @@ function renderHeritageDetail(id) {
       </div>
     </div>
 
-    <!-- 4. 연결된 탐험 루트 -->
     ${connectedRoutes.length > 0 ? `
       <div class="card">
         <div class="section-title">🗺️ 연결된 탐험 루트</div>
@@ -1206,7 +1252,6 @@ function renderHeritageDetail(id) {
       </div>
     ` : ''}
 
-    <!-- 5. 📷 변화 기록 남기기 (사진 업로드 포함) -->
     <div class="card">
       <div class="section-title">🔄 변화 기록 남기기</div>
       <div class="change-tag-grid" style="margin-top:8px;">
@@ -1348,4 +1393,6 @@ function render() {
   }
 }
 
+// 초기화 시 서버 리스너 연결 및 첫 렌더링
+initServerListeners();
 render();
