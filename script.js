@@ -2,7 +2,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyBvya39ivMpmfWo0z5_K5rL-5dgQ-mc64I",
   authDomain: "sexking-3937f.firebaseapp.com",
-  databaseURL: "https://sexking-3937f-default-rtdb.firebaseio.com", // Realtime DB 필수 URL
+  databaseURL: "https://sexking-3937f-default-rtdb.asia-southeast1.firebasedatabase.app", // 싱가포르 DB 주소 적용
   projectId: "sexking-3937f",
   storageBucket: "sexking-3937f.firebasestorage.app",
   messagingSenderId: "1063254666908",
